@@ -9,6 +9,8 @@ public class Plant {
 	
 	private final int buyThreshold; // Constant cost value for different plants 
 	private int hitThreshold; // Maximum hits a plant can take before it is dead
+	public enum ShooterPlant {PEASHOOTER};
+	public enum PassivePlant {SUNFLOWER};
 	
 	/**
 	 * Construct a new Plant type. 

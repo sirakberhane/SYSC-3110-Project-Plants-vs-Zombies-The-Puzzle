@@ -7,7 +7,6 @@ package plant;
  * @author Sirak Berhane (101030433)
  */
 public class Peashooter extends ShooterPlant{
-
 	/**
 	 * Extends a ShooterPlant type, any shooter plant type 
 	 * has the ability to do damage to any zombie type. 

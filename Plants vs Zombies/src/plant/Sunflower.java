@@ -4,7 +4,6 @@ package plant;
  * @author Sirak Berhane (101030433)
  */
 public class Sunflower extends PassivePlant{
-
 	/**
 	 * Creates a new Sunflower Plant type.
 	 * @param hitThreshold Maximum hits a plant can take before it is dead
