@@ -6,14 +6,12 @@ package plant;
  * @author Sirak Berhane (101030433)
  */
 public class Plant {
-	
 	private final int buyThreshold; // Constant cost value for different plants 
 	private int hitThreshold; // Maximum hits a plant can take before it is dead
-	private int xPos;
-	private int yPos;
+	private int xPos; // Grid position x
+	private int yPos; // Grid position y
 	public enum ShooterPlant {PEASHOOTER};
 	public enum PassivePlant {SUNFLOWER};
-	
 	/**
 	 * Construct a new Plant type. 
 	 * @param hitThreshold Maximum hits a plant can take before it is dead
