@@ -109,6 +109,6 @@ public class Zombie {
 	 * Returns a string representation of the zombie's hit threshold.
 	 */
 	public String toString() {
-		return "z = " + hitThreshold;
+		return "Z = " + hitThreshold;
 	}
 }
