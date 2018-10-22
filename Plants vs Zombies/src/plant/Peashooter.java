@@ -24,4 +24,10 @@ public class Peashooter extends ShooterPlant{
 	public int shootPea() {
 		return -(getHitValue());
 	}
+	
+	public String toString() {
+		String Status= "";
+		Status = "P = " + this.getHitThreshold();
+		return Status;
+	}
 }
