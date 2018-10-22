@@ -103,6 +103,12 @@ public class Zombie {
 		return yPos;
 	}
 	
+	/**
+	 * Returns a string representation of the zombie.
+	 */
+	public String toString() {
+		return "This is a zombie named " + name + " with a damage of " + hitValue +", a HP of "+ hitThreshold + ", with a movement speed of "+ movementSpeed + ", at position x: " + currentX +", y = " + yPos;
+	}
 	
 	
 }
