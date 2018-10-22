@@ -9,7 +9,7 @@ public class Sunflower extends PassivePlant{
 	 * @param hitThreshold Maximum hits a plant can take before it is dead
 	 * @param buyThreshold Constant cost value for different plants 
 	 */
-	public Sunflower(int hitThreshold, int buyThreshold) {
+	public Sunflower() {
 		super(5, 25);
 	}
 	
