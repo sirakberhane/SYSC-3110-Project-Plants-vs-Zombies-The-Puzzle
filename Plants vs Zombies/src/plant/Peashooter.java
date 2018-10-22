@@ -1,5 +1,5 @@
 package plant;
 
-public class Peashooter {
+public class Peashooter extends Plant{
 
 }
