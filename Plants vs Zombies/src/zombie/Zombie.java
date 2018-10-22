@@ -1,6 +1,6 @@
 package zombie;
 /**
- * This class will create zombies that will be used in the main class.
+ * This enum will create zombies that will be used in the main class.
  * @author Ryan Tordesillas(101041626)
  *
  */
@@ -22,6 +22,8 @@ public class Zombie {
 	/** The row where the zombie will move */
 	private int yPos;
 	
+	
+	public enum Type {normal};
 	/**
 	 * This is the default constructor that will be used my majority of the sub-classes.
 	 * @param movementSpeed the speed of the zombie
