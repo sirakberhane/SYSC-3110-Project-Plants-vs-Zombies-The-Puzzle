@@ -23,7 +23,7 @@ public class Sunflower extends PassivePlant{
 	
 	public String toString() {
 		String Status= "";
-		Status = "S = " + this.getHitThreshold();
+		Status = "S =  " + this.getHitThreshold();
 		return Status;
 	}
 }

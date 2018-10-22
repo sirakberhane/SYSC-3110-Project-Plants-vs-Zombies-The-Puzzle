@@ -4,7 +4,6 @@ import plant.*;
 import zombie.*;
 import player.*;
 
-
 public class Level {
 	private ArrayList<Plant> plants;
 	private ArrayList<Zombie> zombies;
