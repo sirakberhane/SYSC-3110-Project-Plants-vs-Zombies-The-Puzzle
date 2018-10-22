@@ -1,9 +1,11 @@
 package plant;
-public class Sunflower {
+public class Sunflower extends PassivePlant{
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public Sunflower(int hitThreshold, int buyThreshold) {
+		super(5, 25);
 	}
-
+	
+	public int generateSunflower() {
+		return 25;
+	}
 }
