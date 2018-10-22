@@ -10,8 +10,8 @@ public class Plant {
 	private int hitThreshold; // Maximum hits a plant can take before it is dead
 	private int xPos; // Grid position x
 	private int yPos; // Grid position y
-	public enum ShooterPlant {PEASHOOTER};
-	public enum PassivePlant {SUNFLOWER};
+	public enum ShooterPlant {PEASHOOTER}; // ShooterPlant Enum type --> Contains Attack type Plants
+	public enum PassivePlant {SUNFLOWER}; // PassivePlant Enum type ---> Contains Helper/Passive type Plants
 	/**
 	 * Construct a new Plant type. 
 	 * @param hitThreshold Maximum hits a plant can take before it is dead
