@@ -14,8 +14,8 @@ public class Peashooter extends ShooterPlant{
 	 * @param buyThreshold Constant cost value for different plants 
 	 * @param hitValue Attack value of Peashooter
 	 */
-	public Peashooter(int hitThreshold, int buyThreshold, int hitValue) {
-		super(10, 100, 2);
+	public Peashooter(int x, int y) {
+		super(10, 100, x, y, 2);
 	}
 	
 	/**

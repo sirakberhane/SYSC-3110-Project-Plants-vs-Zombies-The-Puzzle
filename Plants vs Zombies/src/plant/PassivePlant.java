@@ -10,7 +10,7 @@ public class PassivePlant extends Plant{
 	 * @param hitThreshold Maximum hits a plant can take before it is dead
 	 * @param buyThreshold Constant cost value for different plants 
 	 */
-	public PassivePlant(int hitThreshold, int buyThreshold) {
-		super(hitThreshold, buyThreshold);
+	public PassivePlant(int hitThreshold, int buyThreshold, int x, int y) {
+		super(hitThreshold, buyThreshold, x, y);
 	}
 }

@@ -9,6 +9,8 @@ public class Plant {
 	
 	private final int buyThreshold; // Constant cost value for different plants 
 	private int hitThreshold; // Maximum hits a plant can take before it is dead
+	private int xPos;
+	private int yPos;
 	public enum ShooterPlant {PEASHOOTER};
 	public enum PassivePlant {SUNFLOWER};
 	
@@ -17,9 +19,11 @@ public class Plant {
 	 * @param hitThreshold Maximum hits a plant can take before it is dead
 	 * @param buyThreshold Constant cost value for different plants 
 	 */
-	public Plant(int hitThreshold, int buyThreshold) {
+	public Plant(int hitThreshold, int buyThreshold, int x, int y) {
 		this.buyThreshold = buyThreshold;
 		this.hitThreshold = hitThreshold;
+		this.setxPos(x);
+		this.setyPos(y);
 	}
 
 	/**
@@ -67,5 +71,37 @@ public class Plant {
 		String Status = "";
 		Status = "Plant HP:" + getHitThreshold();
 		return Status;
+	}
+
+	/**
+	 * @return x position
+	 */
+	public int getxPos() {
+		return xPos;
+	}
+
+	/**
+	 * @param xPos set x to this position 
+	 */
+	public void setxPos(int xPos) {
+		if (xPos >= 0 && xPos <= 8) {
+			this.xPos = xPos;
+		}	
+	}
+
+	/**
+	 * @return y position
+	 */
+	public int getyPos() {
+		return yPos;
+	}
+
+	/**
+	 * @param yPos set y to this position
+	 */
+	public void setyPos(int yPos) {
+		if (xPos >= 0 && xPos <= 4) {
+			this.yPos = yPos;
+		}
 	}
 }
