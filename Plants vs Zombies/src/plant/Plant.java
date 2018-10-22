@@ -65,7 +65,7 @@ public class Plant {
 	 */
 	public String toString() {
 		String Status = "";
-		Status = "Current Plant Health" + getHitThreshold() + "\nIs Plant Alive:" + isPlantDead() + "\nCost of Plant:" + getBuyThreshold();
+		Status = "Plant HP:" + getHitThreshold();
 		return Status;
 	}
 }
