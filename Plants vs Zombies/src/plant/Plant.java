@@ -63,15 +63,6 @@ public class Plant {
 	}
 	
 	/**
-	 * Updates Current Plant Status.
-	 */
-	public String toString() {
-		String Status = "";
-		Status = "Plant HP:" + getHitThreshold();
-		return Status;
-	}
-
-	/**
 	 * @return x position
 	 */
 	public int getxPos() {
