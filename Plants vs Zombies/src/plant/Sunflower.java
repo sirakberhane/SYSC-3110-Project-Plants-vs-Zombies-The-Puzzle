@@ -20,4 +20,10 @@ public class Sunflower extends PassivePlant{
 	public int generateSunflower() {
 		return 25;
 	}
+	
+	public String toString() {
+		String Status= "";
+		Status = "S = " + this.getHitThreshold();
+		return Status;
+	}
 }
