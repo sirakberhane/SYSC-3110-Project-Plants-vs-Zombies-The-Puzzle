@@ -7,16 +7,14 @@ package plant;
  * @author Sirak Berhane (101030433)
  */
 public class Peashooter extends ShooterPlant{
-
 	/**
 	 * Extends a ShooterPlant type, any shooter plant type 
 	 * has the ability to do damage to any zombie type. 
-	 * @param hitThreshold Maximum hits a plant can take before it is dead
-	 * @param buyThreshold Constant cost value for different plants 
-	 * @param hitValue Attack value of Peashooter
+	 * @param x grid position x
+	 * @param y grid position y
 	 */
-	public Peashooter(int hitThreshold, int buyThreshold, int hitValue) {
-		super(10, 100, 2);
+	public Peashooter(int x, int y) {
+		super(10, 100, x, y, 2);
 	}
 	
 	/**
