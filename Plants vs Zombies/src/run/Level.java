@@ -22,7 +22,6 @@ public class Level {
 	public void addZombie() {
 	}
 	
-	
 	public boolean addPlant(String plantType, int x, int y) {
 		Plant plant = null;
 		
@@ -59,11 +58,4 @@ public class Level {
 		printState.updateState(plants);
 		printState.print();
 	}
-	
-	
-	
-	
-	
-	
-
 }

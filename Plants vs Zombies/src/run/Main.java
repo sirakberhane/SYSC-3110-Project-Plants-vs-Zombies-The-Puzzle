@@ -5,5 +5,4 @@ public class Main {
 		Level level = new Level();
 		level.NextTurn();
 	}
-
 }
