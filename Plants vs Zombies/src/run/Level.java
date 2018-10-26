@@ -160,7 +160,6 @@ public class Level {
 	/**
 	 * Gets the next move from the player and continues the level simulation.
 	 */
-
 	public void NextTurn() {
 		//Get player's action
 		player.getPlayerAction();
