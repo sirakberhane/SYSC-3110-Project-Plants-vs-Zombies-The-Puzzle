@@ -4,13 +4,13 @@ package zombie;
  * @author Ryan Tordesillas(101041626)
  *
  */
-public class Zombie {
+public class BaseZombie {
 	
 	/** The left most point of the board*/
 	private final int ENDOFBOARD = 8;
 	
 	/** The speed of the zombie */
-	private int movementSpeed;
+	private double movementSpeed;
 	/** The amount of damage the zombie can deal */
 	private int hitValue;
 	/** The amount of hits the zombie can take before dying */
@@ -22,8 +22,11 @@ public class Zombie {
 	/** The row where the zombie will move */
 	private int yPos;
 	
+	/** The different types of zombie */
+	public enum Type {BASIC};
 	
-	public enum Type {normal};
+	/** The current type of zombie */
+	private Type type;
 	/**
 	 * This is the default constructor that will be used my majority of the sub-classes.
 	 * @param movementSpeed the speed of the zombie
@@ -32,20 +35,19 @@ public class Zombie {
 	 * @param name the name of the zombie
 	 * @param yPos the row where the zombie will spawn
 	 */
-	public Zombie(int movementSpeed, int hitValue, int hitThreshold, String name, int yPos) {
+	public BaseZombie(double movementSpeed, int hitValue, int hitThreshold, String name) {
 		this.movementSpeed = movementSpeed;
 		this.hitValue = hitValue;
 		this.hitThreshold = hitThreshold;
 		this.name = name;
 		currentX = ENDOFBOARD;
-		this.yPos = yPos;
 	}
 
 	/**
 	 * Returns the movement of the zombie.
 	 * @return movementSpeed the speed of the zombie.
 	 */
-	public int getMovementSpeed() {
+	public double getMovementSpeed() {
 		return movementSpeed;
 	}
 
@@ -110,5 +112,31 @@ public class Zombie {
 	 */
 	public String toString() {
 		return "Z = " + hitThreshold;
+	}
+	
+	/**
+	 * This will set the type of the zombie
+	 * @param type a String representation of the type of zombie.
+	 */
+	public void setType(String s) {
+		if (s.equals("Basic")) {
+			type = Type.BASIC;
+		}
+	}
+	
+	/**
+	 * Gets the type of the zombie.
+	 * @return the type of the zombie.
+	 */
+	public Type getType() {
+		return type;
+	}
+	
+	/**
+	 * Set the yPos of the zombie.
+	 * @param y the int of the row for the zombie.
+	 */
+	public void setYPos(int y) {
+		yPos = y;
 	}
 }
