@@ -53,12 +53,17 @@ public class Player {
             	//Get the plant type to be placed
                 plantType = tokenizer.next();    
             }
-     
+            
             //Get the x and y coordinates of placement
-            xPos = Integer.parseInt(tokenizer.next());
-            yPos = Integer.parseInt(tokenizer.next());
+            if (tokenizer.hasNext()) {
+            	
+            	xPos = Integer.parseInt(tokenizer.next());
+            	yPos = Integer.parseInt(tokenizer.next());
+            }
             
         }
+		
+		tokenizer.close();
 		
 		//If action is place, tell level to add the plant
 		if (action.equals("place")) {
@@ -69,12 +74,21 @@ public class Player {
 				System.out.println("Not enough sun.");
 				getPlayerAction();
 			}
-		}
-		//Else, action is remove, so remove the plant
-		else {
+		} 
+		
+		//Else if, action is remove, so remove the plant
+		else if (action.equals("remove")) {
 			level.removePlant(xPos,yPos);
 		}
-		tokenizer.close();
+		
+		//Else if, action is skip, so do nothing
+		else if (action.equals("skip"));
+		
+		//Else move is not accepted, input error
+		else {
+			System.out.println("Error. Incorrect input of move.");
+		}
+		
 	}
 	
 	/**

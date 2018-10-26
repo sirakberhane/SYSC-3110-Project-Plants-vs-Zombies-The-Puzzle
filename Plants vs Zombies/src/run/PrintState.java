@@ -36,7 +36,7 @@ public class PrintState {
 		clearBoard();
 	}
 	
-	//Creates aan empty board
+	//Creates an empty board
 	public void clearBoard() {
 		for (int y = 0; y < 5; y ++) {
 			for (int x = 0; x < 9; x ++) {
@@ -51,6 +51,10 @@ public class PrintState {
 		for (Plant plant: plants) {
 			board[plant.getxPos()][plant.getyPos()] = 
 					"[" + plant.toString() + "]";
+		}
+		for (BaseZombie zombie: zombies) {
+			board[(int) zombie.getCurrentX() + 1][zombie.getyPos()] = 
+					"[" + zombie.toString() + "]";
 		}
 	}
 	

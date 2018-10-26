@@ -42,6 +42,8 @@ public class Level {
 		if (zombieType.equalsIgnoreCase("zombie")) {
 			zombie = new BasicZombie(y);
 		}
+		
+		zombies.add(zombie);
 	}
 	
 	/**
@@ -95,8 +97,64 @@ public class Level {
 		while (currentCount < zombieCount) {
 			Random randomY = new Random();
 			addZombie("zombie", randomY.nextInt(5));
+			currentCount ++;
 		}
 		
+	}
+	
+	/**
+	 * Returns the closest zombie in the given row
+	 * @param yPos the given row
+	 * @return the closest zombie
+	 */
+	public BaseZombie closestZombie(int yPos) {
+		BaseZombie closest = zombies.get(0);
+		
+		//For each loop to visit all zombies
+		for (BaseZombie zombie: zombies) {
+			//Only interested in zombies in the given row
+			if (zombie.getyPos() == yPos) {
+				//If current zombie is closer than our current closest, update closest
+				if (zombie.getCurrentX() < closest.getCurrentX())
+					closest = zombie;
+			}
+		}
+
+		return closest;
+	}
+	
+	/**
+	 * All plants do their respective actions
+	 */
+	public void plantAction() {
+		//Visit all plants
+		for (Plant plant: plants) {
+			//Sunflower action
+			if (plant instanceof Sunflower) {
+				//Cast plant as sunflower
+				Sunflower sunflower = (Sunflower) plant;
+				//Give the player more sun
+				player.setSunTotal(player.getSunTotal() + sunflower.generateSun());
+			}
+			//Peashooter action
+			else if (plant instanceof Peashooter) {
+				//Cast plant as peashooter
+				Peashooter peashooter = (Peashooter) plant;
+				
+				//Find closest zombie in the row of the peashooter
+				BaseZombie targetZombie = closestZombie(peashooter.getyPos());
+				//Deal damage to zombie
+				targetZombie.hit(peashooter.getHitValue());
+			}
+		}
+	}
+	
+	public void zombieAction() {
+		//Visit all zombies
+		for (BaseZombie zombie: zombies) {
+			//Zombie moves
+			zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
+		}
 	}
 	
 	/**
@@ -104,8 +162,21 @@ public class Level {
 	 */
 
 	public void NextTurn() {
+		//Get player's action
 		player.getPlayerAction();
+		
+		//Spawn zombies
+		zombieWave(1);
+		
+		//Zombies do actions
+		zombieAction();
+		
+		//Plants do actions
+		plantAction();
+		
+		//Update the printState
 		printState.updateState(plants, zombies);
+		//Print the Current State
 		printState.print();
 	}
 	
