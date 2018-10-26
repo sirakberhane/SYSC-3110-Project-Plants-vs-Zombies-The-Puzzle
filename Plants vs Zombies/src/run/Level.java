@@ -23,6 +23,8 @@ public class Level {
 	private ArrayList<Plant> plants;
 	//All zombies on the board
 	private ArrayList<Zombie> zombies;
+	//Level's lawnmowers
+	private Boolean[] lawnMowerActivated = {false, false, false, false, false};
 	//The player playing the level
 	private Player player;
 	//Level's printState class
@@ -164,6 +166,15 @@ public class Level {
 		for (Zombie zombie: zombies) {
 			//Zombie moves
 			zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
+		}
+	}
+	
+	public void activateLawnMower(int yPos) {
+		lawnMowerActivated[yPos] = true;
+		for (Zombie zombie: zombies) {
+			if (zombie.getyPos() == yPos) {
+				zombies.remove(zombie);
+			}
 		}
 	}
 	

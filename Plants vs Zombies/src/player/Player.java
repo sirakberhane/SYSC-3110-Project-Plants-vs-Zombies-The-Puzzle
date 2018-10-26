@@ -19,6 +19,8 @@ public class Player {
 	private Scanner reader;
 	
 	private final String[] plantTypes = {"sunflower", "peashooter"};
+	private final String[] actions = {"place", "remove", "help", "types", "skip"};
+	
 	/**
 	 * Constructs a player with the given level
 	 * @param level
@@ -28,17 +30,15 @@ public class Player {
 		//Starting suntotal
 		sunTotal = 100; 
 		reader = new Scanner(System.in);
+		printHelp();
 	}
 	
 	/**
 	 * Requests the users input for his/her move
 	 * Ex. > place sunflower 2 3; places a sunflower at (2, 3) if enough sun is available
 	 * 	   > remove 2 3; removes plant at 2 3
-	 * @throws InputException, InsufficientSunException 
 	 */
 	public void getPlayerAction() {
-		printHelp();
-						 
 		System.out.print("> ");
 		String input = reader.nextLine();
 		
@@ -56,35 +56,72 @@ public class Player {
 		if (tokenizer.hasNext()) {
 			//Read the first word, the action word
             action = tokenizer.next();      
-            //If action is place
-            if(tokenizer.hasNext() && action.equals("place")) {
-            	//Get the plant type to be placed
-                plantType = tokenizer.next();    
-                
-                //Check if valid plantType entered
-                for (String type: plantTypes) {
-    				if (plantType.equalsIgnoreCase(type)) {
-    					successful = true;
-    				}
-    			}
-                if (!successful) {
-                	System.out.println("Invalid plantType entered: " + plantType);
-                }
-            }
             
-            //Get the x coordinate of placement
-            if (tokenizer.hasNext()) {
-            	
-            	xPos = Integer.parseInt(tokenizer.next());
-            	yPos = Integer.parseInt(tokenizer.next());
-            	
-            	if (xPos > Level.X_MAX || xPos < Level.X_MIN || yPos > Level.Y_MAX || yPos < Level.Y_MIN) {
-            		System.out.println("Placement out of bounds.");
-            		successful = false;
+            //Check if action is valid
+            for (String aAction: actions) {
+            	if(aAction.equals(action)) {
+            		successful = true;
             	}
             }
             
-        }
+            if (action.equals("place") || action.equals("remove")) {
+            	
+            	//If action is place
+            	if(tokenizer.hasNext() && action.equals("place")) {
+            		//Get the plant type to be placed
+            		plantType = tokenizer.next();    
+                
+            		//Check if valid plantType entered
+            		for (String type: plantTypes) {
+            			if (plantType.equalsIgnoreCase(type)) {
+            				successful = true;
+            			}
+            		}
+            		if (!successful) {
+            			System.out.println("Invalid plantType entered: " + plantType);
+            		}
+            	}	
+            
+            	//Get the x coordinate of placement/removal
+            	if (tokenizer.hasNext()) {
+            	
+            		xPos = Integer.parseInt(tokenizer.next());
+            
+            		if (xPos <= Level.X_MAX && xPos >= Level.X_MIN) {
+            			successful = true;
+            		}
+            		if (!successful) 
+            			System.out.println("Placement out of bounds.");
+            	
+            		//Get y coordinate of placement/removal
+            		if (tokenizer.hasNext()) {
+            			//Check if valid y coordinate
+            			successful = false;
+            			yPos = Integer.parseInt(tokenizer.next());
+                     
+                 		if (yPos <= Level.Y_MAX && yPos >= Level.Y_MIN) {
+                 			successful = true;
+                 		}
+                 		
+                 		if (!successful) 
+                 			System.out.println("Placement out of bounds.");
+                 	
+                	}
+            	
+            		else {
+            			System.out.println("Missing ");
+            			successful = false;
+            		}
+                 
+            	}
+            	
+            	//We aren't expecting anymore input past this point
+            	if (tokenizer.hasNext())
+            		successful = false;
+            
+           
+            }
+		}
 		
 		tokenizer.close();
 		
@@ -95,12 +132,13 @@ public class Player {
 				//Only place plant if enough sun is available
 				if (sunTotal >= Sunflower.SUNFLOWER_BUY_THRESHOLD) {
 					successful = level.addPlant(plantType, xPos, yPos);
+					if (!successful)
+						System.out.println("You can't plant there.");
 				}
 				else {
 					//If not enough, print error message and request new player action
-					if (!successful) {
-						System.out.println("Not enough sun available.");
-					}
+					System.out.println("Not enough sun available.");
+					successful = false;
 				}
 			} 
 		
@@ -114,17 +152,19 @@ public class Player {
 		
 			else if (action.equals("skip"));
 		
-			else if (action.equals("help")) 
+			else if (action.equals("help")) {
 				printHelp();
+				getPlayerAction();
+			}
 		
-			else if (action.equals("types")) 
+			else if (action.equals("types")) {
 				printTypes();
+				getPlayerAction();
+			}
 		}
 		//If action was not successful, request another action from player
 		if (!successful) {
-			System.out.println(
-					"Error in input:\n" +
-					"	No such command as: " + input);
+			System.out.println("Error. Try another command.");
 			getPlayerAction();
 		}
 	}
