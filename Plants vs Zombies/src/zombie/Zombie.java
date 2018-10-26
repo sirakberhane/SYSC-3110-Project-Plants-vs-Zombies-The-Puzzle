@@ -18,7 +18,7 @@ public class Zombie {
 	/** The name/type of the zombie */
 	private String name;
 	/** The current X position of the zombie */
-	private int currentX;
+	private double currentX;
 	/** The row where the zombie will move */
 	private int yPos;
 	
@@ -87,7 +87,7 @@ public class Zombie {
 	 * Return the current X position of the zombie.
 	 * @return currentX the x position of the zombie.
 	 */
-	public int getCurrentX() {
+	public double getCurrentX() {
 		return currentX;
 	}
 	
@@ -95,7 +95,7 @@ public class Zombie {
 	 * Set the x position of the zombie.
 	 * @param currentX the new x position of the zombie.
 	 */
-	public void setCurrentX(int currentX) {
+	public void setCurrentX(double currentX) {
 		this.currentX = currentX;
 	}
 
