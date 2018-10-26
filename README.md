@@ -5,15 +5,18 @@
 
 ### Implementations
 
-#### Plants 
+#### Plants - Sirak Berhane
 * Sunflower 
 * Peashooter
 
-#### Zombies
+#### Zombies - Ryan Tordesillas 
 * Normal Zombie
 
-#### Game Runnable 
-* 9x5 Grid Array 
+#### Game Runnable - Jolar Tabungar
+* 9x5 Grid Array String Output
+* Player Commands (Place, remove, skip, types and help)
+
+#### UML/Sequence Diagrams - Karl Schnalzer
 
 
 ## Milestone 2 (master-gui and master-unit-tests branches)
