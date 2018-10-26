@@ -6,11 +6,11 @@
 ### Implementations
 
 #### Plants - Sirak Berhane
-* Sunflower 
-* Peashooter
+* Sunflower -> Generates one sun per every second turn. Costs 50 sun, intial sun amount is 100, and health of 5.
+* Peashooter -> Shoots pea at incoming Zombies. Attack damage of 2 per turn and health of 10.
 
 #### Zombies - Ryan Tordesillas 
-* Normal Zombie
+* Normal Zombie -> Normal speed zombie (advances one tile per per two turns), normal attack points (2 per turn), and normal health (intial health of 10).
 
 #### Game Runnable - Jolar Tabungar
 * 9x5 Grid Array String Output
