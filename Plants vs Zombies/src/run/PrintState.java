@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import plant.*;
 import player.Player;
-import zombie.Zombie;
+import zombie.*;
 
 /**
  * 
@@ -46,7 +46,7 @@ public class PrintState {
 	}
 
 	//Update the board with the new states of all the added plants and zombies
-	public void updateState(ArrayList<Plant> plants, ArrayList<Zombie> zombies) {
+	public void updateState(ArrayList<Plant> plants, ArrayList<BaseZombie> zombies) {
 		clearBoard();
 		for (Plant plant: plants) {
 			board[plant.getxPos()][plant.getyPos()] = 

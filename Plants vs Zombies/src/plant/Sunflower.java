@@ -17,7 +17,7 @@ public class Sunflower extends PassivePlant{
 	 * Generates one sunflower.
 	 * @return a sunflower seed
 	 */
-	public int generateSunflower() {
+	public int generateSun() {
 		return 25;
 	}
 	

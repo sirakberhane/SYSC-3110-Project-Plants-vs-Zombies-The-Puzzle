@@ -17,7 +17,7 @@ public class Level {
 	//All plants on the board
 	private ArrayList<Plant> plants;
 	//All zombies on the board
-	private ArrayList<Zombie> zombies;
+	private ArrayList<BaseZombie> zombies;
 	//The player playing the level
 	private Player player;
 	//Level's printState class
@@ -26,7 +26,7 @@ public class Level {
 	//Constructs a new Level
 	public Level() {
 		plants = new ArrayList<Plant>();
-		zombies = new ArrayList<Zombie>();
+		zombies = new ArrayList<BaseZombie>();
 		player = new Player(this);
 		printState = new PrintState(this, player);
 	}
@@ -37,10 +37,10 @@ public class Level {
 	 * @param y the row the zombie will be spawned in
 	 */
 	public void addZombie(String zombieType, int y) {
-		Zombie zombie = null;
+		BaseZombie zombie = null;
 		
 		if (zombieType.equalsIgnoreCase("zombie")) {
-			zombie = new Zombie(y);
+			zombie = new BasicZombie(y);
 		}
 	}
 	
@@ -66,9 +66,7 @@ public class Level {
 			player.setSunTotal(player.getSunTotal() - plant.getBuyThreshold());
 			return true;
 		}
-			
 		return false;
-		
 	}
 	
 	/**
@@ -104,6 +102,7 @@ public class Level {
 	/**
 	 * Gets the next move from the player and continues the level simulation.
 	 */
+
 	public void NextTurn() {
 		player.getPlayerAction();
 		printState.updateState(plants, zombies);

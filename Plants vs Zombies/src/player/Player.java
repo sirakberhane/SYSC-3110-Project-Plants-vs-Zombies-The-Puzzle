@@ -1,6 +1,5 @@
 package player;
 import java.util.Scanner;
-
 import run.Level;
 
 /** 
@@ -75,7 +74,7 @@ public class Player {
 		else {
 			level.removePlant(xPos,yPos);
 		}
-		
+		tokenizer.close();
 	}
 	
 	/**
@@ -92,5 +91,4 @@ public class Player {
 	public void setSunTotal(int newtotal) {
 		sunTotal = newtotal;
 	}
-
 }
