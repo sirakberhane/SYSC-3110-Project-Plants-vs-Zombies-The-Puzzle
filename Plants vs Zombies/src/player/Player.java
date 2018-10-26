@@ -34,6 +34,8 @@ public class Player {
 	 * 	   > remove 2 3; removes plant at 2 3
 	 */
 	public void getPlayerAction() {
+		printHelp();
+						 
 		System.out.print("> ");
 		String input = reader.nextLine();
 		
@@ -84,11 +86,46 @@ public class Player {
 		//Else if, action is skip, so do nothing
 		else if (action.equals("skip"));
 		
+		else if (action.equals("help")) {
+			printHelp();
+		}
+		
+		else if (action.equals("types")) {
+			printTypes();
+		}
+		
 		//Else move is not accepted, input error
 		else {
 			System.out.println("Error. Incorrect input of move.");
 		}
 		
+	}
+	
+	/**
+	 * Prints the plant types the user can place
+	 */
+	public void printTypes() {
+		System.out.println(
+				"----------------------------------" +
+				"Plant Types: " +
+				"sunflower = " + SUNFLOWER_BUYTHRESHOLD + " sun" +
+				"peashooter = " + PEASHOOTER_BUYTHRESHOLD + " sun");
+	}
+	
+	/**
+	 * Prints the list of player commands
+	 */
+	public void printHelp() {
+		System.out.println(
+				"----------------------------------" +
+				"Commands:\n" + 
+				"place plantType x y\n" +
+				"remove x y\n" +
+				"skip\n" +
+				"types\n" +
+				"help\n" +
+				"----------------------------------"
+				);
 	}
 	
 	/**
