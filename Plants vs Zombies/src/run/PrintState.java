@@ -14,14 +14,12 @@ import zombie.*;
  *
  */
 public class PrintState {
-	
 	//PrintState's level
 	private Level level;
 	//The player class
 	private Player player;
 	//The board string array
 	private String[][] board;
-	
 	/**
 	 * Construct a new printState with the given level and player
 	 * @param level
@@ -72,6 +70,4 @@ public class PrintState {
 		//Proceed to the next turn
 		level.NextTurn();
 	}
-	
-
 }

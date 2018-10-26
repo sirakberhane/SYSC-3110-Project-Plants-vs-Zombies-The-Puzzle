@@ -7,8 +7,8 @@ package plant;
  * @author Sirak Berhane (101030433)
  */
 public class Peashooter extends ShooterPlant{
-	private static final int PEASHOOTER_HIT_THRESHOLD = 10;
-	private static final int PEASHOOTER_BUY_THRESHOLD = 100;
+	public static final int PEASHOOTER_HIT_THRESHOLD = 10;
+	public static final int PEASHOOTER_BUY_THRESHOLD = 100;
 	/**
 	 * Extends a ShooterPlant type, any shooter plant type 
 	 * has the ability to do damage to any zombie type. 
