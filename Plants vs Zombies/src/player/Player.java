@@ -136,10 +136,11 @@ public class Player {
 	 */
 	public void printTypes() {
 		System.out.println(
-				"----------------------------------" +
+				"----------------------------------\n" +
 				"Plant Types: " +
 				"sunflower = " + Sunflower.SUNFLOWER_BUY_THRESHOLD + " sun" +
-				"peashooter = " + Peashooter.PEASHOOTER_BUY_THRESHOLD + " sun");
+				"peashooter = " + Peashooter.PEASHOOTER_BUY_THRESHOLD + " sun" +
+				"----------------------------------");
 	}
 	
 	/**
@@ -147,7 +148,7 @@ public class Player {
 	 */
 	public void printHelp() {
 		System.out.println(
-				"----------------------------------" +
+				"----------------------------------\n" +
 				"Commands:\n" + 
 				"place plantType x y\n" +
 				"remove x y\n" +
