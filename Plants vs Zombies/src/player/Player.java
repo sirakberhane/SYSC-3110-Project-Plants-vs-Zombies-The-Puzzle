@@ -1,6 +1,7 @@
 package player;
 import java.util.Scanner;
 import run.Level;
+import plant.*;
 
 /** 
  * @author Jolar Tabungar
@@ -17,6 +18,7 @@ public class Player {
 	//Reads the player input
 	private Scanner reader;
 	
+	private final String[] plantTypes = {"sunflower", "peashooter"};
 	/**
 	 * Constructs a player with the given level
 	 * @param level
@@ -32,6 +34,7 @@ public class Player {
 	 * Requests the users input for his/her move
 	 * Ex. > place sunflower 2 3; places a sunflower at (2, 3) if enough sun is available
 	 * 	   > remove 2 3; removes plant at 2 3
+	 * @throws InputException, InsufficientSunException 
 	 */
 	public void getPlayerAction() {
 		printHelp();
@@ -54,51 +57,78 @@ public class Player {
             if(tokenizer.hasNext() && action.equals("place")) {
             	//Get the plant type to be placed
                 plantType = tokenizer.next();    
+                
+                //Check if valid plantType entered
+                for (String type: plantTypes) {
+    				if (!plantType.equals(type)) {
+    					System.out.println("Invalid plantType entered: " + plantType);
+    					getPlayerAction();
+    				}
+    			}
             }
             
-            //Get the x and y coordinates of placement
+            //Get the x coordinate of placement
             if (tokenizer.hasNext()) {
             	
             	xPos = Integer.parseInt(tokenizer.next());
             	yPos = Integer.parseInt(tokenizer.next());
+            	
+            	if (xPos > 4 || xPos < 0 || yPos > 8 || yPos < 0) {
+            		System.out.println("Placement out of bounds.");
+            		getPlayerAction();
+            	}
             }
             
         }
 		
 		tokenizer.close();
 		
-		//If action is place, tell level to add the plant
+		//Do appropriate action
+		
+		//If action was successful
+		boolean successful = false;
+		
 		if (action.equals("place")) {
-			//If placement was successful, then nothing else happens
-			if (level.addPlant(plantType, xPos, yPos));
-			//Else, not enough sun message is printed
+			
+			//Only place plant if enough sun is available
+			if (sunTotal >= Sunflower.SUNFLOWER_BUY_THRESHOLD) {
+				successful = level.addPlant(plantType, xPos, yPos);
+			}
 			else {
-				System.out.println("Not enough sun.");
-				getPlayerAction();
+				//If not enough, print error message and request new player action
+				if (!successful) {
+					System.out.println("Not enough sun available.");
+				}
 			}
 		} 
 		
-		//Else if, action is remove, so remove the plant
 		else if (action.equals("remove")) {
-			level.removePlant(xPos,yPos);
+			successful = level.removePlant(xPos,yPos);
+			
+			if (!successful) {
+				System.out.println("No plant at those coordinates");
+			}
 		}
 		
-		//Else if, action is skip, so do nothing
 		else if (action.equals("skip"));
 		
-		else if (action.equals("help")) {
+		else if (action.equals("help")) 
 			printHelp();
-		}
 		
-		else if (action.equals("types")) {
+		else if (action.equals("types")) 
 			printTypes();
-		}
 		
-		//Else move is not accepted, input error
+		
+		//Else, invalid input entered
 		else {
-			System.out.println("Error. Incorrect input of move.");
+			System.out.println(
+					"Error in input:\n" +
+					"	No such command as: " + input);
 		}
 		
+		//If action was not successful, request another action from player
+		if (!successful)
+			getPlayerAction();
 	}
 	
 	/**
@@ -108,8 +138,8 @@ public class Player {
 		System.out.println(
 				"----------------------------------" +
 				"Plant Types: " +
-				"sunflower = " + SUNFLOWER_BUYTHRESHOLD + " sun" +
-				"peashooter = " + PEASHOOTER_BUYTHRESHOLD + " sun");
+				"sunflower = " + Sunflower.SUNFLOWER_BUY_THRESHOLD + " sun" +
+				"peashooter = " + Peashooter.PEASHOOTER_BUY_THRESHOLD + " sun");
 	}
 	
 	/**

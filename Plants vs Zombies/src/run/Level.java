@@ -62,6 +62,11 @@ public class Level {
 			plant = new Peashooter(x, y);
 		}
 		
+		for (Plant aPlant: plants) {
+			if (aPlant.getxPos() == x && aPlant.getyPos() == y)
+				return false;
+		}
+		
 		if (player.getSunTotal() >= plant.getBuyThreshold()) {
 			plants.add(plant);
 			player.setSunTotal(player.getSunTotal() - plant.getBuyThreshold());
