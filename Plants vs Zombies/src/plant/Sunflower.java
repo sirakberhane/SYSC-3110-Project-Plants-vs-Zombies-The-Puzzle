@@ -17,7 +17,9 @@ public class Sunflower extends PassivePlant{
 	}
 	
 	/**
-	 * Generates one sunflower.
+	 * Generates one sunflower every second turn. If the count down is 
+	 * zero the sunflower instance object can generate a sun (every 
+	 * second-turn). Every Sunflower will generate sun at different turns.
 	 * @return a sunflower seed
 	 */
 	public int generateSun() {
@@ -31,6 +33,11 @@ public class Sunflower extends PassivePlant{
 		}
 	}
 	
+	/**
+	 * Decrements by one until reaches 0. 
+	 * @param start counter integer starter. 
+	 * @return
+	 */
 	private int countDownToGenerateSun(int start) {
 		if (start != 0) {
 			countDownStart--;
@@ -39,6 +46,9 @@ public class Sunflower extends PassivePlant{
 		return start;
 	}
 	
+	/**
+	 * Print Sunflower on to the board
+	 */
 	public String toString() {
 		String Status= "";
 		Status = "S =  " + this.getHitThreshold();
