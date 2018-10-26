@@ -39,7 +39,6 @@ public class Level {
 		}
 			
 		return false;
-		
 	}
 	
 	public boolean removePlant(int x, int y) {
@@ -51,7 +50,6 @@ public class Level {
 		}
 		return false;
 	}
-	
 	
 	public void NextTurn() {
 		player.getPlayerAction();

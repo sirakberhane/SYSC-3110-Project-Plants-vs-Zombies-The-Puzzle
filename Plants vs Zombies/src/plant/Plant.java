@@ -10,8 +10,7 @@ public class Plant {
 	private int hitThreshold; // Maximum hits a plant can take before it is dead
 	private int xPos; // Grid position x
 	private int yPos; // Grid position y
-	public enum ShooterPlant {PEASHOOTER}; // ShooterPlant Enum type --> Contains Attack type Plants
-	public enum PassivePlant {SUNFLOWER}; // PassivePlant Enum type ---> Contains Helper/Passive type Plants
+	
 	/**
 	 * Construct a new Plant type. 
 	 * @param hitThreshold Maximum hits a plant can take before it is dead
@@ -89,7 +88,7 @@ public class Plant {
 	 * @param yPos set y to this position
 	 */
 	public void setyPos(int yPos) {
-		if (xPos >= 0 && xPos <= 4) {
+		if (yPos >= 0 && yPos <= 4) {
 			this.yPos = yPos;
 		}
 	}
