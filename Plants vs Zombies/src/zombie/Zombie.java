@@ -4,7 +4,7 @@ package zombie;
  * @author Ryan Tordesillas(101041626)
  *
  */
-public class BaseZombie {
+public class Zombie {
 	
 	/** The left most point of the board*/
 	private final int ENDOFBOARD = 8;
@@ -35,7 +35,7 @@ public class BaseZombie {
 	 * @param name the name of the zombie
 	 * @param yPos the row where the zombie will spawn
 	 */
-	public BaseZombie(double movementSpeed, int hitValue, int hitThreshold, String name) {
+	public Zombie(double movementSpeed, int hitValue, int hitThreshold, String name) {
 		this.movementSpeed = movementSpeed;
 		this.hitValue = hitValue;
 		this.hitThreshold = hitThreshold;
