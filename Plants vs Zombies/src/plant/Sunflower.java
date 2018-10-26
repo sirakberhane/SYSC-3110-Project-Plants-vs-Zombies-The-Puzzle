@@ -17,13 +17,13 @@ public class Sunflower extends PassivePlant{
 	 * Generates one sunflower.
 	 * @return a sunflower seed
 	 */
-	public int generateSunflower() {
+	public int generateSun() {
 		return 25;
 	}
 	
 	public String toString() {
 		String Status= "";
-		Status = "S = " + this.getHitThreshold();
+		Status = "S =  " + this.getHitThreshold();
 		return Status;
 	}
 }
