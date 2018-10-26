@@ -7,7 +7,6 @@
 package run;
 import java.util.ArrayList;
 import java.util.Random;
-
 import plant.*;
 import zombie.*;
 import player.*;
@@ -177,6 +176,4 @@ public class Level {
 		//Print the Current State
 		printState.print();
 	}
-	
-	
 }
