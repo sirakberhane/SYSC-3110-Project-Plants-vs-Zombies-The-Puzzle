@@ -5,7 +5,7 @@ package zombie;
  * @author Ryan Tordesillas(101041626)
  *
  */
-public class BasicZombie extends BaseZombie {
+public class BasicZombie extends Zombie {
 	/** The basic speed of the zombie */
 	private final static double BASIC_SPEED = 0.5;
 	/** The basic name of the zombie */

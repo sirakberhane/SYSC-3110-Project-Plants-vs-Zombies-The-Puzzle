@@ -3,8 +3,7 @@
  * 
  * Implementation of the Level class
  * 
- */
-		
+ */		
 package run;
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,7 +16,7 @@ public class Level {
 	//All plants on the board
 	private ArrayList<Plant> plants;
 	//All zombies on the board
-	private ArrayList<BaseZombie> zombies;
+	private ArrayList<Zombie> zombies;
 	//The player playing the level
 	private Player player;
 	//Level's printState class
@@ -26,7 +25,7 @@ public class Level {
 	//Constructs a new Level
 	public Level() {
 		plants = new ArrayList<Plant>();
-		zombies = new ArrayList<BaseZombie>();
+		zombies = new ArrayList<Zombie>();
 		player = new Player(this);
 		printState = new PrintState(this, player);
 	}
@@ -37,7 +36,7 @@ public class Level {
 	 * @param y the row the zombie will be spawned in
 	 */
 	public void addZombie(String zombieType, int y) {
-		BaseZombie zombie = null;
+		Zombie zombie = null;
 		
 		if (zombieType.equalsIgnoreCase("zombie")) {
 			zombie = new BasicZombie(y);
@@ -107,11 +106,11 @@ public class Level {
 	 * @param yPos the given row
 	 * @return the closest zombie
 	 */
-	public BaseZombie closestZombie(int yPos) {
-		BaseZombie closest = zombies.get(0);
+	public Zombie closestZombie(int yPos) {
+		Zombie closest = zombies.get(0);
 		
 		//For each loop to visit all zombies
-		for (BaseZombie zombie: zombies) {
+		for (Zombie zombie: zombies) {
 			//Only interested in zombies in the given row
 			if (zombie.getyPos() == yPos) {
 				//If current zombie is closer than our current closest, update closest
@@ -142,7 +141,7 @@ public class Level {
 				Peashooter peashooter = (Peashooter) plant;
 				
 				//Find closest zombie in the row of the peashooter
-				BaseZombie targetZombie = closestZombie(peashooter.getyPos());
+				Zombie targetZombie = closestZombie(peashooter.getyPos());
 				//Deal damage to zombie
 				targetZombie.hit(peashooter.getHitValue());
 			}
@@ -151,7 +150,7 @@ public class Level {
 	
 	public void zombieAction() {
 		//Visit all zombies
-		for (BaseZombie zombie: zombies) {
+		for (Zombie zombie: zombies) {
 			//Zombie moves
 			zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
 		}
@@ -160,7 +159,6 @@ public class Level {
 	/**
 	 * Gets the next move from the player and continues the level simulation.
 	 */
-
 	public void NextTurn() {
 		//Get player's action
 		player.getPlayerAction();
