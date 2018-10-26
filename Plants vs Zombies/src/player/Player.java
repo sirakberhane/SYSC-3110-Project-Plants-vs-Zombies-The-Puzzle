@@ -47,6 +47,9 @@ public class Player {
 		int xPos = 0;
 		int yPos = 0;
 		
+		//If action was successful
+		boolean successful = false;
+		
 		//Break up the input into parts
 		Scanner tokenizer = new Scanner(input);
 		
@@ -60,11 +63,13 @@ public class Player {
                 
                 //Check if valid plantType entered
                 for (String type: plantTypes) {
-    				if (!plantType.equals(type)) {
-    					System.out.println("Invalid plantType entered: " + plantType);
-    					getPlayerAction();
+    				if (plantType.equalsIgnoreCase(type)) {
+    					successful = true;
     				}
     			}
+                if (!successful) {
+                	System.out.println("Invalid plantType entered: " + plantType);
+                }
             }
             
             //Get the x coordinate of placement
@@ -73,9 +78,9 @@ public class Player {
             	xPos = Integer.parseInt(tokenizer.next());
             	yPos = Integer.parseInt(tokenizer.next());
             	
-            	if (xPos > 4 || xPos < 0 || yPos > 8 || yPos < 0) {
+            	if (xPos > Level.X_MAX || xPos < Level.X_MIN || yPos > Level.Y_MAX || yPos < Level.Y_MIN) {
             		System.out.println("Placement out of bounds.");
-            		getPlayerAction();
+            		successful = false;
             	}
             }
             
@@ -84,62 +89,54 @@ public class Player {
 		tokenizer.close();
 		
 		//Do appropriate action
-		
-		//If action was successful
-		boolean successful = false;
-		
-		if (action.equals("place")) {
+		if (successful) {
+			if (action.equals("place")) {
 			
-			//Only place plant if enough sun is available
-			if (sunTotal >= Sunflower.SUNFLOWER_BUY_THRESHOLD) {
-				successful = level.addPlant(plantType, xPos, yPos);
-			}
-			else {
-				//If not enough, print error message and request new player action
+				//Only place plant if enough sun is available
+				if (sunTotal >= Sunflower.SUNFLOWER_BUY_THRESHOLD) {
+					successful = level.addPlant(plantType, xPos, yPos);
+				}
+				else {
+					//If not enough, print error message and request new player action
+					if (!successful) {
+						System.out.println("Not enough sun available.");
+					}
+				}
+			} 
+		
+			else if (action.equals("remove")) {
+				successful = level.removePlant(xPos,yPos);
+			
 				if (!successful) {
-					System.out.println("Not enough sun available.");
+					System.out.println("No plant at those coordinates");
 				}
 			}
-		} 
 		
-		else if (action.equals("remove")) {
-			successful = level.removePlant(xPos,yPos);
-			
-			if (!successful) {
-				System.out.println("No plant at those coordinates");
-			}
+			else if (action.equals("skip"));
+		
+			else if (action.equals("help")) 
+				printHelp();
+		
+			else if (action.equals("types")) 
+				printTypes();
 		}
-		
-		else if (action.equals("skip"));
-		
-		else if (action.equals("help")) 
-			printHelp();
-		
-		else if (action.equals("types")) 
-			printTypes();
-		
-		
-		//Else, invalid input entered
-		else {
+		//If action was not successful, request another action from player
+		if (!successful) {
 			System.out.println(
 					"Error in input:\n" +
 					"	No such command as: " + input);
-		}
-		
-		//If action was not successful, request another action from player
-		if (!successful)
 			getPlayerAction();
+		}
 	}
-	
 	/**
 	 * Prints the plant types the user can place
 	 */
 	public void printTypes() {
 		System.out.println(
 				"----------------------------------\n" +
-				"Plant Types: " +
-				"sunflower = " + Sunflower.SUNFLOWER_BUY_THRESHOLD + " sun" +
-				"peashooter = " + Peashooter.PEASHOOTER_BUY_THRESHOLD + " sun" +
+				"Plant Types: \n" +
+				"sunflower = " + Sunflower.SUNFLOWER_BUY_THRESHOLD + " sun\n" +
+				"peashooter = " + Peashooter.PEASHOOTER_BUY_THRESHOLD + " sun\n" +
 				"----------------------------------");
 	}
 	

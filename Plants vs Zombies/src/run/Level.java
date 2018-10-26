@@ -12,6 +12,13 @@ import zombie.*;
 import player.*;
 
 public class Level {
+	
+	//Constants for the coordinate bounds
+	public static final int X_MIN = 0;
+	public static final int X_MAX = 8;
+	public static final int Y_MIN = 0;
+	public static final int Y_MAX = 4;
+	
 	//All plants on the board
 	private ArrayList<Plant> plants;
 	//All zombies on the board
