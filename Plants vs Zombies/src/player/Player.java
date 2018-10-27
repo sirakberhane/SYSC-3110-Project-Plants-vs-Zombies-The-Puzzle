@@ -109,7 +109,7 @@ public class Player {
                 	}
             	
             		else {
-            			System.out.println("Missing ");
+            			System.out.println("Missing y coordinate");
             			successful = false;
             		}
                  
