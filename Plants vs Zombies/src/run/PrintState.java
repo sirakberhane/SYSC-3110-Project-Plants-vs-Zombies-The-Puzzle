@@ -44,15 +44,17 @@ public class PrintState {
 	}
 
 	//Update the board with the new states of all the added plants and zombies
-	public void updateState(ArrayList<Plant> plants, ArrayList<Zombie> zombies) {
+	public void updateState(Lawn[] lawns) {
 		clearBoard();
-		for (Plant plant: plants) {
-			board[plant.getxPos()][plant.getyPos()] = 
-					"[" + plant.toString() + "]";
-		}
-		for (Zombie zombie: zombies) {
-			board[(int) zombie.getCurrentX() + 1][zombie.getyPos()] = 
-					"[" + zombie.toString() + "]";
+		for (int y = 0; y < lawns.length; y ++) {
+			for (Plant plant: lawns[y].getPlants()) {
+				board[plant.getxPos()][plant.getyPos()] = 
+						"[" + plant.toString() + "]";
+			}
+			for (Zombie zombie: lawns[y].getZombies()) {
+				board[(int) zombie.getCurrentX() + 1][zombie.getyPos()] = 
+						"[" + zombie.toString() + "]";
+			}
 		}
 	}
 	
@@ -60,6 +62,7 @@ public class PrintState {
 	public void print() {
 		//Print each tile of the board
 		for (int y = 0; y < 5; y ++) {
+			
 			for (int x = 0; x < 9; x ++) {
 				System.out.print(board[x][y]);
 			}

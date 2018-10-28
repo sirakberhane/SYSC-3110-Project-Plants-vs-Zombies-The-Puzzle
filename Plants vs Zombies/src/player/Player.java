@@ -119,7 +119,6 @@ public class Player {
             	if (tokenizer.hasNext())
             		successful = false;
             
-           
             }
 		}
 		

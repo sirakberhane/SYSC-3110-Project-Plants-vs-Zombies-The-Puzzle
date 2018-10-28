@@ -21,6 +21,8 @@ public class Zombie {
 	private double currentX;
 	/** The row where the zombie will move */
 	private int yPos;
+	/** Indicates whether the zombie is moving */
+	private boolean moving;
 	
 	/** The different types of zombie */
 	public enum Type {BASIC};
@@ -41,6 +43,7 @@ public class Zombie {
 		this.hitThreshold = hitThreshold;
 		this.name = name;
 		currentX = ENDOFBOARD;
+		moving = true;
 	}
 
 	/**
@@ -73,6 +76,41 @@ public class Zombie {
 	 */
 	public void setHitThreshold(int hitThreshold) {
 		this.hitThreshold = hitThreshold;
+	}
+	
+	/**
+	 * Returns the hitThreshold
+	 * @return the hitThreshold
+	 */
+	public int getHitThreshold() {
+		return hitThreshold;
+	}
+	
+	/**
+	 * Return true if zombie is dead, ie. hitThreshold falls to 0
+	 * @return true if zombie is dead, ie. hitThreshold falls to 0
+	 */
+	public boolean isDead() {
+		if (getHitThreshold() <= 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns true if zombie is moving, false if standing
+	 * @return true if zombie is moving, false if standing
+	 */
+	public boolean isMoving() {
+		return moving;
+	}
+	
+	/**
+	 * Set the moving variable to true or false
+	 * @param moving indicates whether the zombie is moving
+	 */
+	public void setMoving(boolean moving) {
+		this.moving = moving;
 	}
 
 	/**

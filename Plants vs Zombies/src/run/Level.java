@@ -19,12 +19,8 @@ public class Level {
 	public static final int Y_MIN = 0;
 	public static final int Y_MAX = 4;
 	
-	//All plants on the board
-	private ArrayList<Plant> plants;
-	//All zombies on the board
-	private ArrayList<Zombie> zombies;
-	//Level's lawnmowers
-	private Boolean[] lawnMowerActivated = {false, false, false, false, false};
+	//Level's array of lawns
+	private Lawn[] lawns;
 	//The player playing the level
 	private Player player;
 	//Level's printState class
@@ -32,8 +28,13 @@ public class Level {
 	
 	//Constructs a new Level
 	public Level() {
-		plants = new ArrayList<Plant>();
-		zombies = new ArrayList<Zombie>();
+		lawns = new Lawn[5];
+		
+		//Initialize the 5 lawns
+		for (int i = 0; i < 5; i ++) {
+			lawns[i] = new Lawn();
+		}
+		
 		player = new Player(this);
 		printState = new PrintState(this, player);
 	}
@@ -50,7 +51,7 @@ public class Level {
 			zombie = new BasicZombie(y);
 		}
 		
-		zombies.add(zombie);
+		lawns[y].getZombies().add(zombie);
 	}
 	
 	/**
@@ -70,13 +71,14 @@ public class Level {
 			plant = new Peashooter(x, y);
 		}
 		
-		for (Plant aPlant: plants) {
+		for (Plant aPlant: lawns[y].getPlants()) {
 			if (aPlant.getxPos() == x && aPlant.getyPos() == y)
 				return false;
 		}
 		
 		if (player.getSunTotal() >= plant.getBuyThreshold()) {
-			plants.add(plant);
+			lawns[y].getPlants().add(plant);
+			//plants.add(plant);
 			player.setSunTotal(player.getSunTotal() - plant.getBuyThreshold());
 			return true;
 		}
@@ -90,9 +92,10 @@ public class Level {
 	 * @return true if plant exists at (x, y) position and therefore can be removed, false otherwise
 	 */
 	public boolean removePlant(int x, int y) {
-		for (Plant plant: plants) {
+		for (Plant plant: lawns[y].getPlants()) {
 			if (plant.getxPos() == x && plant.getyPos() == y) {
-				plants.remove(plant);
+				lawns[y].getPlants().remove(plant);
+				//plants.remove(plant);
 				return true;
 			}
 		}
@@ -120,10 +123,10 @@ public class Level {
 	 * @return the closest zombie
 	 */
 	public Zombie closestZombie(int yPos) {
-		Zombie closest = zombies.get(0);
+		Zombie closest = lawns[yPos].getZombies().get(0);
 		
 		//For each loop to visit all zombies
-		for (Zombie zombie: zombies) {
+		for (Zombie zombie: lawns[yPos].getZombies()) {
 			//Only interested in zombies in the given row
 			if (zombie.getyPos() == yPos) {
 				//If current zombie is closer than our current closest, update closest
@@ -140,40 +143,52 @@ public class Level {
 	 */
 	public void plantAction() {
 		//Visit all plants
-		for (Plant plant: plants) {
-			//Sunflower action
-			if (plant instanceof Sunflower) {
-				//Cast plant as sunflower
-				Sunflower sunflower = (Sunflower) plant;
-				//Give the player more sun
-				player.setSunTotal(player.getSunTotal() + sunflower.generateSun());
-			}
-			//Peashooter action
-			else if (plant instanceof Peashooter) {
-				//Cast plant as peashooter
-				Peashooter peashooter = (Peashooter) plant;
+		for (int i = 0; i < lawns.length; i ++) {
+			
+			for (Plant plant: lawns[i].getPlants()) {
+				//Sunflower action
+				if (plant instanceof Sunflower) {
+					//Cast plant as sunflower
+					Sunflower sunflower = (Sunflower) plant;
+					//Give the player more sun
+					player.setSunTotal(player.getSunTotal() + sunflower.generateSun());
+				}
+				//Peashooter action
+				else if (plant instanceof Peashooter) {
+					//Cast plant as peashooter
+					Peashooter peashooter = (Peashooter) plant;
 				
-				//Find closest zombie in the row of the peashooter
-				Zombie targetZombie = closestZombie(peashooter.getyPos());
-				//Deal damage to zombie
-				targetZombie.hit(peashooter.getHitValue());
+					//Find closest zombie in the row of the peashooter
+					Zombie targetZombie = closestZombie(peashooter.getyPos());
+					//Deal damage to zombie
+					targetZombie.hit(peashooter.getHitValue());
+					if (targetZombie.isDead()) {
+						lawns[i].getZombies().remove(targetZombie);
+					}
+					
+				}
 			}
 		}
 	}
 	
 	public void zombieAction() {
 		//Visit all zombies
-		for (Zombie zombie: zombies) {
-			//Zombie moves
-			zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
+		for (int i = 0; i < lawns.length; i ++) {
+			for (Zombie zombie: lawns[i].getZombies()) {
+				//Zombie moves
+				if (zombie.isMoving()) {
+					zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
+				}
+			}
 		}
 	}
 	
 	public void activateLawnMower(int yPos) {
-		lawnMowerActivated[yPos] = true;
-		for (Zombie zombie: zombies) {
+		lawns[yPos].setLawnMower(true);
+		
+		for (Zombie zombie: lawns[yPos].getZombies()) {
 			if (zombie.getyPos() == yPos) {
-				zombies.remove(zombie);
+				lawns[yPos].getZombies().remove(zombie);
 			}
 		}
 	}
@@ -195,7 +210,7 @@ public class Level {
 		plantAction();
 		
 		//Update the printState
-		printState.updateState(plants, zombies);
+		printState.updateState(lawns);
 		//Print the Current State
 		printState.print();
 	}
