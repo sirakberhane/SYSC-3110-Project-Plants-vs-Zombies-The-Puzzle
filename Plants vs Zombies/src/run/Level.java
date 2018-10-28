@@ -170,7 +170,7 @@ public class Level {
 			}
 		}
 	}
-	
+
 	public void zombieAction() {
 		//Visit all zombies
 		for (int i = 0; i < lawns.length; i ++) {
@@ -178,6 +178,37 @@ public class Level {
 				//Zombie moves
 				if (zombie.isMoving()) {
 					zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
+					if (!lawns[i].getPlants().isEmpty() && (lawns[i].getPlants().get(i).getyPos() == (int)zombie.getyPos())) {
+						// If zombie encounters a plant, then zombie movement should stop
+						zombie.setMoving(false);
+
+						// Attack until plant is dead
+						lawns[i].getPlants().get(i).setHitThreshold(lawns[i].getPlants().get(i).getHitThreshold()-zombie.attack());
+
+
+						// Remove any dead plants 
+						if (lawns[i].getPlants().get(i).isPlantDead()) {
+							lawns[i].getPlants().remove(i);
+							zombie.setMoving(true);
+						} 
+
+						// If the Zombies reach the last tile activate lawn mower 
+						if (lawns[i].getPlants().isEmpty() && (zombie.getCurrentX() == 0)) {
+							lawns[i].setLawnMower(true);
+							while (lawns[i].getZombies().isEmpty()) {
+								lawns[i].getZombies().remove(i);
+							}
+						}
+
+						// If the Zombies reaches the last tile and there is no plants and lawn mower is 
+						// already activated, then it is game over.
+						if (lawns[i].getPlants().isEmpty() && (zombie.getCurrentX() <= 0) && lawns[i].isLawnMowerActivated()) {
+							System.out.println("Zombies Ate Your Brains!");
+							System.out.println("GAME OVER!");
+							System.exit(0);
+
+						}
+					}
 				}
 			}
 		}
