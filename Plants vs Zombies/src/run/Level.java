@@ -146,7 +146,6 @@ public class Level {
 	 * 
 	 */
 	public Plant closestPlant(int yPos) {
-
 		Plant closest = null;
 		if (!lawns[yPos].getPlants().isEmpty()) {
 			closest = lawns[yPos].getPlants().get(0);
@@ -242,7 +241,6 @@ public class Level {
 				}
 			}
 			//Activate the lawnmower once all the zombies have done their actions
-
 			if (lawnMowerActivate) {
 				activateLawnMower(i);
 			}
