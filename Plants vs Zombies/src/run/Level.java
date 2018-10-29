@@ -125,7 +125,6 @@ public class Level {
 	public Zombie closestZombie(int yPos) {
 		Zombie closest = null;
 		
-<<<<<<< HEAD
 		if (!lawns[yPos].getZombies().isEmpty()) {
 			
 			closest = lawns[yPos].getZombies().get(0);
@@ -138,24 +137,16 @@ public class Level {
 		
 			}
 		}
-		
-=======
-		//For each loop to visit all zombies
-		for (Zombie zombie: lawns[yPos].getZombies()) {
-			//If current zombie is closer than our current closest, update closest
-			if (zombie.getCurrentX() < closest.getCurrentX())
-				closest = zombie;
-	
-		}
->>>>>>> a9b1e05d5195147c41b4f6cc52821106cfed7725
+
 		return closest;
 	}
+
 	
 	/**
 	 * 
 	 */
 	public Plant closestPlant(int yPos) {
-<<<<<<< HEAD
+
 		Plant closest = null;
 		if (!lawns[yPos].getPlants().isEmpty()) {
 			closest = lawns[yPos].getPlants().get(0);
@@ -166,15 +157,7 @@ public class Level {
 				if (plant.getxPos() < closest.getxPos())
 					closest = plant;
 			}
-=======
-		Plant closest = lawns[yPos].getPlants().get(0);
-		
-		//For each loop to visit all plants in the row
-		for (Plant plant: lawns[yPos].getPlants()) {
-			//If current plant is closer than our current closest, update closest
-			if (plant.getxPos() < closest.getxPos())
-				closest = plant;
->>>>>>> a9b1e05d5195147c41b4f6cc52821106cfed7725
+
 		}
 		return closest;
 	}
@@ -224,7 +207,6 @@ public class Level {
 						if ((int) zombie.getCurrentX() == closestPlant(i).getxPos()) {
 							zombie.setMoving(false);
 						}
-<<<<<<< HEAD
 					}
 					
 					// If the Zombies reaches the last tile and lawn mower is 
@@ -254,42 +236,13 @@ public class Level {
 							lawns[i].getPlants().remove(targetPlant);
 							zombie.setMoving(true);
 						} 
-=======
->>>>>>> a9b1e05d5195147c41b4f6cc52821106cfed7725
+
 					}
 					
-					// If the Zombies reaches the last tile and lawn mower is 
-					// already activated, then it is game over.
-					if (zombie.getCurrentX() < 0 && lawns[i].isLawnMowerActivated()) {
-						System.out.println("Zombies Ate Your Brains!");
-						System.out.println("GAME OVER!");
-						System.exit(0);	
-					}
-					
-					// If the Zombies reach the last tile activate lawn mower 
-					if (lawns[i].getPlants().isEmpty() && (zombie.getCurrentX() < 0)) {
-						lawnMowerActivate = true;
-					}
-					
-					//
-					if (zombie.isMoving()) {
-						zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
-					}
-				}
-				else {
-					// Attack until plant is dead
-					closestPlant(i).setHitThreshold(closestPlant(i).getHitThreshold() - zombie.attack());
-					if (closestPlant(i).isPlantDead()) {
-						lawns[i].getPlants().remove(closestPlant(i));
-						zombie.setMoving(true);
-					} 
 				}
 			}
-<<<<<<< HEAD
-			//Activate the lawn mower once all the zombies have done their actions
-=======
 			//Activate the lawnmower once all the zombies have done their actions
->>>>>>> a9b1e05d5195147c41b4f6cc52821106cfed7725
+
 			if (lawnMowerActivate) {
 				activateLawnMower(i);
 			}
