@@ -127,14 +127,26 @@ public class Level {
 		
 		//For each loop to visit all zombies
 		for (Zombie zombie: lawns[yPos].getZombies()) {
-			//Only interested in zombies in the given row
-			if (zombie.getyPos() == yPos) {
-				//If current zombie is closer than our current closest, update closest
-				if (zombie.getCurrentX() < closest.getCurrentX())
-					closest = zombie;
-			}
+			//If current zombie is closer than our current closest, update closest
+			if (zombie.getCurrentX() < closest.getCurrentX())
+				closest = zombie;
+	
 		}
-
+		return closest;
+	}
+	
+	/**
+	 * 
+	 */
+	public Plant closestPlant(int yPos) {
+		Plant closest = lawns[yPos].getPlants().get(0);
+		
+		//For each loop to visit all plants in the row
+		for (Plant plant: lawns[yPos].getPlants()) {
+			//If current plant is closer than our current closest, update closest
+			if (plant.getxPos() < closest.getxPos())
+				closest = plant;
+		}
 		return closest;
 	}
 	
@@ -174,54 +186,57 @@ public class Level {
 	public void zombieAction() {
 		//Visit all zombies
 		for (int i = 0; i < lawns.length; i ++) {
+			boolean lawnMowerActivate = false;
 			for (Zombie zombie: lawns[i].getZombies()) {
-				//Zombie moves
 				if (zombie.isMoving()) {
-					zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
-					if (!lawns[i].getPlants().isEmpty() && (lawns[i].getPlants().get(i).getyPos() == (int)zombie.getyPos())) {
+					if (!lawns[i].getPlants().isEmpty()) {
 						// If zombie encounters a plant, then zombie movement should stop
-						zombie.setMoving(false);
-
-						// Attack until plant is dead
-						lawns[i].getPlants().get(i).setHitThreshold(lawns[i].getPlants().get(i).getHitThreshold()-zombie.attack());
-
-
-						// Remove any dead plants 
-						if (lawns[i].getPlants().get(i).isPlantDead()) {
-							lawns[i].getPlants().remove(i);
-							zombie.setMoving(true);
-						} 
-
-						// If the Zombies reach the last tile activate lawn mower 
-						if (lawns[i].getPlants().isEmpty() && (zombie.getCurrentX() == 0)) {
-							lawns[i].setLawnMower(true);
-							while (lawns[i].getZombies().isEmpty()) {
-								lawns[i].getZombies().remove(i);
-							}
-						}
-
-						// If the Zombies reaches the last tile and there is no plants and lawn mower is 
-						// already activated, then it is game over.
-						if (lawns[i].getPlants().isEmpty() && (zombie.getCurrentX() <= 0) && lawns[i].isLawnMowerActivated()) {
-							System.out.println("Zombies Ate Your Brains!");
-							System.out.println("GAME OVER!");
-							System.exit(0);
-
+						if ((int) zombie.getCurrentX() == closestPlant(i).getxPos()) {
+							zombie.setMoving(false);
 						}
 					}
+					
+					// If the Zombies reaches the last tile and lawn mower is 
+					// already activated, then it is game over.
+					if (zombie.getCurrentX() < 0 && lawns[i].isLawnMowerActivated()) {
+						System.out.println("Zombies Ate Your Brains!");
+						System.out.println("GAME OVER!");
+						System.exit(0);	
+					}
+					
+					// If the Zombies reach the last tile activate lawn mower 
+					if (lawns[i].getPlants().isEmpty() && (zombie.getCurrentX() < 0)) {
+						lawnMowerActivate = true;
+					}
+					
+					//
+					if (zombie.isMoving()) {
+						zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
+					}
 				}
+				else {
+					// Attack until plant is dead
+					closestPlant(i).setHitThreshold(closestPlant(i).getHitThreshold() - zombie.attack());
+					if (closestPlant(i).isPlantDead()) {
+						lawns[i].getPlants().remove(closestPlant(i));
+						zombie.setMoving(true);
+					} 
+				}
+			}
+			//Activate the lawnmower once all the zombies have done their actions
+			if (lawnMowerActivate) {
+				activateLawnMower(i);
 			}
 		}
 	}
 	
+	/**
+	 * Activates the lawn mower on the given row
+	 * @param yPos
+	 */
 	public void activateLawnMower(int yPos) {
 		lawns[yPos].setLawnMower(true);
-		
-		for (Zombie zombie: lawns[yPos].getZombies()) {
-			if (zombie.getyPos() == yPos) {
-				lawns[yPos].getZombies().remove(zombie);
-			}
-		}
+		lawns[yPos].getZombies().clear();
 	}
 	
 	/**
