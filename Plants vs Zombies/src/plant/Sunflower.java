@@ -6,8 +6,10 @@ package plant;
 public class Sunflower extends PassivePlant{
 	public static final int SUNFLOWER_HIT_THRESHOLD = 5;
 	public static final int SUNFLOWER_BUY_THRESHOLD = 50;
-	public static final int SUN = 25;
-	private int countDownStart = 2;
+	public static final int SUN = 50;
+	public static final int SUN_GENERATION_COUNTDOWN_LENGTH = 4;
+	
+	private int countDownStart;
 	/**
 	 * Creates a new Sunflower Plant type.
 	 * @param x grid position x
@@ -15,6 +17,7 @@ public class Sunflower extends PassivePlant{
 	 */
 	public Sunflower(int x, int y) {
 		super(SUNFLOWER_HIT_THRESHOLD, SUNFLOWER_BUY_THRESHOLD, x, y);
+		countDownStart = SUN_GENERATION_COUNTDOWN_LENGTH;
 	}
 	
 	/**
@@ -26,7 +29,7 @@ public class Sunflower extends PassivePlant{
 	public int generateSun() {
 		int currentCountDown = countDownToGenerateSun(countDownStart);
 		if (currentCountDown == 0) {
-			countDownStart = 2;
+			countDownStart = SUN_GENERATION_COUNTDOWN_LENGTH;
 			return SUN;
 		}
 		else {

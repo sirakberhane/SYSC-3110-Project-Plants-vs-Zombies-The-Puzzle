@@ -186,7 +186,7 @@ public class Level {
 			//For each loop to visit all plants in the row
 			for (Plant plant: lawns[yPos].getPlants()) {
 				//If current plant is closer than our current closest, update closest
-				if (plant.getxPos() < closest.getxPos())
+				if (plant.getxPos() > closest.getxPos() && plant.getxPos() == closestZombie(yPos).getCurrentX())
 					closest = plant;
 			}
 
@@ -239,15 +239,18 @@ public class Level {
 			boolean lawnMowerActivate = false;
 			
 			for (Zombie zombie: lawns[i].getZombies()) {
+				
+				zombie.setMoving(true);
+				
+				//Determine whether zombie needs to stop due to plant collision
+				if (!lawns[i].getPlants().isEmpty()) {
+					if (zombie.getCurrentX() == closestPlant(i).getxPos())
+						zombie.setMoving(false);
+					else
+						zombie.setMoving(true);
+				}
+				
 				if (zombie.isMoving()) {
-					
-					if (!lawns[i].getPlants().isEmpty()) {
-						// If zombie encounters a plant, then zombie movement should stop
-						if ((int) zombie.getCurrentX() == closestPlant(i).getxPos()) {
-							zombie.setMoving(false);
-						}
-					}
-					
 					// If the zombies reaches the last tile and lawn mower is 
 					// already activated, then it is game over.
 					if (zombie.getCurrentX() < 0 && lawns[i].isLawnMowerActivated()) {
