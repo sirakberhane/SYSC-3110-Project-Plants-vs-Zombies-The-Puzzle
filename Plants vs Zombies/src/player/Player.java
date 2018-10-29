@@ -18,6 +18,8 @@ public class Player {
 	//Reads the player input
 	private Scanner reader;
 	
+	private int countDownStart = 0;
+	
 	private final String[] plantTypes = {"sunflower", "peashooter"};
 	private final String[] actions = {"place", "remove", "help", "types", "skip"};
 	
@@ -184,14 +186,21 @@ public class Player {
 	 */
 	public void printHelp() {
 		System.out.println(
-				"----------------------------------\n" +
+				"----------------------------------------------------------------------------------------------------------------------------------------\n" +
+				"__________.__                 __    ____   ____          __________            ___.   .__               \r\n" + 
+				"\\______   \\  | _____    _____/  |_  \\   \\ /   /_____     \\____    /____   _____\\_ |__ |__| ____   ______\r\n" + 
+				" |     ___/  | \\__  \\  /    \\   __\\  \\   Y   /  ___/       /     //  _ \\ /     \\| __ \\|  |/ __ \\ /  ___/\r\n" + 
+				" |    |   |  |__/ __ \\|   |  \\  |     \\     /\\___ \\       /     /(  <_> )  Y Y  \\ \\_\\ \\  \\  ___/ \\___ \\ \r\n" + 
+				" |____|   |____(____  /___|  /__|      \\___//____  > /\\  /_______ \\____/|__|_|  /___  /__|\\___  >____  >\r\n" + 
+				"                    \\/     \\/                    \\/  \\/          \\/           \\/    \\/        \\/     \\/"+ "\n" +
+				"----------------------------------------------------------------------------------------------------------------------------------------\n" +
 				"Commands:\n" + 
 				"place plantType x y\n" +
 				"remove x y\n" +
 				"skip\n" +
 				"types\n" +
 				"help\n" +
-				"----------------------------------"
+				"----------------------------------------------------------------------------------------------------------------------------------------"
 				);
 	}
 	
@@ -199,9 +208,31 @@ public class Player {
 	 * @return the current suntotal of player
 	 */
 	public int getSunTotal() {
-		return sunTotal;
+		int lastSunTotal = sunTotal;
+		int currentCountDown = countDownToGenerateSun(countDownStart);
+		if (currentCountDown == 0) {
+			countDownStart = 2;
+			sunTotal += 25;
+			return sunTotal;
+		}
+		else {
+			return lastSunTotal;
+		}
 	}
 	
+	/**
+	 * Decrements by one until reaches 0. 
+	 * @param start counter integer starter. 
+	 * @return
+	 */
+	private int countDownToGenerateSun(int start) {
+		if (start != 0) {
+			countDownStart--;
+			start = countDownStart;
+		}
+		return start;
+	}
+
 	/**
 	 * Sets the suntotal of the player
 	 * @param newtotal the new suntotal of the player
