@@ -56,11 +56,11 @@
   - Keeps track of the player's sun count
 
 ##### COMMAND LIST:
-  - place plantType x y         Places a plant of plantType at tile (x, y)
-  - remove x y                  Removes plant at tile (x, y)
-  - help                        Prints the command list
-  - types                       Prints the plant types and their costs
-  - skip/ENTER                  Skips the turn; ie. player cannot place any plants due to lack of sun
+  - place plantType x y  ->     Places a plant of plantType at tile (x, y)
+  - remove x y           ->     Removes plant at tile (x, y)
+  - help                 ->     Prints the command list
+  - types                ->     Prints the plant types and their costs
+  - skip/ENTER           ->     Skips the turn; ie. player cannot place any plants due to lack of sun
 
 ###### PRINTSTATE:
   - Prints the current game state provided by Level
