@@ -21,14 +21,24 @@ public class Level {
 	
 	//Level's array of lawns
 	private Lawn[] lawns;
+	//Level's sizes for waves
+	private ArrayList<Integer> waveSizes;
+	//Level's turn countdown for next wave
+	private int turnCountdown;
+	//The amount of zombies currently spawned in the wave
+	private int spawnCount;
+	
 	//The player playing the level
 	private Player player;
 	//Level's printState class
 	private PrintState printState;
 	
 	//Constructs a new Level
-	public Level() {
+	public Level(ArrayList<Integer> waveSizes) {
 		lawns = new Lawn[5];
+		this.waveSizes = waveSizes;
+		turnCountdown = 7;
+		spawnCount = 0;
 		
 		//Initialize the 5 lawns
 		for (int i = 0; i < 5; i ++) {
@@ -37,6 +47,7 @@ public class Level {
 		
 		player = new Player(this);
 		printState = new PrintState(this, player);
+		
 	}
 	
 	/**]
@@ -107,12 +118,15 @@ public class Level {
 	 * Spawns n = zombieCount zombies (simulates a wave of zombies being added)
 	 * @param zombieCount
 	 */
-	public void zombieWave(int zombieCount) {
+	public void zombieWave() {
+		//The number of zombies spawned in this call
 		int currentCount = 0;
-		while (currentCount < zombieCount) {
-			Random randomY = new Random();
+		Random randomY = new Random();
+		//Spawn about a fifth of the wave size every call
+		while (currentCount < waveSizes.get(0) / 5 && spawnCount < waveSizes.get(0)) {
 			addZombie("zombie", randomY.nextInt(5));
 			currentCount ++;
+			spawnCount ++;
 		}
 		
 	}
@@ -212,9 +226,7 @@ public class Level {
 					// If the Zombies reaches the last tile and lawn mower is 
 					// already activated, then it is game over.
 					if (zombie.getCurrentX() < 0 && lawns[i].isLawnMowerActivated()) {
-						System.out.println("Zombies Ate Your Brains!");
-						System.out.println("GAME OVER!");
-						System.exit(0);	
+						gameLost();
 					}
 					
 					// If the Zombies reach the last tile activate lawn mower 
@@ -265,8 +277,11 @@ public class Level {
 		//Get player's action
 		player.getPlayerAction();
 		
-		//Spawn zombies
-		zombieWave(1);
+		//Continue to spawn zombies until there are no more left to spawn
+		if (!waveSizes.isEmpty()) {
+			if (spawnCount < waveSizes.get(0))
+				zombieWave();
+		}
 		
 		//Zombies do actions
 		zombieAction();
@@ -274,9 +289,80 @@ public class Level {
 		//Plants do actions
 		plantAction();
 		
+		//Decrement the turn countdown for the next wave
+		turnCountdown --;
+		
+		//Reset the countdown for next wave
+		if (turnCountdown == 0 && !waveSizes.isEmpty() && zombieCount() == 0) {
+			waveSizes.remove(waveSizes.get(0));
+			turnCountdown = 7;
+		}
+		
 		//Update the printState
 		printState.updateState(lawns);
 		//Print the Current State
 		printState.print();
+		
+		//Check if win condition is met
+		if (checkWinCondition()) {
+			//Player wins
+			gameWin();
+		}
+		
+	}
+	
+	/**
+	 * Returns the total number of zombies remaining currently in the wave;
+	 * @return the total number of zombies remaining currently in the wave
+	 */
+	public int zombieCount() {
+		int zombieRemaining = 0;
+		
+		for (int i = 0; i < lawns.length; i ++) {
+			zombieRemaining += lawns[i].getZombies().size();
+		}
+		
+		return zombieRemaining;
+	}
+	
+	/**
+	 * Return true if the win condition is met, false otherwise 
+	 * @return true if the win condition is met, false otherwise
+	 */
+	public boolean checkWinCondition() {
+		boolean win = false;
+		//Only check if there are no more zombies to be spawned
+		if (waveSizes.isEmpty()) {
+			for (int i = 0; i < lawns.length; i ++) {
+				//If no more zombies in this row, win condition is met so far
+				if (lawns[i].getZombies().isEmpty()) {
+					win = true;
+				}
+				//If there are zombies in the row then win condition is not met
+				else {
+					win = false;
+				}
+			}
+		}
+		
+		return win;
+	}
+	
+	/**
+	 * Prints the text for completing the level
+	 */
+	public void gameWin() {
+		System.out.println("Level Complete!");
+		System.out.println("YOU WIN!");
+		System.exit(0);	
+	}
+	
+	/**
+	 * Prints the text for failing the level
+	 */
+	public void gameLost() {
+		System.out.println("Zombies Ate Your Brains!");
+		System.out.println("GAME OVER!");
+		System.exit(0);	
 	}
 }
