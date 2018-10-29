@@ -160,9 +160,10 @@ public class Level {
 		
 		if (!lawns[yPos].getZombies().isEmpty()) {
 			
+			//Find a potential closest zombie
 			int i = 0;
 			closest = lawns[yPos].getZombies().get(i);
-			while (closest.getCurrentX() < plant.getxPos()) {
+			while (closest.getCurrentX() < plant.getxPos() && lawns[yPos].getZombies().size() > 1) {
 				closest = lawns[yPos].getZombies().get(i);
 				i ++;
 			}
@@ -187,9 +188,10 @@ public class Level {
 		Plant closest = null;
 		if (!lawns[yPos].getPlants().isEmpty()) {
 			
+			//Find a potential closest plant
 			int i = 0;
 			closest = lawns[yPos].getPlants().get(i);
-			while (closest.getxPos() > zombie.getCurrentX()) {
+			while (closest.getxPos() > zombie.getCurrentX() && lawns[yPos].getPlants().size() > 1) {
 				closest = lawns[yPos].getPlants().get(i);
 				i ++;
 			}
@@ -269,7 +271,7 @@ public class Level {
 					}
 					
 					// If the zombies reach the last tile activate lawn mower 
-					if (lawns[i].getPlants().isEmpty() && (zombie.getCurrentX() < 0)) {
+					if (zombie.getCurrentX() < 0) {
 						lawnMowerActivate = true;
 					}
 					
