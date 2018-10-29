@@ -78,9 +78,3 @@
 
 ##### Sequence Diagram - Zombie Class
 ![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/zombie-destroy-plant-sequence.png) 
-
-
-## Milestone 2 (master-gui and master-unit-tests branches)
-* Implement a GUI version of the popular Plants vs Zombies (PvZ) game.
-
-### Implementations
