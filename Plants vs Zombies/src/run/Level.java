@@ -123,29 +123,41 @@ public class Level {
 	 * @return the closest zombie
 	 */
 	public Zombie closestZombie(int yPos) {
-		Zombie closest = lawns[yPos].getZombies().get(0);
+		Zombie closest = null;
 		
-		//For each loop to visit all zombies
-		for (Zombie zombie: lawns[yPos].getZombies()) {
-			//If current zombie is closer than our current closest, update closest
-			if (zombie.getCurrentX() < closest.getCurrentX())
-				closest = zombie;
+		if (!lawns[yPos].getZombies().isEmpty()) {
+			
+			closest = lawns[yPos].getZombies().get(0);
 	
+			//For each loop to visit all zombies
+			for (Zombie zombie: lawns[yPos].getZombies()) {
+				//If current zombie is closer than our current closest, update closest
+				if (zombie.getCurrentX() < closest.getCurrentX())
+					closest = zombie;
+		
+			}
 		}
+
 		return closest;
 	}
+
 	
 	/**
 	 * 
 	 */
 	public Plant closestPlant(int yPos) {
-		Plant closest = lawns[yPos].getPlants().get(0);
+
+		Plant closest = null;
+		if (!lawns[yPos].getPlants().isEmpty()) {
+			closest = lawns[yPos].getPlants().get(0);
 		
-		//For each loop to visit all plants in the row
-		for (Plant plant: lawns[yPos].getPlants()) {
-			//If current plant is closer than our current closest, update closest
-			if (plant.getxPos() < closest.getxPos())
-				closest = plant;
+			//For each loop to visit all plants in the row
+			for (Plant plant: lawns[yPos].getPlants()) {
+				//If current plant is closer than our current closest, update closest
+				if (plant.getxPos() < closest.getxPos())
+					closest = plant;
+			}
+
 		}
 		return closest;
 	}
@@ -172,12 +184,13 @@ public class Level {
 				
 					//Find closest zombie in the row of the peashooter
 					Zombie targetZombie = closestZombie(peashooter.getyPos());
-					//Deal damage to zombie
-					targetZombie.hit(peashooter.getHitValue());
-					if (targetZombie.isDead()) {
-						lawns[i].getZombies().remove(targetZombie);
+					if (targetZombie != null) {
+						//Deal damage to zombie
+						targetZombie.hit(peashooter.getHitValue());
+						if (targetZombie.isDead()) {
+							lawns[i].getZombies().remove(targetZombie);
+						}
 					}
-					
 				}
 			}
 		}
@@ -216,14 +229,20 @@ public class Level {
 				}
 				else {
 					// Attack until plant is dead
-					closestPlant(i).setHitThreshold(closestPlant(i).getHitThreshold() - zombie.attack());
-					if (closestPlant(i).isPlantDead()) {
-						lawns[i].getPlants().remove(closestPlant(i));
-						zombie.setMoving(true);
-					} 
+					Plant targetPlant = closestPlant(i);
+					if (targetPlant != null) {
+						targetPlant.setHitThreshold(targetPlant.getHitThreshold() - zombie.attack());
+						if (targetPlant.isPlantDead()) {
+							lawns[i].getPlants().remove(targetPlant);
+							zombie.setMoving(true);
+						} 
+
+					}
+					
 				}
 			}
 			//Activate the lawnmower once all the zombies have done their actions
+
 			if (lawnMowerActivate) {
 				activateLawnMower(i);
 			}
