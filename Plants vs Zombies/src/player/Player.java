@@ -17,9 +17,13 @@ public class Player {
 	private Level level;
 	//Reads the player input
 	private Scanner reader;
+	//Countdown till player generates sun
+	private int generateSunCountdown;
 	
-	private boolean isTitleIsNotPrinted = false;
-	private int countDownStart = 2;
+	//Sun generation amount
+	public static final int PLAYER_GENERATED_SUN_AMOUNT = 25;
+	//Sun generation countdown length
+	public static final int SUN_GENERATION_COUNTDOWN_LENGTH = 4;
 	
 	private final String[] plantTypes = {"sunflower", "peashooter"};
 	private final String[] actions = {"place", "remove", "help", "types", "skip"};
@@ -29,11 +33,17 @@ public class Player {
 	 * @param level
 	 */
 	public Player(Level level) {
+		//Set this player to the level that created it
 		this.level = level;
+		
 		//Starting suntotal
 		sunTotal = 100; 
+		
+		//Start countdown to sun generation
+		generateSunCountdown = SUN_GENERATION_COUNTDOWN_LENGTH;
+		
+		//Initialize the reader for user input
 		reader = new Scanner(System.in);
-		printHelp();
 	}
 	
 	/**
@@ -180,7 +190,7 @@ public class Player {
 		}
 		//If action was not successful, request another action from player
 		if (!successful) {
-			System.out.println("Error. Try another command.");
+			System.out.println("ERROR. Try another command.");
 			getPlayerAction();
 		}
 	}
@@ -189,48 +199,27 @@ public class Player {
 	 */
 	public void printTypes() {
 		System.out.println(
-				"----------------------------------\n" +
-				"Plant Types: \n" +
-				"sunflower = " + Sunflower.SUNFLOWER_BUY_THRESHOLD + " sun\n" +
-				"peashooter = " + Peashooter.PEASHOOTER_BUY_THRESHOLD + " sun\n" +
-				"----------------------------------");
+				"-------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+				"PLANT TYPES: \n" +
+				"- sunflower = " + Sunflower.SUNFLOWER_BUY_THRESHOLD + " sun\n" +
+				"- peashooter = " + Peashooter.PEASHOOTER_BUY_THRESHOLD + " sun\n" +
+				"-------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 	}
 	
 	/**
 	 * Prints the list of player commands
 	 */
 	public void printHelp() {
-		if (!isTitleIsNotPrinted) {
-			printTitle();
-			isTitleIsNotPrinted = true;
-		}
 		System.out.println(		
-				"----------------------------------------------------------------------------------------------------------------------------------------\n" +
-						"Commands:\n" + 
-						"place plantType x y\n" +
-						"remove x y\n" +
-						"skip\n" +
-						"types\n" +
-						"help\n" +
-						"----------------------------------------------------------------------------------------------------------------------------------------"
-				);
-	}
-	
-	/**
-	 * Prints the list of player commands
-	 */
-	public void printTitle() {
-		System.out.println(
-				"----------------------------------------------------------------------------------------------------------------------------------------\n" +
-				"----------------------------------------------------------------------------------------------------------------------------------------\n" +
-				"__________.__                 __    ____   ____          __________            ___.   .__               \r\n" + 
-				"\\______   \\  | _____    _____/  |_  \\   \\ /   /_____     \\____    /____   _____\\_ |__ |__| ____   ______\r\n" + 
-				" |     ___/  | \\__  \\  /    \\   __\\  \\   Y   /  ___/       /     //  _ \\ /     \\| __ \\|  |/ __ \\ /  ___/\r\n" + 
-				" |    |   |  |__/ __ \\|   |  \\  |     \\     /\\___ \\       /     /(  <_> )  Y Y  \\ \\_\\ \\  \\  ___/ \\___ \\ \r\n" + 
-				" |____|   |____(____  /___|  /__|      \\___//____  > /\\  /_______ \\____/|__|_|  /___  /__|\\___  >____  >\r\n" + 
-				"                    \\/     \\/                    \\/  \\/          \\/           \\/    \\/        \\/     \\/"+ "\n" +
-				"----------------------------------------------------------------------------------------------------------------------------------------\n" + 
-				"----------------------------------------------------------------------------------------------------------------------------------------\n"
+						"-------------------------------------------------------------------------------------------------------------------------------------------------------------------\n" +
+						"COMMANDS:\n" + 
+						"- place plantType x y		Place a plant of plantType at the tile (x, y)\n" +
+						"- remove x y			Removes the plant at the tile (x, y)\n" +
+						"- skip 				Skips the turn\n" +
+						"- types 			Prints the list of valid plantTypes\n" +
+						"- help 				Prints the list of valid commands\n\n" +
+						"** Bounds: 0 <= x <= 8, 0 <= y <= 4\n" +
+						"-------------------------------------------------------------------------------------------------------------------------------------------------------------------"
 				);
 	}
 	
@@ -241,27 +230,25 @@ public class Player {
 		return sunTotal;
 	}
 	
-	public int gameGenerateSun() {
-		int currentCountDown = countDownToGenerateSun(countDownStart);
-		if (currentCountDown == 0) {
-			countDownStart = 2;
-			sunTotal += 25;
-			return sunTotal;
-		} else {
-			return 0;
-		}
-	}
 	/**
-	 * Decrements by one until reaches 0. 
-	 * @param start counter integer starter. 
-	 * @return
+	 * Generate sun for the player every 2 turns
 	 */
-	private int countDownToGenerateSun(int start) {
-		if (start != 0) {
-			countDownStart--;
-			start = countDownStart;
-		}
-		return start;
+	public void gameGenerateSun() {
+		//Decrement countdown
+		countDownToGenerateSun();
+		
+		//If countdown is over, generate sun
+		if (generateSunCountdown == 0) {
+			generateSunCountdown = SUN_GENERATION_COUNTDOWN_LENGTH;
+			setSunTotal(getSunTotal() + PLAYER_GENERATED_SUN_AMOUNT);
+		} 
+	}
+	
+	/**
+	 * Decrement the sun generation countdown
+	 */
+	private void countDownToGenerateSun() {
+		generateSunCountdown --;
 	}
 
 	/**

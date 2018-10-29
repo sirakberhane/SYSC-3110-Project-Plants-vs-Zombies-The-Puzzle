@@ -8,7 +8,7 @@ public class Main {
 		ArrayList<Integer> waveSizes = new ArrayList<Integer>();
 		waveSizes.add(5);
 		waveSizes.add(10);
-		waveSizes.add(15);
+		waveSizes.add(20);
 		
 		Level level = new Level(waveSizes);
 		level.NextTurn();

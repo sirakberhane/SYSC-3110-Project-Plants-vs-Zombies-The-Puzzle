@@ -19,6 +19,9 @@ public class Level {
 	public static final int Y_MIN = 0;
 	public static final int Y_MAX = 4;
 	
+	//Constant for minimum turnCountdown till next wave
+	public static final int MINIMUM_TURN_COUNTDOWN_LENGTH = 7;
+	
 	//Level's array of lawns
 	private Lawn[] lawns;
 	//Level's sizes for waves
@@ -41,7 +44,7 @@ public class Level {
 	public Level(ArrayList<Integer> waveSizes) {
 		lawns = new Lawn[5];
 		this.waveSizes = waveSizes;
-		turnCountdown = 7;
+		turnCountdown = MINIMUM_TURN_COUNTDOWN_LENGTH;
 		spawnCount = 0;
 		waveCount = 1;
 		remainingCount = waveSizes.get(0);
@@ -129,8 +132,18 @@ public class Level {
 		int currentCount = 0;
 		Random randomY = new Random();
 		//Spawn about a fifth of the wave size every call
+		int yPos = randomY.nextInt(Y_MAX + 1);
 		while (currentCount < waveSizes.get(0) / 5 && spawnCount < waveSizes.get(0)) {
-			addZombie("zombie", randomY.nextInt(5));
+			//Hold Variable to make sure yPos is unique every time
+			int tempYPos = randomY.nextInt(Y_MAX + 1);
+			
+			while (tempYPos == yPos) {
+				tempYPos = randomY.nextInt(Y_MAX + 1);
+			}
+			
+			yPos = tempYPos;
+			
+			addZombie("zombie", yPos);
 			currentCount ++;
 			spawnCount ++;
 		}
@@ -218,11 +231,16 @@ public class Level {
 	}
 
 	public void zombieAction() {
+		
 		//Visit all zombies
 		for (int i = 0; i < lawns.length; i ++) {
+			
+			//Flag if this lawn's lawn mower gets activated
 			boolean lawnMowerActivate = false;
+			
 			for (Zombie zombie: lawns[i].getZombies()) {
 				if (zombie.isMoving()) {
+					
 					if (!lawns[i].getPlants().isEmpty()) {
 						// If zombie encounters a plant, then zombie movement should stop
 						if ((int) zombie.getCurrentX() == closestPlant(i).getxPos()) {
@@ -230,13 +248,13 @@ public class Level {
 						}
 					}
 					
-					// If the Zombies reaches the last tile and lawn mower is 
+					// If the zombies reaches the last tile and lawn mower is 
 					// already activated, then it is game over.
 					if (zombie.getCurrentX() < 0 && lawns[i].isLawnMowerActivated()) {
 						gameLost();
 					}
 					
-					// If the Zombies reach the last tile activate lawn mower 
+					// If the zombies reach the last tile activate lawn mower 
 					if (lawns[i].getPlants().isEmpty() && (zombie.getCurrentX() < 0)) {
 						lawnMowerActivate = true;
 					}
@@ -260,6 +278,7 @@ public class Level {
 					
 				}
 			}
+			
 			//Activate the lawnmower once all the zombies have done their actions
 			if (lawnMowerActivate) {
 				activateLawnMower(i);
@@ -268,11 +287,12 @@ public class Level {
 	}
 	
 	/**
-	 * Activates the lawn mower on the given row
+	 * Activates the lawn mower in the given lawn
 	 * @param yPos
 	 */
 	public void activateLawnMower(int yPos) {
 		lawns[yPos].setLawnMower(true);
+		remainingCount -= lawns[yPos].getZombies().size();
 		lawns[yPos].getZombies().clear();
 	}
 	
@@ -283,10 +303,14 @@ public class Level {
 		//Get player's action
 		player.getPlayerAction();
 		
-		//Continue to spawn zombies until there are no more left to spawn
+		//Generate sun for the player
+		player.gameGenerateSun();
+		
+		//Continue to spawn waves until there are no more waves left
 		if (!waveSizes.isEmpty()) {
-			if (spawnCount < waveSizes.get(0))
+			if (spawnCount < waveSizes.get(0)) {
 				zombieWave();
+			}
 		}
 		
 		//Zombies do actions
@@ -300,14 +324,19 @@ public class Level {
 		
 		//Reset for next wave
 		if (turnCountdown <= 0 && !waveSizes.isEmpty() && remainingCount == 0) {
+			//Remove the size of completed wave from list
 			waveSizes.remove(waveSizes.get(0));
 			//Reset the turnCountdown
-			turnCountdown = 7;
+			turnCountdown = MINIMUM_TURN_COUNTDOWN_LENGTH;
 			//Reset the remainingCount
 			remainingCount = waveSizes.get(0);
+			//Reset the spawn count
+			spawnCount = 0;
+			//Increment the wave counter
+			waveCount ++;
 		}
 		
-		//Update the printState
+		//Update the state
 		printState.updateState(lawns);
 		//Print the Current State
 		printState.print();
@@ -317,7 +346,11 @@ public class Level {
 			//Player wins
 			gameWin();
 		}
-		
+		else {
+			//Proceed to the next turn
+			NextTurn();
+		}
+	
 	}
 	
 	/**
