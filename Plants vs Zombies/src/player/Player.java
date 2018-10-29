@@ -151,6 +151,12 @@ public class Player {
 		
 		tokenizer.close();
 		
+		//Accept if there was no input (User hit enter), will just skip the turn
+		if (input.equals("")) {
+			successful = true;
+			action = "skip";
+		}
+		
 		//Do appropriate action
 		if (successful) {
 			if (action.equals("place")) {
@@ -188,6 +194,7 @@ public class Player {
 				getPlayerAction();
 			}
 		}
+			
 		//If action was not successful, request another action from player
 		if (!successful) {
 			System.out.println("ERROR. Try another command.");

@@ -155,17 +155,22 @@ public class Level {
 	 * @param yPos the given row
 	 * @return the closest zombie
 	 */
-	public Zombie closestZombie(int yPos) {
+	public Zombie closestZombie(int yPos, Plant plant) {
 		Zombie closest = null;
 		
 		if (!lawns[yPos].getZombies().isEmpty()) {
 			
-			closest = lawns[yPos].getZombies().get(0);
+			int i = 0;
+			closest = lawns[yPos].getZombies().get(i);
+			while (closest.getCurrentX() < plant.getxPos()) {
+				closest = lawns[yPos].getZombies().get(i);
+				i ++;
+			}
 	
 			//For each loop to visit all zombies
 			for (Zombie zombie: lawns[yPos].getZombies()) {
 				//If current zombie is closer than our current closest, update closest
-				if (zombie.getCurrentX() < closest.getCurrentX())
+				if (zombie.getCurrentX() < closest.getCurrentX() && zombie.getCurrentX() >= plant.getxPos())
 					closest = zombie;
 		
 			}
@@ -178,15 +183,21 @@ public class Level {
 	/**
 	 * 
 	 */
-	public Plant closestPlant(int yPos) {
+	public Plant closestPlant(int yPos, Zombie zombie) {
 		Plant closest = null;
 		if (!lawns[yPos].getPlants().isEmpty()) {
-			closest = lawns[yPos].getPlants().get(0);
+			
+			int i = 0;
+			closest = lawns[yPos].getPlants().get(i);
+			while (closest.getxPos() > zombie.getCurrentX()) {
+				closest = lawns[yPos].getPlants().get(i);
+				i ++;
+			}
 		
 			//For each loop to visit all plants in the row
 			for (Plant plant: lawns[yPos].getPlants()) {
 				//If current plant is closer than our current closest, update closest
-				if (plant.getxPos() > closest.getxPos() && plant.getxPos() == closestZombie(yPos).getCurrentX())
+				if (plant.getxPos() > closest.getxPos() && plant.getxPos() <= closestZombie(yPos, plant).getCurrentX())
 					closest = plant;
 			}
 
@@ -215,7 +226,7 @@ public class Level {
 					Peashooter peashooter = (Peashooter) plant;
 				
 					//Find closest zombie in the row of the peashooter
-					Zombie targetZombie = closestZombie(peashooter.getyPos());
+					Zombie targetZombie = closestZombie(peashooter.getyPos(), peashooter);
 					if (targetZombie != null) {
 						//Deal damage to zombie
 						targetZombie.hit(peashooter.getHitValue());
@@ -244,7 +255,7 @@ public class Level {
 				
 				//Determine whether zombie needs to stop due to plant collision
 				if (!lawns[i].getPlants().isEmpty()) {
-					if (zombie.getCurrentX() == closestPlant(i).getxPos())
+					if (zombie.getCurrentX() == closestPlant(i, zombie).getxPos())
 						zombie.setMoving(false);
 					else
 						zombie.setMoving(true);
@@ -269,7 +280,7 @@ public class Level {
 				}
 				else {
 					// Attack until plant is dead
-					Plant targetPlant = closestPlant(i);
+					Plant targetPlant = closestPlant(i, zombie);
 					if (targetPlant != null) {
 						targetPlant.setHitThreshold(targetPlant.getHitThreshold() - zombie.attack());
 						if (targetPlant.isPlantDead()) {
@@ -326,13 +337,14 @@ public class Level {
 		turnCountdown --;
 		
 		//Reset for next wave
-		if (turnCountdown <= 0 && !waveSizes.isEmpty() && remainingCount == 0) {
+		if (turnCountdown <= 0 && !waveSizes.isEmpty() && waveSizes.size() != 1 && remainingCount == 0) {
 			//Remove the size of completed wave from list
 			waveSizes.remove(waveSizes.get(0));
 			//Reset the turnCountdown
 			turnCountdown = MINIMUM_TURN_COUNTDOWN_LENGTH;
 			//Reset the remainingCount
-			remainingCount = waveSizes.get(0);
+			if (!waveSizes.isEmpty())
+				remainingCount = waveSizes.get(0);
 			//Reset the spawn count
 			spawnCount = 0;
 			//Increment the wave counter
@@ -380,7 +392,7 @@ public class Level {
 	public boolean checkWinCondition() {
 		boolean win = false;
 		//Only check if there are no more zombies to be spawned
-		if (waveSizes.isEmpty()) {
+		if (waveSizes.size() == 1 && remainingCount == 0) {
 			for (int i = 0; i < lawns.length; i ++) {
 				//If no more zombies in this row, win condition is met so far
 				if (lawns[i].getZombies().isEmpty()) {
