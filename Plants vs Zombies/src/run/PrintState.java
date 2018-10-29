@@ -86,6 +86,7 @@ public class PrintState {
 		//Print the suntotal
 		System.out.println("Suntotal: " + player.getSunTotal());
 		//Proceed to the next turn
+		player.gameGenerateSun();
 		level.NextTurn();
 	}
 }
