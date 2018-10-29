@@ -231,7 +231,7 @@ public class Player {
 	}
 	
 	/**
-	 * Generate sun for the player every 2 turns
+	 * Generate sun for the player when countdown is up
 	 */
 	public void gameGenerateSun() {
 		//Decrement countdown
