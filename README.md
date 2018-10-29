@@ -74,7 +74,7 @@
 ![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_M1.png) 
 
 ##### Sequence Diagram - Plant Class
-![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/plant-shoot-zombie-sequence.png) 
+![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/plant-shoot-zombie-sequence-new.png) 
 
 ##### Sequence Diagram - Zombie Class
-![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/zombie-destroy-plant-sequence.png) 
+![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/zombie-destroy-plant-sequence-new.png) 
