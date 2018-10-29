@@ -17,6 +17,14 @@
 * Player Commands (Place, remove, skip, types and help)
 
 #### UML/Sequence Diagrams - Karl Schnalzer
+##### UML 
+![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/UML_Class_M1.png) 
+
+##### Sequence Diagram - Plant Class
+![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/plant-shoot-zombie-sequence.png) 
+
+##### Sequence Diagram - Zombie Class
+![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/zombie-destroy-plant-sequence.png) 
 
 
 ## Milestone 2 (master-gui and master-unit-tests branches)
