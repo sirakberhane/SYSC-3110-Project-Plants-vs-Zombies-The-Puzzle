@@ -17,7 +17,7 @@ public class Lawn {
 	public Lawn() {
 		zombies = new ArrayList<Zombie>();
 		plants = new ArrayList<Plant>();
-		lawnMower = true;
+		lawnMower = false;
 	}
 	
 	/**
