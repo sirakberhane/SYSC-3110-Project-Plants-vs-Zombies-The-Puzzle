@@ -298,10 +298,13 @@ public class Level {
 		//Decrement the turn countdown for the next wave
 		turnCountdown --;
 		
-		//Reset the countdown for next wave
+		//Reset for next wave
 		if (turnCountdown <= 0 && !waveSizes.isEmpty() && remainingCount == 0) {
 			waveSizes.remove(waveSizes.get(0));
+			//Reset the turnCountdown
 			turnCountdown = 7;
+			//Reset the remainingCount
+			remainingCount = waveSizes.get(0);
 		}
 		
 		//Update the printState

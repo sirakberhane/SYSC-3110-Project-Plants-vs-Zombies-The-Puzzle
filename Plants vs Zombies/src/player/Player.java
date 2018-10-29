@@ -65,7 +65,11 @@ public class Player {
             		successful = true;
             	}
             }
+            if (!successful) {
+            	System.out.println("Invalid action entered: " + action);
+            }
             
+            //More input required for place and remove
             if (action.equals("place") || action.equals("remove")) {
             	
             	//If action is place
@@ -73,6 +77,8 @@ public class Player {
             		//Get the plant type to be placed
             		plantType = tokenizer.next();    
                 
+            		//Reset our successful for next check
+            		successful = false;
             		//Check if valid plantType entered
             		for (String type: plantTypes) {
             			if (plantType.equalsIgnoreCase(type)) {
@@ -85,10 +91,14 @@ public class Player {
             	}	
             
             	//Get the x coordinate of placement/removal
-            	if (tokenizer.hasNext()) {
+            	if (tokenizer.hasNext() && successful) {
             	
             		xPos = Integer.parseInt(tokenizer.next());
-            
+            		
+            		//Reset our successful for next check
+            		successful = false;
+            		
+            		//Check if xPos is within bounds
             		if (xPos <= Level.X_MAX && xPos >= Level.X_MIN) {
             			successful = true;
             		}
@@ -96,29 +106,33 @@ public class Player {
             			System.out.println("Placement out of bounds.");
             	
             		//Get y coordinate of placement/removal
-            		if (tokenizer.hasNext()) {
-            			//Check if valid y coordinate
-            			successful = false;
+            		if (tokenizer.hasNext() && successful) {	
             			yPos = Integer.parseInt(tokenizer.next());
-                     
+            			//Reset our successful for next check
+            			
+            			successful = false;
+            			
+            			//Check if yPos is within bounds
                  		if (yPos <= Level.Y_MAX && yPos >= Level.Y_MIN) {
                  			successful = true;
                  		}
-                 		
                  		if (!successful) 
                  			System.out.println("Placement out of bounds.");
                  	
                 	}
-            	
-            		else {
+            		else if (!tokenizer.hasNext()) {
             			System.out.println("Missing y coordinate");
             			successful = false;
             		}
                  
             	}
+            	else if (!tokenizer.hasNext()) {
+            		System.out.println("Missing x and y coordinates.");
+            		successful = false;
+            	}
             	
             	//We aren't expecting anymore input past this point
-            	if (tokenizer.hasNext())
+            	if (tokenizer.hasNext() && successful)
             		successful = false;
             
             }
@@ -134,7 +148,7 @@ public class Player {
 				if (sunTotal >= Sunflower.SUNFLOWER_BUY_THRESHOLD) {
 					successful = level.addPlant(plantType, xPos, yPos);
 					if (!successful)
-						System.out.println("You can't plant there.");
+						System.out.println("You cannot plant that.");
 				}
 				else {
 					//If not enough, print error message and request new player action
