@@ -18,7 +18,8 @@ public class Player {
 	//Reads the player input
 	private Scanner reader;
 	
-	private int countDownStart = 0;
+	private boolean isTitleIsNotPrinted = false;
+	private int countDownStart = 2;
 	
 	private final String[] plantTypes = {"sunflower", "peashooter"};
 	private final String[] actions = {"place", "remove", "help", "types", "skip"};
@@ -199,7 +200,28 @@ public class Player {
 	 * Prints the list of player commands
 	 */
 	public void printHelp() {
+		if (!isTitleIsNotPrinted) {
+			printTitle();
+			isTitleIsNotPrinted = true;
+		}
+		System.out.println(		
+				"----------------------------------------------------------------------------------------------------------------------------------------\n" +
+						"Commands:\n" + 
+						"place plantType x y\n" +
+						"remove x y\n" +
+						"skip\n" +
+						"types\n" +
+						"help\n" +
+						"----------------------------------------------------------------------------------------------------------------------------------------"
+				);
+	}
+	
+	/**
+	 * Prints the list of player commands
+	 */
+	public void printTitle() {
 		System.out.println(
+				"----------------------------------------------------------------------------------------------------------------------------------------\n" +
 				"----------------------------------------------------------------------------------------------------------------------------------------\n" +
 				"__________.__                 __    ____   ____          __________            ___.   .__               \r\n" + 
 				"\\______   \\  | _____    _____/  |_  \\   \\ /   /_____     \\____    /____   _____\\_ |__ |__| ____   ______\r\n" + 
@@ -207,14 +229,8 @@ public class Player {
 				" |    |   |  |__/ __ \\|   |  \\  |     \\     /\\___ \\       /     /(  <_> )  Y Y  \\ \\_\\ \\  \\  ___/ \\___ \\ \r\n" + 
 				" |____|   |____(____  /___|  /__|      \\___//____  > /\\  /_______ \\____/|__|_|  /___  /__|\\___  >____  >\r\n" + 
 				"                    \\/     \\/                    \\/  \\/          \\/           \\/    \\/        \\/     \\/"+ "\n" +
-				"----------------------------------------------------------------------------------------------------------------------------------------\n" +
-				"Commands:\n" + 
-				"place plantType x y\n" +
-				"remove x y\n" +
-				"skip\n" +
-				"types\n" +
-				"help\n" +
-				"----------------------------------------------------------------------------------------------------------------------------------------"
+				"----------------------------------------------------------------------------------------------------------------------------------------\n" + 
+				"----------------------------------------------------------------------------------------------------------------------------------------\n"
 				);
 	}
 	
@@ -222,18 +238,19 @@ public class Player {
 	 * @return the current suntotal of player
 	 */
 	public int getSunTotal() {
-		int lastSunTotal = sunTotal;
+		return sunTotal;
+	}
+	
+	public int gameGenerateSun() {
 		int currentCountDown = countDownToGenerateSun(countDownStart);
 		if (currentCountDown == 0) {
 			countDownStart = 2;
 			sunTotal += 25;
 			return sunTotal;
-		}
-		else {
-			return lastSunTotal;
+		} else {
+			return 0;
 		}
 	}
-	
 	/**
 	 * Decrements by one until reaches 0. 
 	 * @param start counter integer starter. 
