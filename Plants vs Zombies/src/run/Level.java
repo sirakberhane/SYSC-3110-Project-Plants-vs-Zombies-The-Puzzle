@@ -27,6 +27,10 @@ public class Level {
 	private int turnCountdown;
 	//The amount of zombies currently spawned in the wave
 	private int spawnCount;
+	//The amount of zombies remaining in the wave
+	private int remainingCount;
+	//The wave count
+	private int waveCount;
 	
 	//The player playing the level
 	private Player player;
@@ -39,6 +43,8 @@ public class Level {
 		this.waveSizes = waveSizes;
 		turnCountdown = 7;
 		spawnCount = 0;
+		waveCount = 1;
+		remainingCount = waveSizes.get(0);
 		
 		//Initialize the 5 lawns
 		for (int i = 0; i < 5; i ++) {
@@ -200,8 +206,10 @@ public class Level {
 					if (targetZombie != null) {
 						//Deal damage to zombie
 						targetZombie.hit(peashooter.getHitValue());
+						//If zombie is dead, remove it
 						if (targetZombie.isDead()) {
 							lawns[i].getZombies().remove(targetZombie);
+							remainingCount --;
 						}
 					}
 				}
@@ -291,7 +299,7 @@ public class Level {
 		turnCountdown --;
 		
 		//Reset the countdown for next wave
-		if (turnCountdown == 0 && !waveSizes.isEmpty() && zombieCount() == 0) {
+		if (turnCountdown <= 0 && !waveSizes.isEmpty() && remainingCount == 0) {
 			waveSizes.remove(waveSizes.get(0));
 			turnCountdown = 7;
 		}
@@ -314,14 +322,17 @@ public class Level {
 	 * @return the total number of zombies remaining currently in the wave
 	 */
 	public int zombieCount() {
-		int zombieRemaining = 0;
-		
-		for (int i = 0; i < lawns.length; i ++) {
-			zombieRemaining += lawns[i].getZombies().size();
-		}
-		
-		return zombieRemaining;
+		return remainingCount;
 	}
+	
+	/**
+	 * Returns the current wave number
+	 * @return the current wave number
+	 */
+	public int currentWave() {
+		return waveCount;
+	}
+	
 	
 	/**
 	 * Return true if the win condition is met, false otherwise 

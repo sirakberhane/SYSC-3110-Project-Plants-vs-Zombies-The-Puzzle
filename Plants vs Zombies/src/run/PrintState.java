@@ -69,6 +69,9 @@ public class PrintState {
 	
 	//Print the current state of the board
 	public void print() {
+		
+		//Print the Wave number and number of zombies remaining;
+		System.out.println("Wave: " + level.currentWave() + "    Zombies Remaining: " + level.zombieCount());
 		//Print each tile of the board
 		for (int y = 0; y < 5; y ++) {
 			System.out.println("_________________________________________________________________________________________________________________________________________________________");
