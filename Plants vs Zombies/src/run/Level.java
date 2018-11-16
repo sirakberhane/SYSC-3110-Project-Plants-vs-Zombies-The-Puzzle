@@ -427,4 +427,13 @@ public class Level {
 		System.out.println("GAME OVER!");
 		System.exit(0);	
 	}
+	/**
+	 * 
+	 * @param y
+	 * @return returs  a list of lawns on the y coordinate
+	 */
+	
+	public Lawn getLawns(int y){
+		return lawns[y];
+	}
 }
