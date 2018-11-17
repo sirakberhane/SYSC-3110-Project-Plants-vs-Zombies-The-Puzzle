@@ -4,8 +4,8 @@ import plant.Plant;
 
 public class PlantTest extends TestCase{
 
-private Plant pl;
-	
+	private Plant pl;
+
 	public void setUp() throws Exception{
 		pl = new Plant(5,50,1,1);
 	}
