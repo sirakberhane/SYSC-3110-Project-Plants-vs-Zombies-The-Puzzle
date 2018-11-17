@@ -1,12 +1,8 @@
 package test;
 
-import static org.junit.Assert.*;
-import java.util.ArrayList;
-import org.junit.Test;
 import junit.framework.TestCase;
 import plant.Plant;
 import plant.Sunflower;
-import run.Level;
 
 public class SunflowerTest extends TestCase{
 	private Plant plant;
