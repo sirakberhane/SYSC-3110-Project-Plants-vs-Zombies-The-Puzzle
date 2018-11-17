@@ -1,31 +1,30 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-
 import junit.framework.TestCase;
-import player.Player;
-import run.Level;
+import plant.Peashooter;
+import plant.Plant;
 
 public class PeashooterTest extends TestCase{
 
-	private Player pl;
-	private Level l;
-	private ArrayList<Integer> lst = new ArrayList<>();
-	private int a=5;
+	private Plant plant;
 	
 	public void setUp() throws Exception{
-		lst.add(a);
-		l  =new Level(lst);
-		pl = new Player(l);
-		//sf = new Sunflower(1,1);
-		l.addPlant("peashooter", 1, 1);
-		l.addZombie("zombie", 1);
+		plant = new Peashooter(0, 0);
 	}
 	
-	public void testShootPea(){
-		l.plantAction();
-		assertEquals(8, l.getLawns(1).getZombies().get(0).getHitThreshold());
+	// Test that  the position is being set properly
+	public void testPeaShooterPosition(){
+		assertEquals(0, plant.getxPos());
+		assertEquals(0, plant.getyPos());
+	}
+	
+	// Test that the peashooter's health is set to 10
+	public void testPeaShooterHealth() {
+		assertEquals(10, plant.getHitThreshold());
+	}
+	
+	// Test that peashooter's buy threshold is set to 100
+	public void testPeaShooterBuyThreshold() {
+		assertEquals(100, plant.getBuyThreshold());
 	}
 }

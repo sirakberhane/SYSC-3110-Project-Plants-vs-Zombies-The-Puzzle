@@ -1,37 +1,26 @@
 package test;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-
-import org.junit.Test;
-
 import junit.framework.TestCase;
-import player.Player;
-import run.Level;
+import plant.Plant;
+import plant.Sunflower;
 
 public class SunflowerTest extends TestCase{
-
-	//private Sunflower sf;
-	private Player pl;
-	private Level l;
-	private ArrayList<Integer> lst = new ArrayList<>();
-	private int a=5;
+	private Plant plant;
 	
 	public void setUp() throws Exception{
-		lst.add(a);
-		l  =new Level(lst);
-		pl = new Player(l);
-		//sf = new Sunflower(1,1);
-		l.addPlant("sunflower", 1, 1);
+		plant = new Sunflower(0,0);
 	}
 	
-	/**
-	 * tests if the correct amount of sun points were added
-	 */
-	public void testGenerateSunTest(){
-		l.plantAction();
-		l.plantAction();
-		assertEquals(100, pl.getSunTotal());
+	// Test the sunflower's position
+	public void testSunflowerPosition() {
+		assertEquals(0, plant.getxPos());
+		assertEquals(0, plant.getyPos());
+	}
+	
+	// Tests if the correct amount of sun points were added
+	public void testGenerateSun(){
+		((Sunflower) plant).generateSun();
+		((Sunflower) plant).generateSun();
+		assertEquals(50, plant.getBuyThreshold());
 	}
 }

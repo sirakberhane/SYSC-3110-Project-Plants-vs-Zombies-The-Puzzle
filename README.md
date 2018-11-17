@@ -71,10 +71,56 @@
 
 #### UML/Sequence Diagrams - Karl Schnalzer
 ##### UML 
-![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_M1.png) 
+![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/UML_Class_M1.png) 
 
 ##### Sequence Diagram - Plant Class
 ![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/plant-shoot-zombie-sequence-new.png) 
 
 ##### Sequence Diagram - Zombie Class
 ![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/zombie-destroy-plant-sequence-new.png) 
+
+
+
+## Milestone 2 (master branch) - Completed On: Friday, November 16th, 2018
+
+### Implementations 
+
+#### GUI - Jolar Tabungar 
+* GUI Classes Implemented:
+  * GameGUI:
+    - Creates 
+  
+  * ShovelSelectController:
+    -
+  
+  * SkipTurnListener:
+    -
+  
+  * SunflowerSelectController:
+    -
+  
+  * TileController:
+    -
+
+#### JUnit Tests
+##### Plants - Karl Schnalzer
+* Test Classes Include: 
+  - PlantTest CLASS -> testPlant(), testPlantCost(), testPlantHit(), testSetPlantHit(), testXPos(), testYPos()
+  - PeashooterTest CLASS -> testPeashooterPosition(), testPeashooterHealth(), testPeashooterBuyThreshold()
+  - SunflowerTest CLASS -> testSunfloerPosition()
+
+##### Zombies - Sirak Berhane
+* Test Classes Include: 
+  - BasicZombieTest CLASS -> testZombieSpeed(), testZombieAttack(), testZombieType(), testZombieMovement(), testZombieIsNotDead(), testZombieIsDead(0
+
+#### Road Map - Ryan Tordesillas 
+* Completed and future implemtations of Milestones 1 to 4: 
+![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/Roadmap.PNG)
+
+#### UML/Sequence Diagrams - Karl Schnalzer
+##### UML Diagram - GUI CLASS
+
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_2.png) 
+
+##### Sequence Diagram - MVC CLASS
+![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/MVC-sequence.png)
