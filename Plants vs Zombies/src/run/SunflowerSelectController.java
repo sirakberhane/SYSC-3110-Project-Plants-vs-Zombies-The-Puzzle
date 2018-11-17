@@ -5,7 +5,6 @@ import java.awt.event.MouseListener;
 
 public class SunflowerSelectController implements MouseListener {
 	private GameGUI game;
-	private Level level;
 
 	public SunflowerSelectController(GameGUI game, Level level) {
 		this.game = game;

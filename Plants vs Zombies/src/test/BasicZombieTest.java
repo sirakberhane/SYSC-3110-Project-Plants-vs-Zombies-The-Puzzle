@@ -5,6 +5,7 @@ import zombie.Zombie;
 
 public class BasicZombieTest extends TestCase{
 
+	// Zombie-Object
 	private Zombie zombie;
 	
 	// Set up the test environments 

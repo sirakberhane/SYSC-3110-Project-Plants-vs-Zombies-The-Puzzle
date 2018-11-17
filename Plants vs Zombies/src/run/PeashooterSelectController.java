@@ -5,7 +5,6 @@ import java.awt.event.MouseListener;
 
 public class PeashooterSelectController implements MouseListener {
 	private GameGUI game;
-	private Level level;
 
 	public PeashooterSelectController(GameGUI game, Level level) {
 		this.game = game;

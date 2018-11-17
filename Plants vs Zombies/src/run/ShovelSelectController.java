@@ -5,7 +5,6 @@ import java.awt.event.MouseListener;
 
 public class ShovelSelectController implements MouseListener {
 	private GameGUI game;
-	private Level level;
 
 	public ShovelSelectController(GameGUI game, Level level) {
 		this.game = game;
@@ -20,7 +19,6 @@ public class ShovelSelectController implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
