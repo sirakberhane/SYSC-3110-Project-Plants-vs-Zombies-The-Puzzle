@@ -86,18 +86,31 @@
 ### Implementations 
 
 #### GUI - Jolar Tabungar 
+* GameGUI CLASS
+  -
+  
+* ShovelSelectController CLASS
+  -
+  
+* SkipTurnListener CLASS
+  -
+  
+* SunflowerSelectController CLASS
+  -
+  
+* TileController CLASS
+  -
 
-
-#### Unit Test
+#### JUnit Tests
 ##### Plants - Karl Schnalzer
 * Test Classes Include: 
-  - PlantTest -> testPlant(), testPlantCost(), testPlantHit(), testSetPlantHit(), testXPos(), testYPos()
-  - PeashooterTest -> testPeashooterPosition(), testPeashooterHealth(), testPeashooterBuyThreshold()
-  - SunflowerTest -> testSunfloerPosition()
+  - PlantTest CLASS -> testPlant(), testPlantCost(), testPlantHit(), testSetPlantHit(), testXPos(), testYPos()
+  - PeashooterTest CLASS -> testPeashooterPosition(), testPeashooterHealth(), testPeashooterBuyThreshold()
+  - SunflowerTest CLASS -> testSunfloerPosition()
 
 ##### Zombies - Sirak Berhane
 * Test Classes Include: 
-  - BasicZombieTest -> testZombieSpeed(), testZombieAttack(), testZombieType(), testZombieMovement(), testZombieIsNotDead(), testZombieIsDead(0
+  - BasicZombieTest CLASS -> testZombieSpeed(), testZombieAttack(), testZombieType(), testZombieMovement(), testZombieIsNotDead(), testZombieIsDead(0
 
 #### Road Map - Ryan Tordesillas 
 * Completed and future implemtations of Milestones 1 to 4: 
