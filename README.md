@@ -86,20 +86,21 @@
 ### Implementations 
 
 #### GUI - Jolar Tabungar 
-* GameGUI CLASS
-  -
+* GUI Classes Implemented:
+  * GameGUI CLASS
+    -
   
-* ShovelSelectController CLASS
-  -
+  * ShovelSelectController CLASS
+    -
   
-* SkipTurnListener CLASS
-  -
+  * SkipTurnListener CLASS
+    -
   
-* SunflowerSelectController CLASS
-  -
+  * SunflowerSelectController CLASS
+    -
   
-* TileController CLASS
-  -
+  * TileController CLASS
+    -
 
 #### JUnit Tests
 ##### Plants - Karl Schnalzer
