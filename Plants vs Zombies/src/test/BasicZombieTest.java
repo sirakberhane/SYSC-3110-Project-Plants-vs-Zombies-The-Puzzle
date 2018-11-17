@@ -14,7 +14,7 @@ public class BasicZombieTest extends TestCase{
 	}
 	
 	// Test the position of the Zombie
-	public void testZombiesSpeed() {
+	public void testZombieSpeed() {
 		assertEquals(0.5, zombie.getMovementSpeed());
 	}
 	

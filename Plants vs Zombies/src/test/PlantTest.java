@@ -26,7 +26,7 @@ public class PlantTest extends TestCase{
 	}
 	
 	// Test that the set Plant hit is working
-	public void TestSetTestPlantHit(){
+	public void testSetPlantHit(){
 		pl.setHitThreshold(2);
 		assertEquals(2,pl.getHitThreshold());
 	}
