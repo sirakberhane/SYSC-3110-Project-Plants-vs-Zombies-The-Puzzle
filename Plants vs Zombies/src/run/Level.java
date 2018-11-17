@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import plant.*;
 import zombie.*;
-import player.*;
 
 public class Level {
 	
@@ -74,10 +73,6 @@ public class Level {
 			lawns[i] = new Lawn();
 		}
 		
-		//player = new Player(this);
-		//printState = new PrintState(this, player);
-		
-		
 	}
 	
 	/**]
@@ -135,7 +130,6 @@ public class Level {
 		for (Plant plant: lawns[y].getPlants()) {
 			if (plant.getxPos() == x && plant.getyPos() == y) {
 				lawns[y].getPlants().remove(plant);
-				//plants.remove(plant);
 				return true;
 			}
 		}
@@ -183,7 +177,7 @@ public class Level {
 			//Find a potential closest zombie
 			int i = 0;
 			closest = lawns[yPos].getZombies().get(i);
-			while (closest.getCurrentX() < plant.getxPos() && lawns[yPos].getZombies().size() > 1) {
+			while (closest.getCurrentX() < plant.getxPos() && lawns[yPos].getZombies().size() > 1 && i < lawns[yPos].getZombies().size()) {
 				closest = lawns[yPos].getZombies().get(i);
 				i ++;
 			}
@@ -211,7 +205,7 @@ public class Level {
 			//Find a potential closest plant
 			int i = 0;
 			closest = lawns[yPos].getPlants().get(i);
-			while (closest.getxPos() > zombie.getCurrentX() && lawns[yPos].getPlants().size() > 1) {
+			while (closest.getxPos() > zombie.getCurrentX() && lawns[yPos].getPlants().size() > 1 && i < lawns[yPos].getPlants().size()) {
 				closest = lawns[yPos].getPlants().get(i);
 				i ++;
 			}
@@ -287,7 +281,7 @@ public class Level {
 					// If the zombies reaches the last tile and lawn mower is 
 					// already activated, then it is game over.
 					if (zombie.getCurrentX() < 0 && lawns[i].isLawnMowerActivated()) {
-						gameLost();
+						game.loseScreen();
 					}
 					
 					// If the zombies reach the last tile activate lawn mower 
@@ -340,9 +334,6 @@ public class Level {
 	 * Gets the next move from the player and continues the level simulation.
 	 */
 	public void NextTurn() {
-		//Get player's action
-		//getPlayerAction();
-		
 		//Generate sun for the player
 		gameGenerateSun();
 		
@@ -376,25 +367,8 @@ public class Level {
 			//Increment the wave counter
 			waveCount ++;
 		}
-		
-		/*
-		//Update the state
-		printState.updateState(lawns);
-		//Print the Current State
-		printState.print();
-		*/
-		/*
-		//Check if win condition is met
-		if (checkWinCondition()) {
-			//Player wins
-			gameWin();
-		}
-		else {
-			//Proceed to the next turn
-			NextTurn();
-		}
-		*/
-	
+
+		checkWinCondition();
 	}
 	
 	/**
@@ -418,23 +392,17 @@ public class Level {
 	 * Return true if the win condition is met, false otherwise 
 	 * @return true if the win condition is met, false otherwise
 	 */
-	public boolean checkWinCondition() {
-		boolean win = false;
+	public void checkWinCondition() {
 		//Only check if there are no more zombies to be spawned
 		if (waveSizes.size() == 1 && remainingCount == 0) {
 			for (int i = 0; i < lawns.length; i ++) {
 				//If no more zombies in this row, win condition is met so far
 				if (lawns[i].getZombies().isEmpty()) {
-					win = true;
+					game.winScreen();
 				}
 				//If there are zombies in the row then win condition is not met
-				else {
-					win = false;
-				}
 			}
 		}
-		
-		return win;
 	}
 	
 	/**
@@ -474,26 +442,9 @@ public class Level {
 	}
 	
 	/**
-	 * Prints the text for completing the level
-	 */
-	public void gameWin() {
-		System.out.println("Level Complete!");
-		System.out.println("YOU WIN!");
-		System.exit(0);	
-	}
-	
-	/**
-	 * Prints the text for failing the level
-	 */
-	public void gameLost() {
-		System.out.println("Zombies Ate Your Brains!");
-		System.out.println("GAME OVER!");
-		System.exit(0);	
-	}
-	/**
 	 * 
 	 * @param y
-	 * @return returs  a list of lawns on the y coordinate
+	 * @return returns  a list of lawns on the y coordinate
 	 */
 	
 	public Lawn getLawns(int y){

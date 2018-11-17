@@ -2,20 +2,30 @@ package run;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+/**
+ * 
+ * @author Jolar Tabungar
+ * The MouseListener class for the Shovel Select Option
+ *
+ */
 
 public class ShovelSelectController implements MouseListener {
+	//Reference to the GameGUI
 	private GameGUI game;
-	private Level level;
 
-	public ShovelSelectController(GameGUI game, Level level) {
+	//Create a new ShovelSelectController with the reference to the GameGUI
+	public ShovelSelectController(GameGUI game) {
 		this.game = game;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		//Select the shovel select option, and update the HUD
 		game.selectShovel();
 		game.updateHUD();
 	}
+	
+	//Unused
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
