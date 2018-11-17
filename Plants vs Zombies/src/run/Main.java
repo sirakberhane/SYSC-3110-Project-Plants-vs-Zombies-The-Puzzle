@@ -11,12 +11,12 @@ public class Main {
 		waveSizes.add(5);
 		waveSizes.add(15);
 		waveSizes.add(40);
-		
+
 		Level level = new Level(waveSizes);
 		level.NextTurn();
 		*/
-		
+
 		GameGUI game = new GameGUI();
-		
+
 	}
 }
