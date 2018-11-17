@@ -87,19 +87,19 @@
 
 #### GUI - Jolar Tabungar 
 * GUI Classes Implemented:
-  * GameGUI CLASS
+  - GameGUI CLASS
     -
   
-  * ShovelSelectController CLASS
+  - ShovelSelectController CLASS
     -
   
-  * SkipTurnListener CLASS
+  - SkipTurnListener CLASS
     -
   
-  * SunflowerSelectController CLASS
+  - SunflowerSelectController CLASS
     -
   
-  * TileController CLASS
+  - TileController CLASS
     -
 
 #### JUnit Tests
@@ -116,3 +116,9 @@
 #### Road Map - Ryan Tordesillas 
 * Completed and future implemtations of Milestones 1 to 4: 
 ![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/Roadmap.PNG)
+
+#### UML/Sequence Diagrams - Karl Schnalzer
+##### UML Diagram 
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_2.png) 
+
+##### Sequence Diagram
