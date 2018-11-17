@@ -118,7 +118,13 @@
 ![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/Roadmap.PNG)
 
 #### UML/Sequence Diagrams - Karl Schnalzer
-##### UML Diagram 
+##### UML Diagram 1 - MVC CLASS
+
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_1.png) 
+
+##### UML Diagram 2 - GUI CLASS
+
 ![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_2.png) 
 
-##### Sequence Diagram
+##### Sequence Diagram - MVC CLASS
+![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/MVC-sequence.png)
