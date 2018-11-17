@@ -21,6 +21,15 @@ public class Level {
 	
 	//Constant for minimum turnCountdown till next wave
 	public static final int MINIMUM_TURN_COUNTDOWN_LENGTH = 7;
+	//Sun generation amount
+	public static final int PLAYER_GENERATED_SUN_AMOUNT = 25;
+	//Sun generation countdown length
+	public static final int SUN_GENERATION_COUNTDOWN_LENGTH = 4;
+	
+	//The player's suntotal
+    private int sunTotal;
+    //Countdown till player generates sun
+  	private int generateSunCountdown;
 	
 	//Level's array of lawns
 	private Lawn[] lawns;
@@ -35,13 +44,18 @@ public class Level {
 	//The wave count
 	private int waveCount;
 	
+	private GameGUI game;
+	/*
 	//The player playing the level
 	private Player player;
 	//Level's printState class
 	private PrintState printState;
+	*/
 	
 	//Constructs a new Level
-	public Level(ArrayList<Integer> waveSizes) {
+	public Level(ArrayList<Integer> waveSizes, GameGUI game) {
+		this.game = game;
+		
 		lawns = new Lawn[5];
 		this.waveSizes = waveSizes;
 		turnCountdown = MINIMUM_TURN_COUNTDOWN_LENGTH;
@@ -49,13 +63,20 @@ public class Level {
 		waveCount = 1;
 		remainingCount = waveSizes.get(0);
 		
+		//Starting suntotal
+		sunTotal = 100; 
+				
+		//Start countdown to sun generation
+	    generateSunCountdown = SUN_GENERATION_COUNTDOWN_LENGTH;
+		
 		//Initialize the 5 lawns
 		for (int i = 0; i < 5; i ++) {
 			lawns[i] = new Lawn();
 		}
 		
-		player = new Player(this);
-		printState = new PrintState(this, player);
+		//player = new Player(this);
+		//printState = new PrintState(this, player);
+		
 		
 	}
 	
@@ -81,13 +102,13 @@ public class Level {
 	 * @param y the row of placement
 	 * @return true if the plant can be placed (due to sun cost and if space is empty)
 	 */
-	public boolean addPlant(String plantType, int x, int y) {
+	public boolean addPlant(int x, int y) {
 		Plant plant = null;
 		
-		if (plantType.equalsIgnoreCase("sunflower")) {
+		if (game.sunflowerSelected()) {
 			plant = new Sunflower(x, y);
 		}
-		else if (plantType.equalsIgnoreCase("peashooter")) {
+		else if (game.peashooterSelected()) {
 			plant = new Peashooter(x, y);
 		}
 		
@@ -96,10 +117,9 @@ public class Level {
 				return false;
 		}
 		
-		if (player.getSunTotal() >= plant.getBuyThreshold()) {
+		if (getSunTotal() >= plant.getBuyThreshold()) {
 			lawns[y].getPlants().add(plant);
-			//plants.add(plant);
-			player.setSunTotal(player.getSunTotal() - plant.getBuyThreshold());
+			setSunTotal(getSunTotal() - plant.getBuyThreshold());
 			return true;
 		}
 		return false;
@@ -220,7 +240,7 @@ public class Level {
 					//Cast plant as sunflower
 					Sunflower sunflower = (Sunflower) plant;
 					//Give the player more sun
-					player.setSunTotal(player.getSunTotal() + sunflower.generateSun());
+					setSunTotal(getSunTotal() + sunflower.generateSun());
 				}
 				//Peashooter action
 				else if (plant instanceof Peashooter) {
@@ -302,6 +322,10 @@ public class Level {
 		}
 	}
 	
+	public Lawn getLawn(int y) {
+		return lawns[y];
+	}
+	
 	/**
 	 * Activates the lawn mower in the given lawn
 	 * @param yPos
@@ -317,10 +341,10 @@ public class Level {
 	 */
 	public void NextTurn() {
 		//Get player's action
-		player.getPlayerAction();
+		//getPlayerAction();
 		
 		//Generate sun for the player
-		player.gameGenerateSun();
+		gameGenerateSun();
 		
 		//Continue to spawn waves until there are no more waves left
 		if (!waveSizes.isEmpty()) {
@@ -353,11 +377,13 @@ public class Level {
 			waveCount ++;
 		}
 		
+		/*
 		//Update the state
 		printState.updateState(lawns);
 		//Print the Current State
 		printState.print();
-		
+		*/
+		/*
 		//Check if win condition is met
 		if (checkWinCondition()) {
 			//Player wins
@@ -367,6 +393,7 @@ public class Level {
 			//Proceed to the next turn
 			NextTurn();
 		}
+		*/
 	
 	}
 	
@@ -408,6 +435,42 @@ public class Level {
 		}
 		
 		return win;
+	}
+	
+	/**
+	 * @return the current suntotal of player
+	 */
+	public int getSunTotal() {
+		return sunTotal;
+	}
+	
+	/**
+	 * Generate sun for the player when countdown is up
+	 */
+	public void gameGenerateSun() {
+		//Decrement countdown
+		countDownToGenerateSun();
+		
+		//If countdown is over, generate sun
+		if (generateSunCountdown == 0) {
+			generateSunCountdown = SUN_GENERATION_COUNTDOWN_LENGTH;
+			setSunTotal(getSunTotal() + PLAYER_GENERATED_SUN_AMOUNT);
+		} 
+	}
+	
+	/**
+	 * Decrement the sun generation countdown
+	 */
+	private void countDownToGenerateSun() {
+		generateSunCountdown --;
+	}
+
+	/**
+	 * Sets the suntotal of the player
+	 * @param newtotal the new suntotal of the player
+	 */
+	public void setSunTotal(int newtotal) {
+		sunTotal = newtotal;
 	}
 	
 	/**

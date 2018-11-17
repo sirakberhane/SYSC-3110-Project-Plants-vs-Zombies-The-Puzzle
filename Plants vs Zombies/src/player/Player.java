@@ -163,7 +163,7 @@ public class Player {
 			
 				//Only place plant if enough sun is available
 				if (sunTotal >= Sunflower.SUNFLOWER_BUY_THRESHOLD) {
-					successful = level.addPlant(plantType, xPos, yPos);
+					successful = level.addPlant(xPos, yPos);
 					if (!successful)
 						System.out.println("You cannot plant that.");
 				}
