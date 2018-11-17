@@ -1,7 +1,6 @@
 package test;
 import java.util.ArrayList;
 import junit.framework.TestCase;
-import static org.junit.Assert.*;
 import player.Player;
 import run.Level;
 

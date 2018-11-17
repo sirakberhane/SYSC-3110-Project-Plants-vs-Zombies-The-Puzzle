@@ -1,5 +1,4 @@
 package test;
-import static org.junit.Assert.*;
 import junit.framework.TestCase;
 import plant.Plant;
 
