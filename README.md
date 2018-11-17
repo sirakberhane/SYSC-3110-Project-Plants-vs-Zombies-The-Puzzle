@@ -78,3 +78,20 @@
 
 ##### Sequence Diagram - Zombie Class
 ![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/zombie-destroy-plant-sequence-new.png) 
+
+
+
+## Milestone 2 (master branch) - Completed On: Friday, November 16th, 2018
+
+### Implementations 
+
+#### GUI - Jolar Tabungar 
+
+
+#### Unit Test
+##### Plants - Karl Schnalzer
+
+##### Zombies - Sirak Berhane 
+
+
+#### Road Map - Ryan Tordesillas 
