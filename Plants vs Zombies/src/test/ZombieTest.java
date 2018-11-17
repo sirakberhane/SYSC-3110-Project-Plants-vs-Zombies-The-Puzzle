@@ -11,10 +11,8 @@ class ZombieTest extends TestCase{
 		zombie = new BasicZombie(0);
 	}
 	
-	public void testGetMethodsInZombies() {
+	public void testMethodsInZombies() {
+		assertNotNull(zombie);
 		assertEquals(0, zombie.getCurrentX());
 	}
-	
-	
-
 }
