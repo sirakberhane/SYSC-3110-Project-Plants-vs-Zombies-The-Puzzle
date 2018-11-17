@@ -87,20 +87,15 @@
 
 #### GUI - Jolar Tabungar 
 * GUI Classes Implemented:
-  * GameGUI:
-    - Creates 
+  * GameGUI -> Creates a new GUI with 9 by 5 grid (Lawn). It is able to populate board with zombies automatically every turn and the                    user can place either a sunflower or peashooter plant. It has 4 main functions place plant, remove plant, update state of                the board with each turn, and clearing the board when finished with the game.
   
-  * ShovelSelectController:
-    -
+  * ShovelSelectController -> Shovel Selector has a mouse listener and only has one main function to remove existing plant type from the                                board.
   
-  * SkipTurnListener:
-    -
+  * SkipTurnListener -> Button that is able to skip or move the game one turn forward.
+ 
+  * SunflowerSelectController -> Using mouse listener the user is able to select a sunflower from the menu and place it to the main                                       board (lawn).
   
-  * SunflowerSelectController:
-    -
-  
-  * TileController:
-    -
+  * TileController -> Has Mouse listener, and anytime the user places a plant it will update the board with the updated plant position.
 
 #### JUnit Tests
 ##### Plants - Karl Schnalzer
