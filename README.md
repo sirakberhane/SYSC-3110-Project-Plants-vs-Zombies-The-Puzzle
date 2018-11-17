@@ -87,19 +87,19 @@
 
 #### GUI - Jolar Tabungar 
 * GUI Classes Implemented:
-  - GameGUI CLASS
+  * GameGUI:
+    - Creates 
+  
+  * ShovelSelectController:
     -
   
-  - ShovelSelectController CLASS
+  * SkipTurnListener:
     -
   
-  - SkipTurnListener CLASS
+  * SunflowerSelectController:
     -
   
-  - SunflowerSelectController CLASS
-    -
-  
-  - TileController CLASS
+  * TileController:
     -
 
 #### JUnit Tests
