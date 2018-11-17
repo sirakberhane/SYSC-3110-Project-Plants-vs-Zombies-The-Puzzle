@@ -15,4 +15,5 @@ class ZombieTest extends TestCase{
 		assertNotNull(zombie);
 		assertEquals(0, zombie.getCurrentX());
 	}
+	
 }
