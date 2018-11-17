@@ -1,15 +1,14 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
-
+import junit.framework.TestCase;
 import player.Player;
 import run.Level;
 
-public class PeashooterTest {
+public class PeashooterTest extends TestCase{
 
 	private Player pl;
 	private Level l;
@@ -29,5 +28,4 @@ public class PeashooterTest {
 		l.plantAction();
 		assertEquals(8, l.getLawns(1).getZombies().get(0).getHitThreshold());
 	}
-
 }

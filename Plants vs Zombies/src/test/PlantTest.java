@@ -1,10 +1,9 @@
 package test;
-
 import static org.junit.Assert.*;
-
+import junit.framework.TestCase;
 import plant.Plant;
 
-public class PlantTest {
+public class PlantTest extends TestCase{
 
 private Plant pl;
 	
@@ -16,10 +15,10 @@ private Plant pl;
 		assertNotNull(pl);
 	}
 	public void testPlantCost(){
-		assertEquals(10,pl.getBuyThreshold());
+		assertEquals(50,pl.getBuyThreshold());
 	}
 	public void testPlantHit(){
-		assertEquals(3,pl.getHitThreshold());
+		assertEquals(5,pl.getHitThreshold());
 	}
 	public void setTestPlantHit(){
 		pl.setHitThreshold(5);

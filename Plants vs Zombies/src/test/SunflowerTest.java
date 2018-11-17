@@ -6,10 +6,11 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import junit.framework.TestCase;
 import player.Player;
 import run.Level;
 
-public class SunflowerTest {
+public class SunflowerTest extends TestCase{
 
 	//private Sunflower sf;
 	private Player pl;
@@ -28,14 +29,9 @@ public class SunflowerTest {
 	/**
 	 * tests if the correct amount of sun points were added
 	 */
-	public void generateSunTest(){
+	public void testGenerateSunTest(){
 		l.plantAction();
 		l.plantAction();
 		assertEquals(100, pl.getSunTotal());
 	}
-	
-	
-	
-	
-
 }
