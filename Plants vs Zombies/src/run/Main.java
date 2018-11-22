@@ -15,6 +15,5 @@ public class Main {
 		*/
 
 		GameGUI game = new GameGUI();
-
 	}
 }

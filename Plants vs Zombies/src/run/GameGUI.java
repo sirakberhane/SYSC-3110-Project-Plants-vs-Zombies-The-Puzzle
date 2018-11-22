@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -33,6 +34,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import java.awt.Toolkit;
 import plant.Peashooter;
 import plant.Plant;
 import plant.Sunflower;
@@ -137,8 +139,8 @@ public class GameGUI {
 	public void createGUI() {
 		//Create frame and content pane
         frame = new JFrame("Plants vs Zombies: The Puzzle");
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("images/PvZ_icon.png"));
         Container contentPane = frame.getContentPane();
-       
         //Set contentPane to BorderLayout
         contentPane.setLayout(new BorderLayout());
         
