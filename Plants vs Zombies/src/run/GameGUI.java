@@ -136,10 +136,11 @@ public class GameGUI {
 	 */
 	public void createGUI() {
 		//Create frame and content pane
+		BufferedImage img;
         frame = new JFrame("Plants vs Zombies: The Puzzle");
         Container contentPane = frame.getContentPane();
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("images/PvZ_logo.png"));
-       
+        
         //Set contentPane to BorderLayout
         contentPane.setLayout(new BorderLayout());
         
@@ -167,13 +168,12 @@ public class GameGUI {
         	//Set the same size for each tile
     		lawnTiles[i][j].setPreferredSize(new Dimension(100, 100)); 
     		//Create a line border for each tile so that they can be easily seen
-        	lawnTiles[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
-        	//Add the tile to the board
+        	lawnTiles[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+          	//Add the tile to the board
         	board.add(lawnTiles[i][j], c);
-       
         	}
-        	
         }
+        
         
         //Create a JPanel to contain the lawnmowers
         JPanel lawnMowerCol = new JPanel();
