@@ -5,7 +5,7 @@ public class SnowPea extends ShooterPlant{
 	public static final int SNOWPEA_BUY_THRESHOLD = 175;
 
 	public SnowPea(int x, int y, int hitValue) {
-		super(SNOWPEA_HIT_THRESHOLD, SNOWPEA_BUY_THRESHOLD, x, y, 2);
+		super(SNOWPEA_HIT_THRESHOLD, SNOWPEA_BUY_THRESHOLD, x, y, 3);
 	}
 
 	/**
