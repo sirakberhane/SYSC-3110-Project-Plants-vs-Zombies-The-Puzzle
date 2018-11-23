@@ -21,7 +21,7 @@ public class BasicZombie extends Zombie {
 	 */
 	public BasicZombie(int yPos) {
 		super(BASIC_SPEED, BASIC_HIT, BASIC_THRESHOLD, BASIC_NAME);
-		this.setType("Basic");
+		this.setType("BASIC");
 		this.setYPos(yPos);
 	}
 

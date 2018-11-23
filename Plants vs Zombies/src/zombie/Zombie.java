@@ -1,6 +1,6 @@
 package zombie;
 /**
- * This enum will create zombies that will be used in the main class.
+ * This class will create zombies that will be used in the main class.
  * @author Ryan Tordesillas(101041626)
  *
  */
@@ -25,7 +25,7 @@ public class Zombie {
 	private boolean moving;
 	
 	/** The different types of zombie */
-	public enum Type {BASIC};
+	public enum Type {BASIC,BUCKET, FOOTBALL, TANK};
 	
 	/** The current type of zombie */
 	private Type type;
@@ -159,6 +159,14 @@ public class Zombie {
 	public void setType(String s) {
 		if (s.equals("Basic")) {
 			type = Type.BASIC;
+		}
+		else if (s.equals("Bucket")) {
+			type = Type.BUCKET;
+		}
+		else if (s.equals("Football")) {
+			type = Type.FOOTBALL;
+		}else {
+			type = Type.TANK;
 		}
 	}
 	
