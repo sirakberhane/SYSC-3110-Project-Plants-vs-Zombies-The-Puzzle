@@ -138,6 +138,7 @@ public class GameGUI {
 		//Create frame and content pane
         frame = new JFrame("Plants vs Zombies: The Puzzle");
         Container contentPane = frame.getContentPane();
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("images/PvZ_logo.png"));
        
         //Set contentPane to BorderLayout
         contentPane.setLayout(new BorderLayout());
