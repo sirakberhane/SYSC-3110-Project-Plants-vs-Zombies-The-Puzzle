@@ -291,8 +291,7 @@ public class GameGUI {
         //Pack the frame and its components and set it visible
         frame.pack();
         frame.setResizable(false);
-        //frame.setSize(800, 800);
-        frame.setLocation(100, 25);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
 	
