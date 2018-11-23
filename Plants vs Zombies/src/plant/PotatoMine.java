@@ -8,4 +8,12 @@ public class PotatoMine extends ExplosivePlant{
 		super(POTATOMINE_HIT_THRESHOLD, POTATOMINE_BUY_THRESHOLD, x, y);
 	}
 
+	/**
+	 * Text-Based PvZ support.
+	 */
+	public String toString() {
+		String Status= "";
+		Status = "PM = " + this.getHitThreshold();
+		return Status;
+	}
 }

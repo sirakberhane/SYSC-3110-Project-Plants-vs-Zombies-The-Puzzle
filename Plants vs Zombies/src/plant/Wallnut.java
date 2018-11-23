@@ -8,6 +8,9 @@ public class Wallnut extends PassivePlant{
 		super(WALLNUT_HIT_THRESHOLD, WALLNUT_BUY_THRESHOLD, x, y);
 	}
 	
+	/**
+	 * Text-Based PvZ support.
+	 */
 	public String toString() {
 		String Status= "";
 		Status = "WN = " + this.getHitThreshold();

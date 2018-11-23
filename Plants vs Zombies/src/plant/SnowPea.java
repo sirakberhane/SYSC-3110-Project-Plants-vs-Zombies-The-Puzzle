@@ -16,6 +16,9 @@ public class SnowPea extends ShooterPlant{
 		return -(getHitValue());
 	}
 	
+	/**
+	 * Text-Based PvZ support.
+	 */
 	public String toString() {
 		String Status= "";
 		Status = "SP = " + this.getHitThreshold();

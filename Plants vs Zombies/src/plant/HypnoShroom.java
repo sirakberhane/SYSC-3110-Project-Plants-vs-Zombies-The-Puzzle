@@ -7,4 +7,13 @@ public class HypnoShroom extends PassivePlant{
 	public HypnoShroom(int x, int y) {
 		super(HYPNOSHROOM_HIT_THRESHOLD, HYPNOSHROOM_BUY_THRESHOLD, x, y);
 	}
+	
+	/**
+	 * Text-Based PvZ support.
+	 */
+	public String toString() {
+		String Status= "";
+		Status = "HS = " + this.getHitThreshold();
+		return Status;
+	}
 }
