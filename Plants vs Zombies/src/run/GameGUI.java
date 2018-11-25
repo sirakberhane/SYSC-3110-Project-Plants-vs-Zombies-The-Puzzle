@@ -315,13 +315,13 @@ public class GameGUI {
 	public void clearBoard() {
 		for (int i = 0; i < 9; i ++) {
         	for (int j = 0; j < 5; j ++) {
+        		lawnMowers[j].repaint();
         		lawnMowers[j].removeAll();
         		lawnMowers[j].revalidate();
-        		lawnMowers[j].repaint();
         		
+        		lawnTiles[i][j].repaint();
         		lawnTiles[i][j].removeAll();
         		lawnTiles[i][j].revalidate();
-        		lawnTiles[i][j].repaint();
         	}
 		}
 	
@@ -334,11 +334,12 @@ public class GameGUI {
         for (int j = 0; j < 5; j ++) {
         	//Add the remaining lawnmowers
         	if (!level.getLawn(j).isLawnMowerActivated()) {
+        		lawnMowers[j].repaint();
         		lawnMowers[j].add(lawnMowerSprite[j]);
         		lawnMowers[j].revalidate();
-        		lawnMowers[j].repaint();
         	}
         	//Add the plants
+        	
         	for (Plant plant: level.getLawn(j).getPlants())	{
         		if (plant instanceof Sunflower) {
         			addSunflower(plant.getxPos(), plant.getyPos());
@@ -371,12 +372,9 @@ public class GameGUI {
 	 * @param y the y position
 	 */
 	public void addSunflower(int x, int y) {
-		JLabel sunflower = new JLabel();
-		
-		lawnTiles[x][y].add(sunflower);
+		lawnTiles[x][y].addSprite(new ImageIcon(sunflowerImage).getImage());
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
-		lawnTiles[x][y].paintComponent(new ImageIcon(sunflowerImage).get);
 	}
 	
 	/**
@@ -385,7 +383,7 @@ public class GameGUI {
 	 * @param y the y position
 	 */
 	public void addPeashooter(int x, int y) {
-		lawnTiles[x][y].add(new JLabel(new ImageIcon(peashooterImage)));
+		lawnTiles[x][y].addSprite(new ImageIcon(peashooterImage).getImage());
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
 	}
@@ -396,7 +394,9 @@ public class GameGUI {
 	 * @param y the y position
 	 */
 	public void addZombie(int x, int y) {
-		lawnTiles[x][y].add(new JLabel(new ImageIcon(zombieImage)));
+		lawnTiles[x][y].addSprite(new ImageIcon(zombieImage).getImage());
+		lawnTiles[x][y].revalidate();
+		lawnTiles[x][y].repaint();
 	}
 	
 	/**
@@ -487,11 +487,5 @@ public class GameGUI {
 		JOptionPane.showMessageDialog(frame, "GAME OVER!\nZOMBIES ATE YOUR BRAINS!");
 		System.exit(0);
 	}
-	
-	
-	
-	
-	
-
 	
 }
