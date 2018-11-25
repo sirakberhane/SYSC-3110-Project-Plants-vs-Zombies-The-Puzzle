@@ -46,7 +46,7 @@ public class GameGUI {
 	//GUI Components
     private JFrame frame;
     private JPanel lawnMowers[];
-    private JPanel lawnTiles[][];
+    private ImagePanel lawnTiles[][];
     
     //Skip Turn button
     private JButton skipTurn;
@@ -94,7 +94,7 @@ public class GameGUI {
 		
 		//Initialize JComponenets
 		lawnMowers = new JPanel[5];
-		lawnTiles = new JPanel[9][5];
+		lawnTiles = new ImagePanel[9][5];
 		lawnMowerSprite = new JLabel[5];
 		
 		//Read Image Files for the Image Buffers
@@ -162,7 +162,21 @@ public class GameGUI {
         	c.gridy = j;
         	
         	//Create the JPanel for each tile
-        	lawnTiles[i][j] = new JPanel();
+        	//Alternate tile images
+        	if (j % 2 == 0) {
+        		if (i % 2 == 0) 
+        			lawnTiles[i][j] = new ImagePanel(new ImageIcon("images/lawnTile.png").getImage());
+        		else
+        			lawnTiles[i][j] = new ImagePanel(new ImageIcon("images/lawnTile2.png").getImage());
+        	}
+        	
+        	else {
+        		if (i % 2 == 0) 
+        			lawnTiles[i][j] = new ImagePanel(new ImageIcon("images/lawnTile2.png").getImage());
+        		else
+        			lawnTiles[i][j] = new ImagePanel(new ImageIcon("images/lawnTile.png").getImage());
+        	}
+        	
         	//Add the MouseListener to each tile so that it responds when clicked
         	lawnTiles[i][j].addMouseListener(new TileController(this, level, i, j));
         	//Set the same size for each tile
@@ -357,9 +371,12 @@ public class GameGUI {
 	 * @param y the y position
 	 */
 	public void addSunflower(int x, int y) {
-		lawnTiles[x][y].add(new JLabel(new ImageIcon(sunflowerImage)));
+		JLabel sunflower = new JLabel();
+		
+		lawnTiles[x][y].add(sunflower);
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
+		lawnTiles[x][y].paintComponent(new ImageIcon(sunflowerImage).get);
 	}
 	
 	/**
