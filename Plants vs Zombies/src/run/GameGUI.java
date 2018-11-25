@@ -54,6 +54,10 @@ public class GameGUI {
     private JPanel sunflowerSelect;
     private JPanel peashooterSelect;
     private JPanel shovelSelect;
+    private JPanel snowpeashooterSelect;
+    private JPanel potatomineSelect;
+    private JPanel hypnoshroomSelect;
+    private JPanel wallnutSelect;
     
     //Labels for showing the level's current stats
     private JLabel waveNumber;
@@ -61,12 +65,31 @@ public class GameGUI {
     private JLabel availableSun;
     
     //Image Buffers for the various images used
+    //Lawn Mower
     private BufferedImage lawnMowerImage;
-    private BufferedImage zombieImage;
+    
+    //Plants
     private BufferedImage sunflowerImage;
     private BufferedImage sunflowerLargeImage;
     private BufferedImage peashooterImage;
     private BufferedImage peashooterLargeImage;
+    private BufferedImage snowpeashooterImage;
+    private BufferedImage snowpeashooterLargeImage;
+    private BufferedImage potatomineImage;
+    private BufferedImage potatomineLargeImage;
+    private BufferedImage hypnoshroomImage;
+    private BufferedImage hypnoshroomLargeImage;
+    private BufferedImage wallnutImage;
+    private BufferedImage wallnutLargeImage;
+    
+    //Zombies
+    private BufferedImage zombieImage;
+    private BufferedImage bucketzombieImage;
+    private BufferedImage gargantuarzombieImage;
+    private BufferedImage footballzombieImage;
+    private BufferedImage newspaperzombieImage;
+    
+    //Shovel
     private BufferedImage shovelImage;
     
     //Label to contain each lawn's respective image buffer
@@ -80,6 +103,10 @@ public class GameGUI {
     private boolean sunflowerSelected;
     private boolean peashooterSelected;
     private boolean shovelSelected;
+    private boolean snowpeashooterSelected;
+    private boolean potatomineSelected;
+    private boolean hypnoshroomSelected;
+    private boolean wallnutSelected;
     
     //Construct a new GameGUI
 	public GameGUI() {
@@ -100,11 +127,26 @@ public class GameGUI {
 		//Read Image Files for the Image Buffers
 		try {
 			lawnMowerImage = ImageIO.read(new File("images/lawnmower.png"));
-			zombieImage = ImageIO.read(new File("images/zombie.png"));
+			
 			sunflowerImage = ImageIO.read(new File("images/sunflower.png"));
 			sunflowerLargeImage = ImageIO.read(new File("images/sunflowerLarge.png"));
 			peashooterImage = ImageIO.read(new File("images/peashooter.png"));
 			peashooterLargeImage = ImageIO.read(new File("images/peashooterLarge.png"));
+			snowpeashooterImage = ImageIO.read(new File("images/snowpeashooter.png"));
+			snowpeashooterLargeImage = ImageIO.read(new File("images/snowpeashooterLarge.png"));
+			potatomineImage = ImageIO.read(new File("images/potatomine.png"));
+			potatomineLargeImage = ImageIO.read(new File("images/potatomineLarge.png"));
+			hypnoshroomImage = ImageIO.read(new File("images/hypnoshroom.png"));
+			hypnoshroomLargeImage = ImageIO.read(new File("images/hypnoshroomLarge.png"));
+			wallnutImage = ImageIO.read(new File("images/wallnut.png"));
+			wallnutLargeImage = ImageIO.read(new File("images/wallnutLarge.png"));
+			
+			zombieImage = ImageIO.read(new File("images/zombie.png"));
+			gargantuarzombieImage = ImageIO.read(new File("images/gargantuarzombie.png"));
+			bucketzombieImage = ImageIO.read(new File("images/bucketzombie.png"));
+			newspaperzombieImage = ImageIO.read(new File("images/newspaperzombie.png"));
+			footballzombieImage = ImageIO.read(new File("images/footballzombie.png"));
+			
 			shovelImage = ImageIO.read(new File("images/shovel.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -231,7 +273,7 @@ public class GameGUI {
     	sunflowerSelect = new JPanel();
     	//Add a MouseListener so that it does an action when clicked
     	sunflowerSelect.addMouseListener(new SunflowerSelectController(this, level));
-    	sunflowerSelect.setPreferredSize(new Dimension(100, 100));
+    	sunflowerSelect.setPreferredSize(new Dimension(100, 80));
     	//Set border to lowered bevel, as it is the default option
     	sunflowerSelect.setBorder(loweredbevel);
     	//Add the image to the JPanel
@@ -247,23 +289,92 @@ public class GameGUI {
      	peashooterSelect = new JPanel();
      	//Add a MouseListener so that it does an action when clicked
      	peashooterSelect.addMouseListener(new PeashooterSelectController(this));
-     	peashooterSelect.setPreferredSize(new Dimension(100, 100));
+     	peashooterSelect.setPreferredSize(new Dimension(100, 80));
      	//Set border to raised bevel
      	peashooterSelect.setBorder(raisedbevel);
      	//Add the image to the JPanel
      	peashooterSelect.add(new JLabel(new ImageIcon(peashooterLargeImage)));
      	
+     	
      	//Add the JPanel to the containing hud
      	hud.add(peashooterSelect, c);
      	
      	//Update the constraint, reuse it for the other options just change the grid y value
-     	c.gridy = 2;
+    	c.gridy = 2;
+     	
+    	//Create the JPanel for the peashooter select option
+     	snowpeashooterSelect = new JPanel();
+     	//Add a MouseListener so that it does an action when clicked
+     	snowpeashooterSelect.addMouseListener(new PeashooterSelectController(this));
+     	snowpeashooterSelect.setPreferredSize(new Dimension(100, 80));
+     	//Set border to raised bevel
+     	snowpeashooterSelect.setBorder(raisedbevel);
+     	//Add the image to the JPanel
+     	snowpeashooterSelect.add(new JLabel(new ImageIcon(snowpeashooterLargeImage)));
+     	
+     	
+     	//Add the JPanel to the containing hud
+     	hud.add(snowpeashooterSelect, c);
+     	
+     	//Update the constraint, reuse it for the other options just change the grid y value
+    	c.gridy = 3;
+     	
+    	//Create the JPanel for the peashooter select option
+     	potatomineSelect = new JPanel();
+     	//Add a MouseListener so that it does an action when clicked
+     	potatomineSelect.addMouseListener(new PeashooterSelectController(this));
+     	potatomineSelect.setPreferredSize(new Dimension(100, 80));
+     	//Set border to raised bevel
+     	potatomineSelect.setBorder(raisedbevel);
+     	//Add the image to the JPanel
+     	potatomineSelect.add(new JLabel(new ImageIcon(potatomineLargeImage)));
+     	
+     	
+     	//Add the JPanel to the containing hud
+     	hud.add(potatomineSelect, c);
+     	
+     	//Update the constraint, reuse it for the other options just change the grid y value
+    	c.gridy = 4;
+     	
+    	//Create the JPanel for the peashooter select option
+     	hypnoshroomSelect = new JPanel();
+     	//Add a MouseListener so that it does an action when clicked
+     	hypnoshroomSelect.addMouseListener(new PeashooterSelectController(this));
+     	hypnoshroomSelect.setPreferredSize(new Dimension(100, 80));
+     	//Set border to raised bevel
+     	hypnoshroomSelect.setBorder(raisedbevel);
+     	//Add the image to the JPanel
+     	hypnoshroomSelect.add(new JLabel(new ImageIcon(hypnoshroomLargeImage)));
+     	
+     	
+     	//Add the JPanel to the containing hud
+     	hud.add(hypnoshroomSelect, c);
+     	
+     	//Update the constraint, reuse it for the other options just change the grid y value
+    	c.gridy = 5;
+     	
+    	//Create the JPanel for the peashooter select option
+     	wallnutSelect = new JPanel();
+     	//Add a MouseListener so that it does an action when clicked
+     	wallnutSelect.addMouseListener(new PeashooterSelectController(this));
+     	wallnutSelect.setPreferredSize(new Dimension(100, 80));
+     	//Set border to raised bevel
+     	wallnutSelect.setBorder(raisedbevel);
+     	//Add the image to the JPanel
+     	wallnutSelect.add(new JLabel(new ImageIcon(wallnutLargeImage)));
+     	
+     	
+     	//Add the JPanel to the containing hud
+     	hud.add(wallnutSelect, c);
+     	
+     	//Update the constraint, reuse it for the other options just change the grid y value
+     	c.gridy = 6;
     
      	//Create the JPanel for the shovel select option
      	shovelSelect = new JPanel();
      	//Add a MouseListener so that it does an action when clicked
      	shovelSelect.addMouseListener(new ShovelSelectController(this));
-     	shovelSelect.setPreferredSize(new Dimension(100, 100));
+     	shovelSelect.setPreferredSize(new Dimension(100, 80));
      	//Set border to raised bevel
      	shovelSelect.setBorder(raisedbevel);
      	//Add the image to the JPanel
@@ -394,7 +505,7 @@ public class GameGUI {
 	 * @param y the y position
 	 */
 	public void addZombie(int x, int y) {
-		lawnTiles[x][y].addSprite(new ImageIcon(zombieImage).getImage());
+		lawnTiles[x][y].addSprite(new ImageIcon(bucketzombieImage).getImage());
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
 	}

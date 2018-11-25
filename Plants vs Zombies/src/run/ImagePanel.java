@@ -32,7 +32,7 @@ public class ImagePanel extends JPanel {
 		g.drawImage(img, 0, 0, null);
 		
 		for (int i = 1; i <= sprites.size(); i ++) {
-			g.drawImage(sprites.get(i - 1), i * 15, 25, null);
+			g.drawImage(sprites.get(i - 1), i * 15, 10, null);
 		}
 		
 		this.sprites.clear();
