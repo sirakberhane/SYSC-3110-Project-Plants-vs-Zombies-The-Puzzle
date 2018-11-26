@@ -14,8 +14,8 @@ public class SnowPeashooterSelectController implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//Select the Peashooter Option, update the hud
-		//game.selectSnow();
+		//Select the Snowpeashooter Option, update the hud
+		game.selectSnowpeashooter();
 		game.updateHUD();
 	}
 

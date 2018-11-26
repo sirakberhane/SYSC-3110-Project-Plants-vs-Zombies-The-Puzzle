@@ -1,17 +1,17 @@
 package run;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * 
  * @author Jolar Tabungar
  * 
- * The ActionListener for the Skip Turn Button
+ * The MouseListener for the Skip Turn Option
  * 
  */
 
-public class SkipTurnListener implements ActionListener {
+public class SkipTurnListener implements MouseListener {
 	//References to the GameGUI and level;
 	private GameGUI game;
 	private Level level;
@@ -22,13 +22,38 @@ public class SkipTurnListener implements ActionListener {
 		this.level = level;
 	}
 	
-	public void actionPerformed(ActionEvent e) {
+	@Override
+	public void mouseClicked(MouseEvent e) {
 		//Tell level to go to the next turn
-		level.NextTurn();
-		//Update the GUI 
-		game.clearBoard();
-		game.populateBoard();
-		game.updateStats();
+				level.NextTurn();
+				//Update the GUI 
+				game.clearBoard();
+				game.populateBoard();
+				game.updateStats();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

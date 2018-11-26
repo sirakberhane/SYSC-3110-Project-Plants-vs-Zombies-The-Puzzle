@@ -28,7 +28,7 @@ public class TileController implements MouseListener  {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//If any plant is selected
-		if (game.peashooterSelected() || game.sunflowerSelected()) {
+		if (!game.shovelSelected()) {
 			//Add that plantType if possible
 			if (level.addPlant(x, y)) {
 				//Tell Level to move on to next turn

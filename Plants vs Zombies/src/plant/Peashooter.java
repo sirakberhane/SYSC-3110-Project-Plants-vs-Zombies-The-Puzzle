@@ -9,6 +9,7 @@ package plant;
 public class Peashooter extends ShooterPlant{
 	public static final int PEASHOOTER_HIT_THRESHOLD = 10;
 	public static final int PEASHOOTER_BUY_THRESHOLD = 100;
+	public static final int PEASHOOTER_HIT_VALUE = 2;
 	/**
 	 * Extends a ShooterPlant type, any shooter plant type 
 	 * has the ability to do damage to any zombie type. 
@@ -16,7 +17,7 @@ public class Peashooter extends ShooterPlant{
 	 * @param y grid position y
 	 */
 	public Peashooter(int x, int y) {
-		super(PEASHOOTER_HIT_THRESHOLD, PEASHOOTER_BUY_THRESHOLD, x, y, 2);
+		super(PEASHOOTER_HIT_THRESHOLD, PEASHOOTER_BUY_THRESHOLD, x, y, PEASHOOTER_HIT_VALUE);
 	}
 	
 	/**

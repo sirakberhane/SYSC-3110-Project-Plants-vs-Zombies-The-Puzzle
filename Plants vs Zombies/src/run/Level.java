@@ -106,6 +106,23 @@ public class Level {
 		else if (game.peashooterSelected()) {
 			plant = new Peashooter(x, y);
 		}
+		else if (game.snowpeashooterSelected()) {
+			plant = new SnowPeashooter(x, y);
+		}
+		else if (game.potatomineSelected()) {
+			plant = new PotatoMine(x, y);
+			if (plant == null) {
+				System.out.println("NULL");
+			}
+		}
+		else if (game.hypnoshroomSelected()) {
+			plant = new HypnoShroom(x, y);
+		}
+		else if (game.wallnutSelected()) {
+			plant = new Wallnut(x, y);
+		}
+		
+		
 		
 		for (Plant aPlant: lawns[y].getPlants()) {
 			if (aPlant.getxPos() == x && aPlant.getyPos() == y)
@@ -136,6 +153,14 @@ public class Level {
 		return false;
 	}
 	
+	/**
+	 * Remove the zombie from the game and update the relevant fields
+	 * @param zombie
+	 */
+	public void removeZombie(Zombie zombie) {
+		lawns[zombie.getyPos()].getZombies().remove(zombie);
+		remainingCount --;
+	}
 	
 	/**
 	 * Spawns n = zombieCount zombies (simulates a wave of zombies being added)
@@ -167,6 +192,7 @@ public class Level {
 	/**
 	 * Returns the closest zombie in the given row
 	 * @param yPos the given row
+	 * @param plant the plant of reference
 	 * @return the closest zombie
 	 */
 	public Zombie closestZombie(int yPos, Plant plant) {
@@ -228,6 +254,8 @@ public class Level {
 		//Visit all plants
 		for (int i = 0; i < lawns.length; i ++) {
 			
+			ArrayList<Plant> removedPlants = new ArrayList<Plant>();
+			
 			for (Plant plant: lawns[i].getPlants()) {
 				//Sunflower action
 				if (plant instanceof Sunflower) {
@@ -248,12 +276,79 @@ public class Level {
 						targetZombie.hit(peashooter.getHitValue());
 						//If zombie is dead, remove it
 						if (targetZombie.isDead()) {
-							lawns[i].getZombies().remove(targetZombie);
-							remainingCount --;
+							removeZombie(targetZombie);
 						}
 					}
 				}
+				
+				else if (plant instanceof SnowPeashooter) {
+					//Cast plant as Snowpeashooter
+					SnowPeashooter snowpeashooter = (SnowPeashooter) plant;
+					
+					//Find closest zombie in the row of the peashooter
+					Zombie targetZombie = closestZombie(snowpeashooter.getyPos(), snowpeashooter);
+					if (targetZombie != null) {
+						//Deal damage to zombie
+						targetZombie.hit(snowpeashooter.getHitValue());
+						//If zombie is dead, remove it
+						if (targetZombie.isDead()) {
+							removeZombie(targetZombie);
+						}
+					}
+				}
+				
+				else if (plant instanceof PotatoMine) {
+					//Cast plant as PotatoMine
+					PotatoMine potatomine = (PotatoMine) plant;
+					
+					potatomine.decrementExplosionCountdown();
+					
+					//List for all zombies that die from the explosion
+					ArrayList<Zombie> explodedZombies = new ArrayList<Zombie>();
+					
+					//Damage each zombie on the same tile as the potatomine
+					for (Zombie zombie: lawns[i].getZombies()) {
+						if ((int) Math.round(zombie.getCurrentX()) == potatomine.getxPos()) {
+							if (potatomine.isPrimed()) {
+								potatomine.explode();
+								zombie.hit(potatomine.getExplosionDamage());
+							}
+							//Remove it later if it is dead
+							if (zombie.isDead())
+								explodedZombies.add(zombie);
+						}
+					}
+					
+					//Remove all dead zombies
+					for (Zombie zombie: explodedZombies)
+						removeZombie(zombie);
+					
+					//Remove potatomine after it explodes
+					if (potatomine.hasExploded()) {
+						removedPlants.add(potatomine);
+					}
+							
+				}
+				
+				else if (plant instanceof HypnoShroom) {
+					//Cast plant as HypnoShroom
+					HypnoShroom hypnoshroom = (HypnoShroom) plant;
+					
+					//Find closest zombie in the row of the hypnoshroom
+					Zombie targetZombie = closestZombie(hypnoshroom.getyPos(), hypnoshroom);
+					
+					//If zombie is on the same tile
+					if (targetZombie.getCurrentX() == hypnoshroom.getxPos()) {
+						
+					}
+					
+				}
+				
+				
 			}
+			
+			for (Plant plant: removedPlants)
+				lawns[i].getPlants().remove(plant);
 		}
 	}
 

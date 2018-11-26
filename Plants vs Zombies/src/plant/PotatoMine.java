@@ -4,22 +4,22 @@ public class PotatoMine extends ExplosivePlant{
 	public static final int POTATOMINE_HIT_THRESHOLD = 15;
 	public static final int POTATOMINE_BUY_THRESHOLD = 75;
 	public static final int TURNS_UNTIL_EXPLOSION = 3;
+	public static final int POTATOMINE_EXPLOSION_DAMAGE = 10;
 	
 	private int countDownStartToExplode;
-
+	private boolean isPrimed;
+	
 	public PotatoMine(int x, int y) {
-		super(POTATOMINE_HIT_THRESHOLD, POTATOMINE_BUY_THRESHOLD, x, y);
+		super(POTATOMINE_HIT_THRESHOLD, POTATOMINE_BUY_THRESHOLD, x, y, POTATOMINE_EXPLOSION_DAMAGE);
 		countDownStartToExplode = TURNS_UNTIL_EXPLOSION;
+		isPrimed = false;
 	}
 
-	public int ExplosionAttack() {
+	public void decrementExplosionCountdown() {
 		int currentCountDown = countDownToExplode(countDownStartToExplode);
 		if (currentCountDown == 0) {
 			countDownStartToExplode = TURNS_UNTIL_EXPLOSION;
-			return -10;
-		}
-		else {
-			return 0;
+			isPrimed = true;
 		}
 	}
 	
@@ -30,7 +30,11 @@ public class PotatoMine extends ExplosivePlant{
 		}
 		return startCountDown;
 	}
-
+	
+	public boolean isPrimed() {
+		return isPrimed;
+	}
+	
 	/**
 	 * Text-Based PvZ support.
 	 */

@@ -33,10 +33,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import plant.Peashooter;
-import plant.Plant;
-import plant.Sunflower;
-import zombie.Zombie;
+import plant.*;
+import zombie.*;
 
 public class GameGUI {
 	
@@ -49,7 +47,9 @@ public class GameGUI {
     private ImagePanel lawnTiles[][];
     
     //Skip Turn button
-    private JButton skipTurn;
+    private JPanel skipTurn;
+    private JPanel undoTurn;
+    private JPanel redoTurn;
     
     private JPanel sunflowerSelect;
     private JPanel peashooterSelect;
@@ -91,6 +91,11 @@ public class GameGUI {
     
     //Shovel
     private BufferedImage shovelImage;
+    
+    //Action Buttons
+    private BufferedImage skip;
+    private BufferedImage undo;
+    private BufferedImage redo;
     
     //Label to contain each lawn's respective image buffer
     private JLabel lawnMowerSprite[];
@@ -148,6 +153,11 @@ public class GameGUI {
 			footballzombieImage = ImageIO.read(new File("images/footballzombie.png"));
 			
 			shovelImage = ImageIO.read(new File("images/shovel.png"));
+			
+			skip = ImageIO.read(new File("images/play.png"));
+			undo = ImageIO.read(new File("images/undo.png"));
+			redo = ImageIO.read(new File("images/redo.png"));
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -305,7 +315,7 @@ public class GameGUI {
     	//Create the JPanel for the peashooter select option
      	snowpeashooterSelect = new JPanel();
      	//Add a MouseListener so that it does an action when clicked
-     	snowpeashooterSelect.addMouseListener(new PeashooterSelectController(this));
+     	snowpeashooterSelect.addMouseListener(new SnowPeashooterSelectController(this));
      	snowpeashooterSelect.setPreferredSize(new Dimension(100, 80));
      	//Set border to raised bevel
      	snowpeashooterSelect.setBorder(raisedbevel);
@@ -322,7 +332,7 @@ public class GameGUI {
     	//Create the JPanel for the peashooter select option
      	potatomineSelect = new JPanel();
      	//Add a MouseListener so that it does an action when clicked
-     	potatomineSelect.addMouseListener(new PeashooterSelectController(this));
+     	potatomineSelect.addMouseListener(new PotatomineSelectController(this));
      	potatomineSelect.setPreferredSize(new Dimension(100, 80));
      	//Set border to raised bevel
      	potatomineSelect.setBorder(raisedbevel);
@@ -339,7 +349,7 @@ public class GameGUI {
     	//Create the JPanel for the peashooter select option
      	hypnoshroomSelect = new JPanel();
      	//Add a MouseListener so that it does an action when clicked
-     	hypnoshroomSelect.addMouseListener(new PeashooterSelectController(this));
+     	hypnoshroomSelect.addMouseListener(new HypnoshroomSelectController(this));
      	hypnoshroomSelect.setPreferredSize(new Dimension(100, 80));
      	//Set border to raised bevel
      	hypnoshroomSelect.setBorder(raisedbevel);
@@ -356,7 +366,7 @@ public class GameGUI {
     	//Create the JPanel for the peashooter select option
      	wallnutSelect = new JPanel();
      	//Add a MouseListener so that it does an action when clicked
-     	wallnutSelect.addMouseListener(new PeashooterSelectController(this));
+     	wallnutSelect.addMouseListener(new WallnutSelectController(this));
      	wallnutSelect.setPreferredSize(new Dimension(100, 80));
      	//Set border to raised bevel
      	wallnutSelect.setBorder(raisedbevel);
@@ -400,17 +410,56 @@ public class GameGUI {
      	boardAndStats.add(levelStats);
      	boardAndStats.add(board);
      	
-     	//Initialize the skip Jbutton
-        skipTurn = new JButton("SKIP TURN");
+     	//Initialize the skip JPanel
+        skipTurn = new JPanel();
         //Add the actionlistener
-        skipTurn.addActionListener(new SkipTurnListener(this, level));
+        skipTurn.addMouseListener(new SkipTurnListener(this, level));
+        //Add the Skip Image and set the size
+        skipTurn.add(new JLabel(new ImageIcon(skip)));
+        skipTurn.setPreferredSize(new Dimension(110, 110));
+        
+        //Initialize the undo JPanel
+        undoTurn = new JPanel();
+        //Add the actionlistener
+        undoTurn.addMouseListener(new SkipTurnListener(this, level));
+        //Add the Undo Image and set the size
+        undoTurn.add(new JLabel(new ImageIcon(undo)));
+        undoTurn.setPreferredSize(new Dimension(110, 110));
+        
+        //Initialize the redo JPanel
+        redoTurn = new JPanel();
+        //Add the actionlistener
+        redoTurn.addMouseListener(new SkipTurnListener(this, level));
+        //Add the Undo Image and set the size
+        redoTurn.add(new JLabel(new ImageIcon(redo)));
+        redoTurn.setPreferredSize(new Dimension(110, 110));
+        
+        JPanel lowerHUD = new JPanel();
+     	lowerHUD.setLayout(new GridBagLayout());
+     	
+     	//Create a new constraint
+        GridBagConstraints d = new GridBagConstraints();
+        
+        d.weighty = 1;
+    	d.fill = GridBagConstraints.VERTICAL;
+    	d.gridwidth = 1;
+    	d.gridx = 0;
+    	d.gridy = 0;
+    	
+    	lowerHUD.add(undoTurn, d);
+    	
+    	d.gridx = 1;
+    	lowerHUD.add(skipTurn, d);
+    	
+    	d.gridx = 2;
+    	lowerHUD.add(redoTurn, d);
         
         
         //Add all the components to the contentPane
         contentPane.add(boardAndStats, BorderLayout.EAST);
         contentPane.add(lawnMowerCol, BorderLayout.CENTER);
         contentPane.add(hud, BorderLayout.WEST);
-        contentPane.add(skipTurn, BorderLayout.SOUTH);
+        contentPane.add(lowerHUD, BorderLayout.SOUTH);
         
         
         //Pack the frame and its components and set it visible
@@ -458,6 +507,18 @@ public class GameGUI {
         		else if (plant instanceof Peashooter) {
         			addPeashooter(plant.getxPos(), plant.getyPos());
         		}
+        		else if (plant instanceof SnowPeashooter) {
+        			addSnowPeashooter(plant.getxPos(), plant.getyPos());
+        		}
+        		else if (plant instanceof PotatoMine) {
+        			addPotatoMine(plant.getxPos(), plant.getyPos());
+        		}
+        		else if (plant instanceof HypnoShroom) {
+        			addHypnoShroom(plant.getxPos(), plant.getyPos());
+        		}
+        		else if (plant instanceof Wallnut) {
+        			addWallnut(plant.getxPos(), plant.getyPos());
+        		}
         	}
         	//Add the zombies
         	for (Zombie zombie: level.getLawn(j).getZombies()) {
@@ -489,6 +550,51 @@ public class GameGUI {
 	}
 	
 	/**
+	 * Add a SnowPeashooter to the GUI at the tile (x, y)
+	 * @param x the x position
+	 * @param y the y position
+	 */
+	public void addSnowPeashooter(int x, int y) {
+		lawnTiles[x][y].addSprite(new ImageIcon(snowpeashooterImage).getImage());
+		lawnTiles[x][y].revalidate();
+		lawnTiles[x][y].repaint();
+	}
+	
+	/**
+	 * Add a PotatoMine to the GUI at the tile (x, y)
+	 * @param x the x position
+	 * @param y the y position
+	 */
+	public void addPotatoMine(int x, int y) {
+		lawnTiles[x][y].addSprite(new ImageIcon(potatomineImage).getImage());
+		lawnTiles[x][y].revalidate();
+		lawnTiles[x][y].repaint();
+	}
+	
+	/**
+	 * Add a HypnoShroom to the GUI at the tile (x, y)
+	 * @param x the x position
+	 * @param y the y position
+	 */
+	public void addHypnoShroom(int x, int y) {
+		lawnTiles[x][y].addSprite(new ImageIcon(hypnoshroomImage).getImage());
+		lawnTiles[x][y].revalidate();
+		lawnTiles[x][y].repaint();
+	}
+	
+	/**
+	 * Add a Wallnut to the GUI at the tile (x, y)
+	 * @param x the x position
+	 * @param y the y position
+	 */
+	public void addWallnut(int x, int y) {
+		lawnTiles[x][y].addSprite(new ImageIcon(wallnutImage).getImage());
+		lawnTiles[x][y].revalidate();
+		lawnTiles[x][y].repaint();
+	}
+	
+	
+	/**
 	 * Add a peashooter to the GUI at the tile (x, y)
 	 * @param x the x position
 	 * @param y the y position
@@ -510,13 +616,27 @@ public class GameGUI {
 		lawnTiles[x][y].repaint();
 	}
 	
+	
+	/**
+	 * Deselect All Placement/Removal Options
+	 */
+	public void deselectAll() {
+		sunflowerSelected = false;
+		peashooterSelected = false;
+		snowpeashooterSelected = false;
+		potatomineSelected = false;
+		hypnoshroomSelected = false;
+		wallnutSelected = false;
+		
+		shovelSelected = false;
+	}
+	
+
 	/**
 	 * Selects the plantType Sunflower for placing
 	 */
 	public void selectSunflower() {
 		sunflowerSelected = true;
-		peashooterSelected = false;
-		shovelSelected = false;
 	}
 	
 	/**
@@ -531,9 +651,8 @@ public class GameGUI {
 	 * Selects the plantType Peashooter for placing
 	 */
 	public void selectPeashooter() {
-		sunflowerSelected = false;
+		deselectAll();
 		peashooterSelected = true;
-		shovelSelected = false;
 	}
 	
 	/**
@@ -545,11 +664,74 @@ public class GameGUI {
 	}
 	
 	/**
+	 * Selects the plantType Snowpeashooter for placing
+	 */
+	public void selectSnowpeashooter() {
+		deselectAll();
+		snowpeashooterSelected = true;
+	}
+	
+	/**
+	 * Return true if snowpeashooter is selected for placing, false otherwise
+	 * @return true if snowpeashooter is selected for placing, false otherwise
+	 */
+	public boolean snowpeashooterSelected() {
+		return snowpeashooterSelected;
+	}
+	
+	/**
+	 * Selects the plantType Potatomine for placing
+	 */
+	public void selectPotatomine() {
+		deselectAll();
+		potatomineSelected = true;
+	}
+	
+	/**
+	 * Return true if Potatomine is selected for placing, false otherwise
+	 * @return true if Potatomine is selected for placing, false otherwise
+	 */
+	public boolean potatomineSelected() {
+		return potatomineSelected;
+	}
+	
+	/**
+	 * Selects the plantType Hypnoshroom for placing
+	 */
+	public void selectHypnoshroom() {
+		deselectAll();
+		hypnoshroomSelected = true;
+	}
+	
+	/**
+	 * Return true if Hypnoshroom is selected for placing, false otherwise
+	 * @return true if Hypnoshroom is selected for placing, false otherwise
+	 */
+	public boolean hypnoshroomSelected() {
+		return hypnoshroomSelected;
+	}
+	
+	/**
+	 * Selects the plantType Wallnut for placing
+	 */
+	public void selectWallnut() {
+		deselectAll();
+		wallnutSelected = true;
+	}
+	
+	/**
+	 * Return true if Wallnut is selected for placing, false otherwise
+	 * @return true if Wallnut is selected for placing, false otherwise
+	 */
+	public boolean wallnutSelected() {
+		return wallnutSelected;
+	}
+	
+	/**
 	 * Selects the shovel for removal
 	 */
 	public void selectShovel() {
-		sunflowerSelected = false;
-		peashooterSelected = false;
+		deselectAll();
 		shovelSelected = true;
 	}
 	
@@ -562,23 +744,45 @@ public class GameGUI {
 	}
 	
 	/**
+	 * Lower the Bevels of all the placement options
+	 */
+	public void raiseBevels() {
+		sunflowerSelect.setBorder(raisedbevel);
+		peashooterSelect.setBorder(raisedbevel);
+		snowpeashooterSelect.setBorder(raisedbevel);
+		potatomineSelect.setBorder(raisedbevel);
+		hypnoshroomSelect.setBorder(raisedbevel);
+		wallnutSelect.setBorder(raisedbevel);
+		
+		shovelSelect.setBorder(raisedbevel);
+	}
+	
+	/**
 	 * Update the look of the HUD by applying the lowered bevel border to the selected
 	 * option and applying the raised bevel border to the unselected options
 	 */
 	public void updateHUD() {
+		raiseBevels();
+		
 		if (sunflowerSelected) {
 			sunflowerSelect.setBorder(loweredbevel);
-			peashooterSelect.setBorder(raisedbevel);
-			shovelSelect.setBorder(raisedbevel);
 		}
 		else if (peashooterSelected) {
-			sunflowerSelect.setBorder(raisedbevel);
 			peashooterSelect.setBorder(loweredbevel);
-			shovelSelect.setBorder(raisedbevel);
+		}
+		else if (snowpeashooterSelected) {
+			snowpeashooterSelect.setBorder(loweredbevel);
+		}
+		else if (potatomineSelected) {
+			potatomineSelect.setBorder(loweredbevel);
+		}
+		else if (hypnoshroomSelected) {
+			hypnoshroomSelect.setBorder(loweredbevel);
+		}
+		else if (wallnutSelected) {
+			wallnutSelect.setBorder(loweredbevel);
 		}
 		else if (shovelSelected) {
-			sunflowerSelect.setBorder(raisedbevel);
-			peashooterSelect.setBorder(raisedbevel);
 			shovelSelect.setBorder(loweredbevel);
 		}
 	}
