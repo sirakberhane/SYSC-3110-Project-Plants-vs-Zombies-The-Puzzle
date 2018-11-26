@@ -119,3 +119,82 @@
 
 ##### Sequence Diagram - MVC CLASS
 ![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/MVC-sequence.png)
+
+
+
+## Milestone 3 (master branch) - Completed On: Sunday, November 25th, 2018
+
+### Implementations
+
+#### PLANTS - Sirak Berhane
+Added 4 new Plants and an extra subclass; Explosive Plant 
+type to the Plants vs. Zombies GUI:
+
+* Wallnut : subclass of Passive Plant Type
+  - Defensive plant type, used as a shield to protect other plants.
+  - Has a slightly longer health points compared to the other plants
+  - Cost: 50
+  - Hit Threshold: 20
+
+* Snow Pea Shooter : subclass of Shooter Plant Type
+  - Shoots snow/frozen peas that damage and slow the zombies.
+  - Cost: 175
+  - Hit Threshold: 10
+  - Attack: 3
+
+* Hypno Shroom : subclass of Passive Plant Type
+  - When eaten, Hypno-shrooms will make a zombie turn around and fight for you.
+  - One time use plant (immediatly dies)
+  - Cost: 125
+  - Hit Threshold: 1
+
+* Potato Mine : subclass of Explosive Plant Type
+  - Potato mines will exlode on contact after 3 turns.
+  - Cost: 75
+  - Hit Threshold: 15
+  - Attack: 10
+
+#### ZOMBIES - Ryan Tordesillas
+Added 4 new Zombies to the Plants vs. Zombies GUI:
+
+* Bucket Zombie
+  - Bucket gives this zombie extra shield from shooter type plants
+  - Attack: 1
+  - Hit Threshold: 15
+  - Speed: 0.5x or every second turn
+
+* Football Zombie
+  - Like a football player this zombie has a full upper 
+    body shield as well as more speed compared to the other zombies.
+  - Attack: 2
+  - Hit Threshold: 20
+  - Speed: 0.8x or every turn
+
+* Gargantuar Zombie
+  - Boss level, this zombie is large in size making
+    it the slowest zombie but the highest attack when near plants.
+  - Attack: 4
+  - Hit Threshold: 35
+  - Speed: 0.2x or every third turn
+
+* Newspaper Zombie
+  - Reads a newspaper but once this zombie drops their newspaper their speed doubles.
+  - Attack: 1
+  - Hit Threshold: 20
+  - Speed: 0.5 - 1x or every turn or second turn
+
+#### GUI - Jolar Tabungar
+* GUI Classes Implemented 
+  * ImagePanel -> Used for drawing the lawn tiles on the grid panel. 
+  
+  * Wall-nut, Snow Pea, Potato Mine, and Hypno-Shroom Select Controller -> Contains a mouse listener for when the user wants to plant       either of the above plants during when the game is running.
+  
+#### JUnit Test Cases
+* Refined old test cases
+
+#### UML Diagrams - Karl Schnalzer
+##### UML Diagram - Plants and Zombies
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_1_Milestone_3.png) 
+
+##### UML Diagram - GUI
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_2_Milestone_3.png) 
