@@ -119,3 +119,43 @@
 
 ##### Sequence Diagram - MVC CLASS
 ![alt text](https://github.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/blob/master/Diagrams/MVC-sequence.png)
+
+
+
+## Milestone 3 (master branch) - Completed On: Sunday, November 25th, 2018
+
+### Implementations
+
+#### PLANTs - Sirak Berhane
+Added 4 new Plants and an extra subclass; Explosive Plant 
+type to the Plants vs. Zombies GUI:
+
+* Wallnut : subclass of Passive Plant Type
+
+* Snow Pea Shooter : subclass of Shooter Plant Type
+
+* Hypno Shroom : subclass of Passive Plant Type
+
+* Potato Mine : subclass of Explosive Plant Type
+
+#### ZOMBIES - Ryan Tordesillas
+Added 4 new Zombies to the Plants vs. Zombies GUI:
+
+* Bucket Zombie
+
+* Football Zombie
+
+* Gargantuar Zombie
+
+* Newspaper Zombie
+
+#### GUI - Jolar Tabungar
+
+
+
+#### UML Diagrams - Karl Schnalzer
+##### UML Diagram - Plants and Zombies
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_1_Milestone_3.png) 
+
+##### UML Diagram - GUI
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_2_Milestone_3.png) 
