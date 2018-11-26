@@ -27,6 +27,7 @@ public class TileController implements MouseListener  {
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		level = game.getCurrentLevelState();
 		//If any plant is selected
 		if (!game.shovelSelected()) {
 			//Add that plantType if possible

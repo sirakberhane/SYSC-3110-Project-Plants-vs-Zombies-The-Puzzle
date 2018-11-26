@@ -20,6 +20,19 @@ public class Lawn {
 		lawnMower = false;
 	}
 	
+	public Lawn(ArrayList<Zombie> zombies, ArrayList<Plant> plants, boolean lawnMower) {
+		this.zombies = zombies;
+		this.plants = plants;
+		this.lawnMower = lawnMower;
+	}
+	
+	public Lawn copy() {
+		ArrayList<Zombie> zombiesCopy = new ArrayList<Zombie>(zombies);
+		ArrayList<Plant> plantsCopy = new ArrayList<Plant>(plants);
+		
+		return new Lawn(zombiesCopy, plantsCopy, lawnMower);
+	}
+	
 	/**
 	 * Return this lawn's plants
 	 * @return this lawn's plants arrayList

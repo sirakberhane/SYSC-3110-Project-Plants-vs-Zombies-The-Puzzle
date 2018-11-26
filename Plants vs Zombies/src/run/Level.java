@@ -75,6 +75,53 @@ public class Level {
 		
 	}
 	
+	//Create a new level given all the values of the fields
+	public Level(
+			int sunTotal,
+			int generateSunCountdown,
+			Lawn[] lawns,
+			ArrayList<Integer> waveSizes,
+			int turnCountdown,
+			int spawnCount,
+			int remainingCount,
+			int wavecount,
+			GameGUI game) 
+	{
+		this.sunTotal = sunTotal;
+		this.generateSunCountdown = generateSunCountdown;
+		this.lawns = lawns;
+		this.waveSizes = waveSizes;
+		this.turnCountdown = turnCountdown;
+		this.spawnCount = spawnCount;
+		this.remainingCount = remainingCount;
+		this.waveCount = wavecount;
+		this.game = game;
+	}
+	
+	public Level copyLevel() {
+		Lawn[] lawnsCopy = new Lawn[5];
+		
+		for (int i = 0 ; i < 5; i ++) {
+			lawnsCopy[i] = lawns[i].copy();
+		}
+		
+		Level copyLevel = new Level(
+				sunTotal,
+				generateSunCountdown,
+				lawnsCopy,
+				(ArrayList<Integer>) waveSizes.clone(),
+				turnCountdown,
+				spawnCount,
+				remainingCount,
+				waveCount,
+				game);
+		
+		return copyLevel;
+	}
+	
+	
+	
+	
 	/**]
 	 * Adds a new zombie to the level
 	 * @param zombieType the type of zombie to be spawned
@@ -111,9 +158,6 @@ public class Level {
 		}
 		else if (game.potatomineSelected()) {
 			plant = new PotatoMine(x, y);
-			if (plant == null) {
-				System.out.println("NULL");
-			}
 		}
 		else if (game.hypnoshroomSelected()) {
 			plant = new HypnoShroom(x, y);

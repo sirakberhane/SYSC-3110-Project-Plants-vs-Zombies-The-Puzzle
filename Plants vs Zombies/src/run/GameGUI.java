@@ -41,6 +41,10 @@ public class GameGUI {
 	//Reference to the level
 	private Level level;
 	
+	//Arraylist to contain all the levelstates
+	private ArrayList<Level> levelHistory;
+	private int levelIndex;
+	
 	//GUI Components
     private JFrame frame;
     private JPanel lawnMowers[];
@@ -123,6 +127,11 @@ public class GameGUI {
 		
 		//Create a new level with a reference to this GameGUI
 		level = new Level(waveSizes, this);
+		
+		levelHistory = new ArrayList<Level>();
+		levelHistory.add(level);
+		levelIndex = 0;
+		
 		
 		//Initialize JComponenets
 		lawnMowers = new JPanel[5];
@@ -413,7 +422,7 @@ public class GameGUI {
      	//Initialize the skip JPanel
         skipTurn = new JPanel();
         //Add the actionlistener
-        skipTurn.addMouseListener(new SkipTurnListener(this, level));
+        skipTurn.addMouseListener(new SkipController(this, level));
         //Add the Skip Image and set the size
         skipTurn.add(new JLabel(new ImageIcon(skip)));
         skipTurn.setPreferredSize(new Dimension(110, 110));
@@ -421,7 +430,7 @@ public class GameGUI {
         //Initialize the undo JPanel
         undoTurn = new JPanel();
         //Add the actionlistener
-        undoTurn.addMouseListener(new SkipTurnListener(this, level));
+        undoTurn.addMouseListener(new UndoController(this, level));
         //Add the Undo Image and set the size
         undoTurn.add(new JLabel(new ImageIcon(undo)));
         undoTurn.setPreferredSize(new Dimension(110, 110));
@@ -429,7 +438,7 @@ public class GameGUI {
         //Initialize the redo JPanel
         redoTurn = new JPanel();
         //Add the actionlistener
-        redoTurn.addMouseListener(new SkipTurnListener(this, level));
+        redoTurn.addMouseListener(new RedoController(this, level));
         //Add the Undo Image and set the size
         redoTurn.add(new JLabel(new ImageIcon(redo)));
         redoTurn.setPreferredSize(new Dimension(110, 110));
@@ -467,6 +476,61 @@ public class GameGUI {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+	}
+	
+	/**
+	 * Adds a new level state to the history
+	 * @param level
+	 */
+	public void addLevelState(Level level) {
+		levelHistory.add(level.copyLevel());
+		levelIndex ++;
+		removeHistory();
+	}
+	
+	/**
+	 * Removes all level states past the current state
+	 */
+	public void removeHistory() {
+		while (levelHistory.size() > levelIndex + 1) {
+			levelHistory.remove(levelIndex + 1);
+		}
+	}
+	
+	/**
+	 * Go to the previous level state
+	 */
+	public void getPreviousLevelState() {
+		if (levelHistory.size() > 1) {
+			levelIndex --;
+			this.level = levelHistory.get(levelIndex);
+		}
+		
+		clearBoard();
+		populateBoard();
+		updateStats();
+	}
+	
+	/**
+	 * Go to the next level state
+	 */
+	public void getNextLevelState() {
+		if (levelHistory.size() < levelIndex) {
+			levelIndex ++;
+			this.level = levelHistory.get(levelIndex);
+		}
+		
+		clearBoard();
+		populateBoard();
+		updateStats();
+	}
+	
+	/**
+	 * Return the current level state
+	 * @return
+	 */
+	public Level getCurrentLevelState() {
+		return level;
 	}
 	
 	/**

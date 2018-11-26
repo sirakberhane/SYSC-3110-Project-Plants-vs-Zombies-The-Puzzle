@@ -3,33 +3,20 @@ package run;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-/**
- * 
- * @author Jolar Tabungar
- * 
- * The MouseListener for the Skip Turn Option
- * 
- */
-
-public class SkipTurnListener implements MouseListener {
+public class RedoController implements MouseListener {
 	//References to the GameGUI and level;
 	private GameGUI game;
-	private Level level;
 	
-	//Create a new SkipTurnListener, with the references to the GameGUI and level
-	public SkipTurnListener(GameGUI game, Level level) {
+	
+	//Create a new RedoController, with the reference to the GameGUI
+	public RedoController(GameGUI game, Level level) {
 		this.game = game;
-		this.level = level;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//Tell level to go to the next turn
-				level.NextTurn();
-				//Update the GUI 
-				game.clearBoard();
-				game.populateBoard();
-				game.updateStats();
+		//Tell game to go to next level state
+		game.getNextLevelState();
 	}
 
 	@Override
