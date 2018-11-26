@@ -55,6 +55,7 @@ public class GameGUI {
     private JPanel undoTurn;
     private JPanel redoTurn;
     
+    //Select Options for Plant Placement
     private JPanel sunflowerSelect;
     private JPanel peashooterSelect;
     private JPanel shovelSelect;
@@ -123,7 +124,11 @@ public class GameGUI {
 		ArrayList<Integer> waveSizes = new ArrayList<Integer>();
 		waveSizes.add(5);
 		waveSizes.add(15);
+		waveSizes.add(20);
+		waveSizes.add(30);
 		waveSizes.add(40);
+		waveSizes.add(60);
+		waveSizes.add(80);
 		
 		//Create a new level with a reference to this GameGUI
 		level = new Level(waveSizes, this);
@@ -586,7 +591,16 @@ public class GameGUI {
         	}
         	//Add the zombies
         	for (Zombie zombie: level.getLawn(j).getZombies()) {
-				addZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        		if (zombie instanceof BasicZombie)
+        			addZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        		else if (zombie instanceof BucketZombie)
+        			addBucketZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        		else if (zombie instanceof NewspaperZombie)
+        			addNewspaperZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        		else if (zombie instanceof FootballZombie)
+        			addFootballZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        		else if (zombie instanceof Gargantuar)
+        			addGargantuarZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
 			}
 		}
         
@@ -675,10 +689,55 @@ public class GameGUI {
 	 * @param y the y position
 	 */
 	public void addZombie(int x, int y) {
+		lawnTiles[x][y].addSprite(new ImageIcon(zombieImage).getImage());
+		lawnTiles[x][y].revalidate();
+		lawnTiles[x][y].repaint();
+	}
+	
+	/**
+	 * Add a zombie to the GUI at the tile (x, y)
+	 * @param x the x position
+	 * @param y the y position
+	 */
+	public void addBucketZombie(int x, int y) {
 		lawnTiles[x][y].addSprite(new ImageIcon(bucketzombieImage).getImage());
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
 	}
+	
+	/**
+	 * Add a zombie to the GUI at the tile (x, y)
+	 * @param x the x position
+	 * @param y the y position
+	 */
+	public void addNewspaperZombie(int x, int y) {
+		lawnTiles[x][y].addSprite(new ImageIcon(newspaperzombieImage).getImage());
+		lawnTiles[x][y].revalidate();
+		lawnTiles[x][y].repaint();
+	}
+	
+	/**
+	 * Add a zombie to the GUI at the tile (x, y)
+	 * @param x the x position
+	 * @param y the y position
+	 */
+	public void addFootballZombie(int x, int y) {
+		lawnTiles[x][y].addSprite(new ImageIcon(footballzombieImage).getImage());
+		lawnTiles[x][y].revalidate();
+		lawnTiles[x][y].repaint();
+	}
+	
+	/**
+	 * Add a zombie to the GUI at the tile (x, y)
+	 * @param x the x position
+	 * @param y the y position
+	 */
+	public void addGargantuarZombie(int x, int y) {
+		lawnTiles[x][y].addSprite(new ImageIcon(gargantuarzombieImage).getImage());
+		lawnTiles[x][y].revalidate();
+		lawnTiles[x][y].repaint();
+	}
+	
 	
 	
 	/**

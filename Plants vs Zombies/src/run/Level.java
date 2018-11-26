@@ -124,17 +124,34 @@ public class Level {
 	
 	/**]
 	 * Adds a new zombie to the level
-	 * @param zombieType the type of zombie to be spawned
+	 * @param varietyCount determines the type of zombie to be added
 	 * @param y the row the zombie will be spawned in
 	 */
-	public void addZombie(String zombieType, int y) {
+	public void addZombie(int varietyCount, int yPos) {
 		Zombie zombie = null;
 		
-		if (zombieType.equalsIgnoreCase("zombie")) {
-			zombie = new BasicZombie(y);
-		}
 		
-		lawns[y].getZombies().add(zombie);
+		if (varietyCount % 1 == 0) {
+			zombie = new BasicZombie(yPos);
+		}
+		//Every third zombie is a Bucketzombie
+		if (varietyCount % 3 == 0) {
+			zombie = new BucketZombie(yPos);
+		}
+		//Every 5th zombie is a newspaperzombie
+		if (varietyCount % 4 == 0) {
+			zombie = new NewspaperZombie(yPos);
+		}
+		//Every 7th zombie is a football zombie
+		if (varietyCount % 5 == 0) {
+			zombie = new FootballZombie(yPos);
+		}
+		//Every 15th zombie is a gargantuar
+		if (varietyCount % 10 == 0) {
+			zombie = new Gargantuar(yPos);
+		}
+
+		lawns[yPos].getZombies().add(zombie);
 	}
 	
 	/**
@@ -216,6 +233,7 @@ public class Level {
 		Random randomY = new Random();
 		//Spawn about a fifth of the wave size every call
 		int yPos = randomY.nextInt(Y_MAX + 1);
+		int varietyCount = 1;
 		while (currentCount < waveSizes.get(0) / 5 && spawnCount < waveSizes.get(0)) {
 			//Hold Variable to make sure yPos is unique every time
 			int tempYPos = randomY.nextInt(Y_MAX + 1);
@@ -226,9 +244,11 @@ public class Level {
 			
 			yPos = tempYPos;
 			
-			addZombie("zombie", yPos);
+            addZombie(varietyCount, yPos);
+            
 			currentCount ++;
 			spawnCount ++;
+			varietyCount ++;
 		}
 		
 	}
