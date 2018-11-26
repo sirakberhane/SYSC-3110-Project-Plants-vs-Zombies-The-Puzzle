@@ -184,8 +184,13 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
   - Speed: 0.5 - 1x or every turn or second turn
 
 #### GUI - Jolar Tabungar
-
-
+* GUI Classes Implemented 
+  * ImagePanel -> Used for drawing the lawn tiles on the grid panel. 
+  
+  * Wall-nut, Snow Pea, Potato Mine, and Hypno-Shroom Select Controller -> Contains a mouse listener for when the user wants to plant       either of the above plants during when the game is running.
+  
+#### JUnit Test Cases
+* Refined old test cases
 
 #### UML Diagrams - Karl Schnalzer
 ##### UML Diagram - Plants and Zombies
