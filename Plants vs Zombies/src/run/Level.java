@@ -426,7 +426,7 @@ public class Level implements Serializable {
 
 				// Determine whether zombie needs to stop due to plant collision
 				if (!lawns[i].getPlants().isEmpty()) {
-					if (zombie.getCurrentX() == closestPlant(i, zombie).getxPos())
+					if (Math.round(zombie.getCurrentX()) == closestPlant(i, zombie).getxPos())
 						zombie.setMoving(false);
 					else
 						zombie.setMoving(true);

@@ -931,6 +931,9 @@ public class GameGUI {
 	 * Show a message dialog for completing the level, and close the GUI
 	 */
 	public void winScreen() {
+		updateStats();
+		clearBoard();
+		populateBoard();
 		JOptionPane.showMessageDialog(frame, "LEVEL COMPLETE!");
 		System.exit(0);
 	}
@@ -939,6 +942,9 @@ public class GameGUI {
 	 * Show a message for losing the level, and close the GUI
 	 */
 	public void loseScreen() {
+		updateStats();
+		clearBoard();
+		populateBoard();
 		JOptionPane.showMessageDialog(frame, "GAME OVER!\nZOMBIES ATE YOUR BRAINS!");
 		System.exit(0);
 	}
