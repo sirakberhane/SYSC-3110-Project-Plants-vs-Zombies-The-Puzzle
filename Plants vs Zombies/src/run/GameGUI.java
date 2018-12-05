@@ -45,9 +45,6 @@ public class GameGUI {
 	private ArrayList<Level> levelHistory;
 	private int levelIndex;
 	
-	//ArrayList for WaveSizes
-	ArrayList<Integer> waveSizes;
-	
 	//GUI Components
     private JFrame frame;
     private JPanel lawnMowers[];
@@ -71,7 +68,6 @@ public class GameGUI {
     private JLabel waveNumber;
     private JLabel zombiesRemaining;
     private JLabel availableSun;
-    private JLabel state;
     
     //Image Buffers for the various images used
     //Lawn Mower
@@ -125,7 +121,7 @@ public class GameGUI {
     //Construct a new GameGUI
 	public GameGUI() {
 		//Initialize the wave sizes for the level
-		waveSizes = new ArrayList<Integer>();
+		ArrayList<Integer> waveSizes = new ArrayList<Integer>();
 		waveSizes.add(5);
 		waveSizes.add(15);
 		waveSizes.add(20);
@@ -138,7 +134,7 @@ public class GameGUI {
 		level = new Level(waveSizes, this);
 		
 		levelHistory = new ArrayList<Level>();
-		levelHistory.add(new Level(waveSizes, this));
+		levelHistory.add(level);
 		levelIndex = 0;
 		
 		
@@ -194,7 +190,6 @@ public class GameGUI {
 		waveNumber = new JLabel("Wave Number: ");
 		zombiesRemaining = new JLabel("Zombies Remaining: ");
 		availableSun = new JLabel("Available Sun: ");
-		state = new JLabel("State Num: ");
 	
 		//Create the GUI, populate the board and update the labels with the initial stats
 		createGUI();
@@ -415,12 +410,11 @@ public class GameGUI {
      	//Create a JPanel to contain the stats
      	JPanel levelStats = new JPanel();
      	//Set Layout for gridlayout with 1 x 3 grids
-     	levelStats.setLayout(new GridLayout(1, 4));
+     	levelStats.setLayout(new GridLayout(1, 3));
      	//Add the JLabels to the JPanel
      	levelStats.add(waveNumber, 0, 0);
      	levelStats.add(zombiesRemaining, 0, 1);
      	levelStats.add(availableSun, 0 , 2);
-     	levelStats.add(state, 0 , 3);
  
      	//Create a JPanel for the board and the stats
      	JPanel boardAndStats = new JPanel();
@@ -493,19 +487,9 @@ public class GameGUI {
 	 * Adds a new level state to the history
 	 * @param level
 	 */
-	public void addLevelState() {
-		if (levelIndex == 0) {
-			System.out.println("Test 1");
-			levelHistory.clear();
-			levelHistory.add(new Level(waveSizes, this));
-			levelHistory.add(level.copyLevel());
-		}
-		else {
-			System.out.println("Test 2");
-			levelHistory.add(level.copyLevel());
-		}
-		System.out.println("" + levelHistory.size());
-		levelIndex = levelHistory.size() - 1;
+	public void addLevelState(Level level) {
+		levelHistory.add(level.copyLevel());
+		levelIndex ++;
 		removeHistory();
 	}
 	
@@ -522,7 +506,7 @@ public class GameGUI {
 	 * Go to the previous level state
 	 */
 	public void getPreviousLevelState() {
-		if (levelIndex > 0) {
+		if (levelHistory.size() > 1) {
 			levelIndex --;
 			this.level = levelHistory.get(levelIndex);
 		}
@@ -536,7 +520,7 @@ public class GameGUI {
 	 * Go to the next level state
 	 */
 	public void getNextLevelState() {
-		if (levelIndex < levelHistory.size() - 1) {
+		if (levelHistory.size() < levelIndex) {
 			levelIndex ++;
 			this.level = levelHistory.get(levelIndex);
 		}
@@ -630,7 +614,6 @@ public class GameGUI {
 		waveNumber.setText("Wave Number: " + level.currentWave());
 		zombiesRemaining.setText("Zombies Remaining: " + level.zombieCount());
 		availableSun.setText("Available Sun: " + level.getSunTotal());
-		state.setText("State Num: " + levelIndex);
 	}
 	
 	/**
