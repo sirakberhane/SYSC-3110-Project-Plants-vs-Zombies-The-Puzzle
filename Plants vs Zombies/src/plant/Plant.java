@@ -1,20 +1,24 @@
 package plant;
+
 /**
- * Plant Class:
- * Creates a new Plant Type with variable 
- * cost of plant and health point.
+ * Plant Class: Creates a new Plant Type with variable cost of plant and health
+ * point.
+ * 
  * @author Sirak Berhane (101030433)
  */
-public class Plant {
-	private final int buyThreshold; // Constant cost value for different plants 
+public class Plant implements Cloneable {
+	private final int buyThreshold; // Constant cost value for different plants
 	private int hitThreshold; // Maximum hits a plant can take before it is dead
 	private int xPos; // Grid position x
 	private int yPos; // Grid position y
-	
+
 	/**
-	 * Construct a new Plant type. 
-	 * @param hitThreshold Maximum hits a plant can take before it is dead
-	 * @param buyThreshold Constant cost value for different plants 
+	 * Construct a new Plant type.
+	 * 
+	 * @param hitThreshold
+	 *            Maximum hits a plant can take before it is dead
+	 * @param buyThreshold
+	 *            Constant cost value for different plants
 	 */
 	public Plant(int hitThreshold, int buyThreshold, int x, int y) {
 		this.buyThreshold = buyThreshold;
@@ -25,6 +29,7 @@ public class Plant {
 
 	/**
 	 * Returns Plant's sunflower cost.
+	 * 
 	 * @return plant cost in sunflower
 	 */
 	public int getBuyThreshold() {
@@ -32,8 +37,8 @@ public class Plant {
 	}
 
 	/**
-	 * Health points or maximum hits plants 
-	 * can take within a game level.
+	 * Health points or maximum hits plants can take within a game level.
+	 * 
 	 * @return plant maximum hitThreshold before plant dies
 	 */
 	public int getHitThreshold() {
@@ -42,15 +47,17 @@ public class Plant {
 
 	/**
 	 * Sets the current health of a plant.
-	 * @param currentHP Updates plants health points 
-	 * or the current hit count
+	 * 
+	 * @param currentHP
+	 *            Updates plants health points or the current hit count
 	 */
 	public void setHitThreshold(int currentHP) {
 		this.hitThreshold = currentHP;
 	}
-	
+
 	/**
 	 * Checks if current bought plants are alive.
+	 * 
 	 * @return true if the plant is dead false if it is still alive
 	 */
 	public boolean isPlantDead() {
@@ -60,7 +67,7 @@ public class Plant {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @return x position
 	 */
@@ -69,12 +76,13 @@ public class Plant {
 	}
 
 	/**
-	 * @param xPos set x to this position 
+	 * @param xPos
+	 *            set x to this position
 	 */
 	public void setxPos(int xPos) {
 		if (xPos >= 0 && xPos <= 8) {
 			this.xPos = xPos;
-		}	
+		}
 	}
 
 	/**
@@ -85,11 +93,16 @@ public class Plant {
 	}
 
 	/**
-	 * @param yPos set y to this position
+	 * @param yPos
+	 *            set y to this position
 	 */
 	public void setyPos(int yPos) {
 		if (yPos >= 0 && yPos <= 4) {
 			this.yPos = yPos;
 		}
+	}
+
+	public Plant clone() throws CloneNotSupportedException {
+		return (Plant) super.clone();
 	}
 }

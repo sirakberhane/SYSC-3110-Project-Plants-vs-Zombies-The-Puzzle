@@ -1,9 +1,11 @@
 package run;
 import plant.*;
 import zombie.*;
+
+import java.io.Serializable;
 import java.util.*;
 
-public class Lawn {
+public class Lawn implements Serializable {
 	//Zombies on this lawn
 	private ArrayList<Zombie> zombies;
 	//Plants on this lawn
@@ -27,8 +29,27 @@ public class Lawn {
 	}
 	
 	public Lawn copy() {
-		ArrayList<Zombie> zombiesCopy = new ArrayList<Zombie>(zombies);
-		ArrayList<Plant> plantsCopy = new ArrayList<Plant>(plants);
+		
+		ArrayList<Zombie> zombiesCopy = new ArrayList<Zombie>();
+		ArrayList<Plant> plantsCopy = new ArrayList<Plant>();
+		
+		for (Plant plant: plants) {
+			try {
+				plantsCopy.add(plant.clone());
+			} catch (CloneNotSupportedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		for (Zombie zombie: zombies) {
+			try {
+				zombiesCopy.add(zombie.clone());
+			} catch (CloneNotSupportedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		return new Lawn(zombiesCopy, plantsCopy, lawnMower);
 	}
