@@ -1,10 +1,13 @@
 package zombie;
+
+import plant.Plant;
+
 /**
  * This class will create zombies that will be used in the main class.
  * @author Ryan Tordesillas(101041626)
  *
  */
-public class Zombie {
+public class Zombie implements Cloneable {
 	
 	/** The left most point of the board*/
 	private final int ENDOFBOARD = 8;
@@ -185,4 +188,9 @@ public class Zombie {
 	public void setYPos(int y) {
 		yPos = y;
 	}
+	
+	public Zombie clone() throws CloneNotSupportedException {
+		return (Zombie) super.clone();
+	}
+	
 }

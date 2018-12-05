@@ -1,17 +1,11 @@
 package run;
 import plant.*;
 import zombie.*;
-<<<<<<< HEAD
-import java.util.*;
-
-public class Lawn {
-=======
 
 import java.io.Serializable;
 import java.util.*;
 
 public class Lawn implements Serializable {
->>>>>>> parent of 7fba955... Merge
 	//Zombies on this lawn
 	private ArrayList<Zombie> zombies;
 	//Plants on this lawn
@@ -35,10 +29,6 @@ public class Lawn implements Serializable {
 	}
 	
 	public Lawn copy() {
-<<<<<<< HEAD
-		ArrayList<Zombie> zombiesCopy = new ArrayList<Zombie>(zombies);
-		ArrayList<Plant> plantsCopy = new ArrayList<Plant>(plants);
-=======
 		
 		ArrayList<Zombie> zombiesCopy = new ArrayList<Zombie>();
 		ArrayList<Plant> plantsCopy = new ArrayList<Plant>();
@@ -60,7 +50,6 @@ public class Lawn implements Serializable {
 				e.printStackTrace();
 			}
 		}
->>>>>>> parent of 7fba955... Merge
 		
 		return new Lawn(zombiesCopy, plantsCopy, lawnMower);
 	}

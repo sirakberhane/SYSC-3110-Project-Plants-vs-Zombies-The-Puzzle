@@ -5,7 +5,7 @@ package plant;
  * cost of plant and health point.
  * @author Sirak Berhane (101030433)
  */
-public class Plant {
+public class Plant implements Cloneable {
 	private final int buyThreshold; // Constant cost value for different plants 
 	private int hitThreshold; // Maximum hits a plant can take before it is dead
 	private int xPos; // Grid position x
@@ -92,4 +92,9 @@ public class Plant {
 			this.yPos = yPos;
 		}
 	}
+	
+	public Plant clone() throws CloneNotSupportedException {
+		return (Plant) super.clone();
+	}
+	
 }
