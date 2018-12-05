@@ -35,6 +35,10 @@ public class TileController implements MouseListener  {
 				//Tell Level to move on to next turn
 				level.NextTurn();
 				//Update the GameGUI
+<<<<<<< HEAD
+=======
+				game.addLevelState();
+>>>>>>> parent of 7fba955... Merge
 				game.clearBoard();
 				game.populateBoard();
 				game.updateStats();

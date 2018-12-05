@@ -45,6 +45,12 @@ public class GameGUI {
 	private ArrayList<Level> levelHistory;
 	private int levelIndex;
 	
+<<<<<<< HEAD
+=======
+	//ArrayList for WaveSizes
+	ArrayList<Integer> waveSizes;
+	
+>>>>>>> parent of 7fba955... Merge
 	//GUI Components
     private JFrame frame;
     private JPanel lawnMowers[];
@@ -68,6 +74,10 @@ public class GameGUI {
     private JLabel waveNumber;
     private JLabel zombiesRemaining;
     private JLabel availableSun;
+<<<<<<< HEAD
+=======
+    private JLabel state;
+>>>>>>> parent of 7fba955... Merge
     
     //Image Buffers for the various images used
     //Lawn Mower
@@ -121,7 +131,11 @@ public class GameGUI {
     //Construct a new GameGUI
 	public GameGUI() {
 		//Initialize the wave sizes for the level
+<<<<<<< HEAD
 		ArrayList<Integer> waveSizes = new ArrayList<Integer>();
+=======
+		waveSizes = new ArrayList<Integer>();
+>>>>>>> parent of 7fba955... Merge
 		waveSizes.add(5);
 		waveSizes.add(15);
 		waveSizes.add(20);
@@ -134,7 +148,11 @@ public class GameGUI {
 		level = new Level(waveSizes, this);
 		
 		levelHistory = new ArrayList<Level>();
+<<<<<<< HEAD
 		levelHistory.add(level);
+=======
+		levelHistory.add(new Level(waveSizes, this));
+>>>>>>> parent of 7fba955... Merge
 		levelIndex = 0;
 		
 		
@@ -190,6 +208,10 @@ public class GameGUI {
 		waveNumber = new JLabel("Wave Number: ");
 		zombiesRemaining = new JLabel("Zombies Remaining: ");
 		availableSun = new JLabel("Available Sun: ");
+<<<<<<< HEAD
+=======
+		state = new JLabel("State Num: ");
+>>>>>>> parent of 7fba955... Merge
 	
 		//Create the GUI, populate the board and update the labels with the initial stats
 		createGUI();
@@ -410,11 +432,19 @@ public class GameGUI {
      	//Create a JPanel to contain the stats
      	JPanel levelStats = new JPanel();
      	//Set Layout for gridlayout with 1 x 3 grids
+<<<<<<< HEAD
      	levelStats.setLayout(new GridLayout(1, 3));
+=======
+     	levelStats.setLayout(new GridLayout(1, 4));
+>>>>>>> parent of 7fba955... Merge
      	//Add the JLabels to the JPanel
      	levelStats.add(waveNumber, 0, 0);
      	levelStats.add(zombiesRemaining, 0, 1);
      	levelStats.add(availableSun, 0 , 2);
+<<<<<<< HEAD
+=======
+     	levelStats.add(state, 0 , 3);
+>>>>>>> parent of 7fba955... Merge
  
      	//Create a JPanel for the board and the stats
      	JPanel boardAndStats = new JPanel();
@@ -487,9 +517,25 @@ public class GameGUI {
 	 * Adds a new level state to the history
 	 * @param level
 	 */
+<<<<<<< HEAD
 	public void addLevelState(Level level) {
 		levelHistory.add(level.copyLevel());
 		levelIndex ++;
+=======
+	public void addLevelState() {
+		if (levelIndex == 0) {
+			System.out.println("Test 1");
+			levelHistory.clear();
+			levelHistory.add(new Level(waveSizes, this));
+			levelHistory.add(level.copyLevel());
+		}
+		else {
+			System.out.println("Test 2");
+			levelHistory.add(level.copyLevel());
+		}
+		System.out.println("" + levelHistory.size());
+		levelIndex = levelHistory.size() - 1;
+>>>>>>> parent of 7fba955... Merge
 		removeHistory();
 	}
 	
@@ -506,7 +552,11 @@ public class GameGUI {
 	 * Go to the previous level state
 	 */
 	public void getPreviousLevelState() {
+<<<<<<< HEAD
 		if (levelHistory.size() > 1) {
+=======
+		if (levelIndex > 0) {
+>>>>>>> parent of 7fba955... Merge
 			levelIndex --;
 			this.level = levelHistory.get(levelIndex);
 		}
@@ -520,7 +570,11 @@ public class GameGUI {
 	 * Go to the next level state
 	 */
 	public void getNextLevelState() {
+<<<<<<< HEAD
 		if (levelHistory.size() < levelIndex) {
+=======
+		if (levelIndex < levelHistory.size() - 1) {
+>>>>>>> parent of 7fba955... Merge
 			levelIndex ++;
 			this.level = levelHistory.get(levelIndex);
 		}
@@ -614,6 +668,10 @@ public class GameGUI {
 		waveNumber.setText("Wave Number: " + level.currentWave());
 		zombiesRemaining.setText("Zombies Remaining: " + level.zombieCount());
 		availableSun.setText("Available Sun: " + level.getSunTotal());
+<<<<<<< HEAD
+=======
+		state.setText("State Num: " + levelIndex);
+>>>>>>> parent of 7fba955... Merge
 	}
 	
 	/**
