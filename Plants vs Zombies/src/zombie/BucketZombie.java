@@ -6,7 +6,7 @@ package zombie;
  *
  */
 public class BucketZombie extends Zombie{
-
+	private static final long serialVersionUID = -551737435816636684L;
 	/** The speed of the zombie */
 	private final static double BUCKET_SPEED = 0.5;
 	/** The name of the zombie */

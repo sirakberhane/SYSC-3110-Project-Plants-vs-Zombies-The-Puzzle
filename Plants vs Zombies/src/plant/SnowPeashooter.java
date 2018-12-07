@@ -1,6 +1,7 @@
 package plant;
 
 public class SnowPeashooter extends ShooterPlant{
+	private static final long serialVersionUID = -2754573479204824218L;
 	public static final int SNOWPEASHOOTER_HIT_THRESHOLD = 10;
 	public static final int SNOWPEASHOOTER_BUY_THRESHOLD = 175;
 	public static final int SNOWPEASHOOTER_HIT_VALUE = 3;
