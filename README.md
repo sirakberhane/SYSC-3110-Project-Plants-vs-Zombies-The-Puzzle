@@ -232,7 +232,3 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
 
 ##### Sequence Diagram - Save Game
 ![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/Save%20Sequence%20diagram.png)
-
-### Optional Features
-* Real-Time Game Play -> [NOT IMPLEMENTED]
-* Android Version -> [NOT IMPLEMENTED]
