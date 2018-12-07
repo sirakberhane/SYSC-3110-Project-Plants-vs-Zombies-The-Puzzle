@@ -198,3 +198,16 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
 
 ##### UML Diagram - GUI
 ![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/UML_Class_2_Milestone_3.png) 
+
+
+
+## Milestone 4 (master branch) - Completed On: Friday, December 7th, 2018 (FINAL)
+
+### Implementations
+
+#### New GUI Features - Jolar Tabungar
+* Undo and Redo Features (Bug fixes and Improvements made)
+* Level Builder 
+     
+#### Save/Load State - Ryan Tordesillas
+* Serialization - Save current game status
