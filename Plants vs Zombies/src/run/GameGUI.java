@@ -31,6 +31,7 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -1064,13 +1065,18 @@ public class GameGUI {
 	
 	public void importSave() {
 		try {
-			FileInputStream fis=new FileInputStream("C:/Users/rtord/Desktop/Coding/Github/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/Plants vs Zombies/myfile.ser");
-			ObjectInputStream ois=new ObjectInputStream(fis);
-			levelIndex = ois.readInt();
-			levelHistory = (ArrayList<Level>) ois.readObject();
-			level = levelHistory.get(levelIndex);
-			updateGUI();
-			
+			JFileChooser levelChooser = new JFileChooser();
+			levelChooser.setCurrentDirectory(new File(".\\saves"));
+			int result = levelChooser.showOpenDialog(this.getFrame());
+			if (result == JFileChooser.APPROVE_OPTION) {
+			    File selectedLevel = levelChooser.getSelectedFile();
+			    FileInputStream fis=new FileInputStream(selectedLevel.getAbsolutePath());
+				ObjectInputStream ois=new ObjectInputStream(fis);
+				levelIndex = ois.readInt();
+				levelHistory = (ArrayList<Level>) ois.readObject();
+				level = levelHistory.get(levelIndex);
+				updateGUI();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1081,8 +1087,9 @@ public class GameGUI {
 	}
 	
 	public void exportSave() {
+		String saveName = JOptionPane.showInputDialog("Enter the name of the save: ");
 		try{
-			FileOutputStream fos= new FileOutputStream("myfile.ser");
+			FileOutputStream fos= new FileOutputStream(".//save//" + saveName + ".ser");
 			ObjectOutputStream oos= new ObjectOutputStream(fos);
 			oos.writeInt(levelIndex);
 			oos.writeObject(levelHistory);
