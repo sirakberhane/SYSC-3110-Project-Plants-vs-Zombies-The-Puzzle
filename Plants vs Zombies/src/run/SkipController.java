@@ -30,10 +30,7 @@ public class SkipController implements MouseListener {
 		level.NextTurn();
 		
 		// Update the GUI
-		game.addLevelState();
-		game.clearBoard();
-		game.populateBoard();
-		game.updateStats();
+		game.updateGUI();
 		
 	}
 

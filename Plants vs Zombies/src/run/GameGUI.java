@@ -1065,6 +1065,19 @@ public class GameGUI {
 		}
 	}
 	
+	public void updateGUI() {
+		addLevelState();
+		clearBoard();
+		populateBoard();
+		updateStats();
+		
+		if (level.gameWin())
+			winScreen();
+		
+		if (level.gameLose())
+			loseScreen();
+	}
+	
 	/**
 	 * Show a message dialog for completing the level, and close the GUI
 	 */

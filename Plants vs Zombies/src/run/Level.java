@@ -54,6 +54,9 @@ public class Level implements Serializable {
 	private int waveCount;
 
 	private GameGUI game;
+	
+	private boolean gameWin;
+	private boolean gameLose;
 	/*
 	 * //The player playing the level private Player player; //Level's printState
 	 * class private PrintState printState;
@@ -69,6 +72,8 @@ public class Level implements Serializable {
 		spawnCount = 0;
 		waveCount = 1;
 		remainingCount = waveSizes.get(0);
+		gameWin = false;
+		gameLose = false;
 
 		// Starting suntotal
 		sunTotal = 100;
@@ -469,7 +474,7 @@ public class Level implements Serializable {
 					// If the zombies reaches the last tile and lawn mower is
 					// already activated, then it is game over.
 					if (zombie.getCurrentX() < 0 && lawns[i].isLawnMowerActivated()) {
-						game.loseScreen();
+						gameLose = true;
 					}
 
 					// If the zombies reach the last tile activate lawn mower
@@ -617,7 +622,7 @@ public class Level implements Serializable {
 			for (int i = 0; i < lawns.length; i++) {
 				// If no more zombies in this row, win condition is met so far
 				if (lawns[i].getZombies().isEmpty()) {
-					game.winScreen();
+					gameWin = true;
 				}
 				// If there are zombies in the row then win condition is not met
 			}
@@ -670,5 +675,13 @@ public class Level implements Serializable {
 
 	public Lawn getLawns(int y) {
 		return lawns[y];
+	}
+	
+	public boolean gameWin() {
+		return gameWin;
+	}
+	
+	public boolean gameLose() {
+		return gameLose;
 	}
 }
