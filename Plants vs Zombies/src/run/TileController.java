@@ -29,7 +29,7 @@ public class TileController implements MouseListener  {
 	public void mouseClicked(MouseEvent e) {
 		level = game.getCurrentLevelState();
 		//If any plant is selected
-		if (!game.shovelSelected()) {
+		if (!game.getGameData().shovelSelected()) {
 			//Add that plantType if possible
 			if (level.addPlant(x, y)) {
 				//Tell Level to move on to next turn

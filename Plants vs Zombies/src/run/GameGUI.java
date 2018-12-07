@@ -19,7 +19,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -145,6 +149,8 @@ public class GameGUI {
 	private boolean hypnoshroomSelected;
 	private boolean wallnutSelected;
 
+	private GameData gameData;
+	
 	// Construct a new GameGUI
 	public GameGUI() {
 		/*
@@ -232,6 +238,7 @@ public class GameGUI {
 
 		// Create the GUI, populate the board and update the labels with the initial
 		// stats
+		gameData = new GameData(sunflowerSelected, peashooterSelected, shovelSelected, snowpeashooterSelected, potatomineSelected, hypnoshroomSelected, wallnutSelected);
 		createGUI();
 
 		/*
@@ -920,136 +927,60 @@ public class GameGUI {
 	}
 
 	/**
-	 * Deselect All Placement/Removal Options
-	 */
-	public void deselectAll() {
-		sunflowerSelected = false;
-		peashooterSelected = false;
-		snowpeashooterSelected = false;
-		potatomineSelected = false;
-		hypnoshroomSelected = false;
-		wallnutSelected = false;
-
-		shovelSelected = false;
-	}
-
-	/**
 	 * Selects the plantType Sunflower for placing
 	 */
 	public void selectSunflower() {
-		sunflowerSelected = true;
-	}
-
-	/**
-	 * Return true if sunflower is selected for placing, false otherwise
-	 * 
-	 * @return true if sunflower is selected for placing, false otherwise
-	 */
-	public boolean sunflowerSelected() {
-		return sunflowerSelected;
+		gameData.setSunflower(true);
 	}
 
 	/**
 	 * Selects the plantType Peashooter for placing
 	 */
 	public void selectPeashooter() {
-		deselectAll();
-		peashooterSelected = true;
-	}
-
-	/**
-	 * Return true if peashooter is selected for placing, false otherwise
-	 * 
-	 * @return true if peashooter is selected for placing, false otherwise
-	 */
-	public boolean peashooterSelected() {
-		return peashooterSelected;
+		gameData.deselectAll();
+		gameData.setPeashooter(true);
 	}
 
 	/**
 	 * Selects the plantType Snowpeashooter for placing
 	 */
 	public void selectSnowpeashooter() {
-		deselectAll();
-		snowpeashooterSelected = true;
-	}
-
-	/**
-	 * Return true if snowpeashooter is selected for placing, false otherwise
-	 * 
-	 * @return true if snowpeashooter is selected for placing, false otherwise
-	 */
-	public boolean snowpeashooterSelected() {
-		return snowpeashooterSelected;
+		gameData.deselectAll();
+		gameData.setSnowpeashooter(true);
 	}
 
 	/**
 	 * Selects the plantType Potatomine for placing
 	 */
 	public void selectPotatomine() {
-		deselectAll();
-		potatomineSelected = true;
-	}
-
-	/**
-	 * Return true if Potatomine is selected for placing, false otherwise
-	 * 
-	 * @return true if Potatomine is selected for placing, false otherwise
-	 */
-	public boolean potatomineSelected() {
-		return potatomineSelected;
+		gameData.deselectAll();
+		gameData.setPotatoMine(true);
 	}
 
 	/**
 	 * Selects the plantType Hypnoshroom for placing
 	 */
 	public void selectHypnoshroom() {
-		deselectAll();
-		hypnoshroomSelected = true;
-	}
-
-	/**
-	 * Return true if Hypnoshroom is selected for placing, false otherwise
-	 * 
-	 * @return true if Hypnoshroom is selected for placing, false otherwise
-	 */
-	public boolean hypnoshroomSelected() {
-		return hypnoshroomSelected;
+		gameData.deselectAll();
+		gameData.setHypnoshroom(true);
 	}
 
 	/**
 	 * Selects the plantType Wallnut for placing
 	 */
 	public void selectWallnut() {
-		deselectAll();
-		wallnutSelected = true;
-	}
-
-	/**
-	 * Return true if Wallnut is selected for placing, false otherwise
-	 * 
-	 * @return true if Wallnut is selected for placing, false otherwise
-	 */
-	public boolean wallnutSelected() {
-		return wallnutSelected;
+		gameData.deselectAll();
+		gameData.setWallnut(true);
 	}
 
 	/**
 	 * Selects the shovel for removal
 	 */
 	public void selectShovel() {
-		deselectAll();
-		shovelSelected = true;
+		gameData.deselectAll();
+		gameData.setShovel(true);
 	}
 
-	/**
-	 * Returns true if shovel is selected, false otherwise
-	 * 
-	 * @return true if shovel is selected, false otherwise
-	 */
-	public boolean shovelSelected() {
-		return shovelSelected;
-	}
 
 	/**
 	 * Lower the Bevels of all the placement options
@@ -1073,19 +1004,25 @@ public class GameGUI {
 	public void updateHUD() {
 		raiseBevels();
 
-		if (sunflowerSelected) {
+		if (gameData.sunflowerSelected()) {
 			sunflowerSelect.setBorder(loweredbevel);
-		} else if (peashooterSelected) {
+		}
+		else if (gameData.peashooterSelected()) {
 			peashooterSelect.setBorder(loweredbevel);
-		} else if (snowpeashooterSelected) {
+		}
+		else if (gameData.snowpeashooterSelected()) {
 			snowpeashooterSelect.setBorder(loweredbevel);
-		} else if (potatomineSelected) {
+		}
+		else if (gameData.potatomineSelected()) {
 			potatomineSelect.setBorder(loweredbevel);
-		} else if (hypnoshroomSelected) {
+		}
+		else if (gameData.hypnoshroomSelected()) {
 			hypnoshroomSelect.setBorder(loweredbevel);
-		} else if (wallnutSelected) {
+		}
+		else if (gameData.wallnutSelected()) {
 			wallnutSelect.setBorder(loweredbevel);
-		} else if (shovelSelected) {
+		}
+		else if (gameData.shovelSelected()) {
 			shovelSelect.setBorder(loweredbevel);
 		}
 	}
@@ -1124,5 +1061,40 @@ public class GameGUI {
 		JOptionPane.showMessageDialog(frame, "GAME OVER!\nZOMBIES ATE YOUR BRAINS!");
 		System.exit(0);
 	}
-
+	
+	public void importSave() {
+		try {
+			FileInputStream fis=new FileInputStream("C:/Users/rtord/Desktop/Coding/Github/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/Plants vs Zombies/myfile.ser");
+			ObjectInputStream ois=new ObjectInputStream(fis);
+			levelIndex = ois.readInt();
+			levelHistory = (ArrayList<Level>) ois.readObject();
+			level = levelHistory.get(levelIndex);
+			updateGUI();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void exportSave() {
+		try{
+			FileOutputStream fos= new FileOutputStream("myfile.ser");
+			ObjectOutputStream oos= new ObjectOutputStream(fos);
+			oos.writeInt(levelIndex);
+			oos.writeObject(levelHistory);
+			oos.close();
+			fos.close();
+		}catch(IOException ioe){
+			ioe.printStackTrace();
+		}
+	}
+	
+	public GameData getGameData() {
+		return gameData;
+	}
+	
 }

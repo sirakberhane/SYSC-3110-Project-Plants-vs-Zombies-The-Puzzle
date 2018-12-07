@@ -53,7 +53,7 @@ public class Level implements Serializable {
 	// The wave count
 	private int waveCount;
 
-	private GameGUI game;
+	private GameData gameData;
 	
 	private boolean gameWin;
 	private boolean gameLose;
@@ -64,7 +64,7 @@ public class Level implements Serializable {
 
 	// Constructs a new Level
 	public Level(ArrayList<Integer> waveSizes, GameGUI game) {
-		this.game = game;
+		this.gameData = game.getGameData();
 
 		lawns = new Lawn[5];
 		this.waveSizes = waveSizes;
@@ -90,7 +90,7 @@ public class Level implements Serializable {
 
 	// Create a new level given all the values of the fields
 	public Level(int sunTotal, int generateSunCountdown, Lawn[] lawns, ArrayList<Integer> waveSizes, int turnCountdown,
-			int spawnCount, int remainingCount, int wavecount, GameGUI game) {
+			int spawnCount, int remainingCount, int wavecount, GameData game) {
 		this.sunTotal = sunTotal;
 		this.generateSunCountdown = generateSunCountdown;
 		this.lawns = lawns;
@@ -99,7 +99,7 @@ public class Level implements Serializable {
 		this.spawnCount = spawnCount;
 		this.remainingCount = remainingCount;
 		this.waveCount = wavecount;
-		this.game = game;
+		this.gameData = game;
 	}
 
 	public Level copyLevel() {
@@ -110,7 +110,7 @@ public class Level implements Serializable {
 		}
 
 		Level copyLevel = new Level(sunTotal, generateSunCountdown, lawnsCopy, (ArrayList<Integer>) waveSizes.clone(),
-				turnCountdown, spawnCount, remainingCount, waveCount, game);
+				turnCountdown, spawnCount, remainingCount, waveCount, gameData);
 
 		return copyLevel;
 	}
@@ -168,17 +168,17 @@ public class Level implements Serializable {
 	public boolean addPlant(int x, int y) {
 		Plant plant = null;
 
-		if (game.sunflowerSelected()) {
+		if (gameData.sunflowerSelected()) {
 			plant = new Sunflower(x, y);
-		} else if (game.peashooterSelected()) {
+		} else if (gameData.peashooterSelected()) {
 			plant = new Peashooter(x, y);
-		} else if (game.snowpeashooterSelected()) {
+		} else if (gameData.snowpeashooterSelected()) {
 			plant = new SnowPeashooter(x, y);
-		} else if (game.potatomineSelected()) {
+		} else if (gameData.potatomineSelected()) {
 			plant = new PotatoMine(x, y);
-		} else if (game.hypnoshroomSelected()) {
+		} else if (gameData.hypnoshroomSelected()) {
 			plant = new HypnoShroom(x, y);
-		} else if (game.wallnutSelected()) {
+		} else if (gameData.wallnutSelected()) {
 			plant = new Wallnut(x, y);
 		}
 
