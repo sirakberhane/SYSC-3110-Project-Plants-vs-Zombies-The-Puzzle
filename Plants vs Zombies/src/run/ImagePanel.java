@@ -12,6 +12,7 @@ public class ImagePanel extends JPanel {
 	public ImagePanel(String img) {
 		this(new ImageIcon(img).getImage());
 	}
+	
 
 	public ImagePanel(Image img) {
 		this.sprites = new ArrayList<Image>();

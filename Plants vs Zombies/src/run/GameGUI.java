@@ -23,10 +23,12 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -50,6 +52,8 @@ public class GameGUI {
 	
 	//GUI Components
     private JFrame frame;
+    private Container gameScreen;
+    private Container menuScreen;
     private JPanel lawnMowers[];
     private ImagePanel lawnTiles[][];
     
@@ -117,6 +121,12 @@ public class GameGUI {
     private BufferedImage skip;
     private BufferedImage undo;
     private BufferedImage redo;
+    
+    //Menu Images
+    private BufferedImage titleScreen;
+    private BufferedImage play;
+    private BufferedImage create;
+    private BufferedImage exit;
     
     //Label to contain each lawn's respective image buffer
     private JLabel lawnMowerSprite[];
@@ -200,6 +210,11 @@ public class GameGUI {
 			undo = ImageIO.read(new File("images/undo.png"));
 			redo = ImageIO.read(new File("images/redo.png"));
 			
+			titleScreen = ImageIO.read(new File("images/titleScreen.png"));
+			play = ImageIO.read(new File("images/menuPlay.png"));
+		    create = ImageIO.read(new File("images/menuCreate.png"));
+			exit = ImageIO.read(new File("images/menuExit.png"));
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -222,8 +237,11 @@ public class GameGUI {
 	
 		//Create the GUI, populate the board and update the labels with the initial stats
 		createGUI();
+		
+		/*
 		populateBoard();
 		updateStats();
+		*/
 	}
 	
 	/**
@@ -231,13 +249,74 @@ public class GameGUI {
 	 */
 	public void createGUI() {
 		//Create frame and content pane
-		BufferedImage img;
         frame = new JFrame("Plants vs Zombies: The Puzzle");
-        Container contentPane = frame.getContentPane();
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("images/PvZ_logo.png"));
         
-        //Set contentPane to BorderLayout
-        contentPane.setLayout(new BorderLayout());
+        createMenuScreen();
+        //createGameScreen();
+        
+        frame.pack();
+      
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+       
+	}
+	
+	
+	public void createMenuScreen() {
+		menuScreen = new Container();
+		menuScreen.setLayout(new FlowLayout());
+		
+		JLayeredPane layeredPane = new JLayeredPane();	
+		
+		JLabel background = new JLabel();
+		Icon titleIcon = new ImageIcon(titleScreen);
+		background.setIcon(titleIcon);
+		background.setBounds(0, 0,
+                titleIcon.getIconWidth(),
+                titleIcon.getIconHeight());
+		
+		JPanel playButton = new JPanel();
+		Icon playIcon = new ImageIcon(play);
+		playButton.add(new JLabel(playIcon));
+		playButton.setBounds(390, 250,
+                playIcon.getIconWidth(),
+                playIcon.getIconHeight());
+		playButton.setOpaque(false);
+		playButton.addMouseListener(new PlayAction(this));
+		
+		JPanel createButton = new JPanel();
+		Icon createIcon = new ImageIcon(create);
+		createButton.add(new JLabel(createIcon));
+		createButton.setBounds(390, 350,
+				createIcon.getIconWidth(),
+				createIcon.getIconHeight());
+		createButton.setOpaque(false);
+		
+		JPanel exitButton = new JPanel();
+		Icon exitIcon = new ImageIcon(exit);
+		exitButton.add(new JLabel(exitIcon));
+		exitButton.setBounds(390, 450,
+				exitIcon.getIconWidth(),
+				exitIcon.getIconHeight());
+		exitButton.setOpaque(false);
+		
+		layeredPane.add(background, new Integer(0));
+		layeredPane.setPreferredSize(background.getSize());
+	    layeredPane.add(playButton, new Integer(1));
+	    layeredPane.add(createButton, new Integer(1));
+	    layeredPane.add(exitButton, new Integer(1));
+	
+		menuScreen.add(layeredPane);
+	
+		frame.setContentPane(menuScreen);
+	}
+	
+	public void createGameScreen() {
+		gameScreen = new Container();
+		 //Set contentPane to BorderLayout
+        gameScreen.setLayout(new BorderLayout());
         
         //Create the JPanel for the board
         JPanel board = new JPanel();
@@ -500,18 +579,20 @@ public class GameGUI {
         
         
         //Add all the components to the contentPane
-        contentPane.add(boardAndStats, BorderLayout.EAST);
-        contentPane.add(lawnMowerCol, BorderLayout.CENTER);
-        contentPane.add(hud, BorderLayout.WEST);
-        contentPane.add(lowerHUD, BorderLayout.SOUTH);
+        gameScreen.add(boardAndStats, BorderLayout.EAST);
+        gameScreen.add(lawnMowerCol, BorderLayout.CENTER);
+        gameScreen.add(hud, BorderLayout.WEST);
+        gameScreen.add(lowerHUD, BorderLayout.SOUTH);
         
         
         //Pack the frame and its components and set it visible
+        frame.setContentPane(gameScreen);
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
+	
 	
 	/**
 	 * Adds a new level state to the history
