@@ -205,9 +205,10 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
 
 ### Implementations
 
-#### New GUI Features - Jolar Tabungar
+#### GUI - Jolar Tabungar
 * Undo and Redo Features (Bug fixes and Improvements made)
-* Level Builder 
+* Level Builder -> Player is able to create their own level
+* All levels are imported as .XML format for simplicity with each 
      
 #### Save/Load State - Ryan Tordesillas
 * Implentation of Serialization Libraries 
@@ -220,7 +221,12 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
     - ZombieTypeTest CLASS: testBucketZombie(), testFootballZombie(), testGargantuarZombie(), testNewspaperZombie()
   
 #### UML Diagrams - Karl Schnalzer
+##### UML Diagram - Plants and Zombies
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/Milestone4_UML_Class_1.png) 
 
-### Optional
+##### UML Diagram - GUI
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/Milestone4_UML_Class_2.png) 
+
+### Optional Features
 * Real-Time Game Play -> [NOT IMPLEMENTED]
 * Android Version -> [NOT IMPLEMENTED]
