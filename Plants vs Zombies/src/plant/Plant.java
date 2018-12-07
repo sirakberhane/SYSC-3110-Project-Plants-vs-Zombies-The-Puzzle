@@ -1,11 +1,14 @@
 package plant;
+
+import java.io.Serializable;
+
 /**
  * Plant Class:
  * Creates a new Plant Type with variable 
  * cost of plant and health point.
  * @author Sirak Berhane (101030433)
  */
-public class Plant implements Cloneable {
+public class Plant implements Cloneable, Serializable{
 	private final int buyThreshold; // Constant cost value for different plants 
 	private int hitThreshold; // Maximum hits a plant can take before it is dead
 	private int xPos; // Grid position x

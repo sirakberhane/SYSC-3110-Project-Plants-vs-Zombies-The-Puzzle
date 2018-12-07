@@ -1,5 +1,7 @@
 package zombie;
 
+import java.io.Serializable;
+
 import plant.Plant;
 
 /**
@@ -7,7 +9,7 @@ import plant.Plant;
  * @author Ryan Tordesillas(101041626)
  *
  */
-public class Zombie implements Cloneable {
+public class Zombie implements Cloneable, Serializable {
 	
 	/** The left most point of the board*/
 	private final int ENDOFBOARD = 8;
