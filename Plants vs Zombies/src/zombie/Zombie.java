@@ -237,6 +237,5 @@ public class Zombie implements Cloneable, Serializable {
 	 */
 	public Zombie clone() throws CloneNotSupportedException {
 		return (Zombie) super.clone();
-	}
-	
+	}	
 }
