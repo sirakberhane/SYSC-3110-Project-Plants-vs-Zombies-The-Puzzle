@@ -98,6 +98,18 @@ public class GameGUI {
     private BufferedImage footballzombieImage;
     private BufferedImage newspaperzombieImage;
     
+    private BufferedImage zombieFrozenImage;
+    private BufferedImage bucketzombieFrozenImage;
+    private BufferedImage gargantuarzombieFrozenImage;
+    private BufferedImage footballzombieFrozenImage;
+    private BufferedImage newspaperzombieFrozenImage;
+    
+    private BufferedImage zombieHypnoImage;
+    private BufferedImage bucketzombieHypnoImage;
+    private BufferedImage gargantuarzombieHypnoImage;
+    private BufferedImage footballzombieHypnoImage;
+    private BufferedImage newspaperzombieHypnoImage;
+    
     //Shovel
     private BufferedImage shovelImage;
     
@@ -169,6 +181,18 @@ public class GameGUI {
 			bucketzombieImage = ImageIO.read(new File("images/bucketzombie.png"));
 			newspaperzombieImage = ImageIO.read(new File("images/newspaperzombie.png"));
 			footballzombieImage = ImageIO.read(new File("images/footballzombie.png"));
+			
+			zombieFrozenImage = ImageIO.read(new File("images/zombieFrozen.png"));
+			gargantuarzombieFrozenImage = ImageIO.read(new File("images/gargantuarzombieFrozen.png"));
+			bucketzombieFrozenImage = ImageIO.read(new File("images/bucketzombieFrozen.png"));
+			newspaperzombieFrozenImage = ImageIO.read(new File("images/newspaperzombieFrozen.png"));
+			footballzombieFrozenImage = ImageIO.read(new File("images/footballzombieFrozen.png"));
+			
+			zombieHypnoImage = ImageIO.read(new File("images/zombieHypno.png"));
+			gargantuarzombieHypnoImage = ImageIO.read(new File("images/gargantuarzombieHypno.png"));
+			bucketzombieHypnoImage = ImageIO.read(new File("images/bucketzombieHypno.png"));
+			newspaperzombieHypnoImage = ImageIO.read(new File("images/newspaperzombieHypno.png"));
+			footballzombieHypnoImage = ImageIO.read(new File("images/footballzombieHypno.png"));
 			
 			shovelImage = ImageIO.read(new File("images/shovel.png"));
 			
@@ -611,15 +635,15 @@ public class GameGUI {
         	//Add the zombies
         	for (Zombie zombie: level.getLawn(j).getZombies()) {
         		if (zombie instanceof BasicZombie)
-        			addZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        			addZombie(zombie, (int) Math.round(zombie.getCurrentX()), zombie.getyPos());
         		else if (zombie instanceof BucketZombie)
-        			addBucketZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        			addBucketZombie(zombie, (int) Math.round(zombie.getCurrentX()), zombie.getyPos());
         		else if (zombie instanceof NewspaperZombie)
-        			addNewspaperZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        			addNewspaperZombie(zombie, (int) Math.round(zombie.getCurrentX()), zombie.getyPos());
         		else if (zombie instanceof FootballZombie)
-        			addFootballZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        			addFootballZombie(zombie, (int) Math.round(zombie.getCurrentX()), zombie.getyPos());
         		else if (zombie instanceof Gargantuar)
-        			addGargantuarZombie((int) Math.round(zombie.getCurrentX()), zombie.getyPos());
+        			addGargantuarZombie(zombie, (int) Math.round(zombie.getCurrentX()), zombie.getyPos());
 			}
 		}
         
@@ -708,8 +732,14 @@ public class GameGUI {
 	 * @param x the x position
 	 * @param y the y position
 	 */
-	public void addZombie(int x, int y) {
-		lawnTiles[x][y].addSprite(new ImageIcon(zombieImage).getImage());
+	public void addZombie(Zombie zombie, int x, int y) {
+		if (zombie.isSlowed())
+			lawnTiles[x][y].addSprite(new ImageIcon(zombieFrozenImage).getImage());
+		else if (zombie.isHypnotized())
+			lawnTiles[x][y].addSprite(new ImageIcon(zombieHypnoImage).getImage());
+		else 
+			lawnTiles[x][y].addSprite(new ImageIcon(zombieImage).getImage());
+		
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
 	}
@@ -719,8 +749,14 @@ public class GameGUI {
 	 * @param x the x position
 	 * @param y the y position
 	 */
-	public void addBucketZombie(int x, int y) {
-		lawnTiles[x][y].addSprite(new ImageIcon(bucketzombieImage).getImage());
+	public void addBucketZombie(Zombie zombie, int x, int y) {
+		if (zombie.isSlowed())
+			lawnTiles[x][y].addSprite(new ImageIcon(bucketzombieFrozenImage).getImage());
+		else if (zombie.isHypnotized())
+			lawnTiles[x][y].addSprite(new ImageIcon(bucketzombieHypnoImage).getImage());
+		else 
+			lawnTiles[x][y].addSprite(new ImageIcon(bucketzombieImage).getImage());
+		
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
 	}
@@ -730,8 +766,14 @@ public class GameGUI {
 	 * @param x the x position
 	 * @param y the y position
 	 */
-	public void addNewspaperZombie(int x, int y) {
-		lawnTiles[x][y].addSprite(new ImageIcon(newspaperzombieImage).getImage());
+	public void addNewspaperZombie(Zombie zombie, int x, int y) {
+		if (zombie.isSlowed())
+			lawnTiles[x][y].addSprite(new ImageIcon(newspaperzombieFrozenImage).getImage());
+		else if (zombie.isHypnotized())
+			lawnTiles[x][y].addSprite(new ImageIcon(newspaperzombieHypnoImage).getImage());
+		else 
+			lawnTiles[x][y].addSprite(new ImageIcon(newspaperzombieImage).getImage());
+		
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
 	}
@@ -741,8 +783,14 @@ public class GameGUI {
 	 * @param x the x position
 	 * @param y the y position
 	 */
-	public void addFootballZombie(int x, int y) {
-		lawnTiles[x][y].addSprite(new ImageIcon(footballzombieImage).getImage());
+	public void addFootballZombie(Zombie zombie, int x, int y) {
+		if (zombie.isSlowed())
+			lawnTiles[x][y].addSprite(new ImageIcon(footballzombieFrozenImage).getImage());
+		else if (zombie.isHypnotized())
+			lawnTiles[x][y].addSprite(new ImageIcon(footballzombieHypnoImage).getImage());
+		else 
+			lawnTiles[x][y].addSprite(new ImageIcon(footballzombieImage).getImage());
+		
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
 	}
@@ -752,8 +800,14 @@ public class GameGUI {
 	 * @param x the x position
 	 * @param y the y position
 	 */
-	public void addGargantuarZombie(int x, int y) {
-		lawnTiles[x][y].addSprite(new ImageIcon(gargantuarzombieImage).getImage());
+	public void addGargantuarZombie(Zombie zombie, int x, int y) {
+		if (zombie.isSlowed())
+			lawnTiles[x][y].addSprite(new ImageIcon(gargantuarzombieFrozenImage).getImage());
+		else if (zombie.isHypnotized())
+			lawnTiles[x][y].addSprite(new ImageIcon(gargantuarzombieHypnoImage).getImage());
+		else 
+			lawnTiles[x][y].addSprite(new ImageIcon(gargantuarzombieImage).getImage());
+		
 		lawnTiles[x][y].revalidate();
 		lawnTiles[x][y].repaint();
 	}
