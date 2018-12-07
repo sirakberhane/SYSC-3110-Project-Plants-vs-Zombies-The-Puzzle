@@ -210,4 +210,13 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
 * Level Builder 
      
 #### Save/Load State - Ryan Tordesillas
-* Serialization - Save current game status
+* Implentation of Serialization Libraries 
+* Save current game status to a file
+* Load previous game status if the player wants to continue playing from last save
+
+#### JUnit Test Cases - Sirak Berhane
+* New Plant and Zombie Test Cases
+  -> PlantTypeTest CLASS: 
+  -> ZombieTypeTest CLASS:
+  
+#### UML Diagrams - Karl Schnalzer
