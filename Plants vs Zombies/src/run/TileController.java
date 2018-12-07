@@ -15,6 +15,7 @@ public class TileController implements MouseListener  {
 	private int y;
 	//References to GameGUI and Level
 	private GameGUI game;
+	private GameData gameData;
 	private Level level;
 	
 	//Construct the new TileController with the references and it's position on the board
@@ -23,13 +24,14 @@ public class TileController implements MouseListener  {
 		this.level = level;
 		this.x = x;
 		this.y = y;
+		gameData = game.getGameData();
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		level = game.getCurrentLevelState();
 		//If any plant is selected
-		if (!game.shovelSelected()) {
+		if (!gameData.shovelSelected()) {
 			//Add that plantType if possible
 			if (level.addPlant(x, y)) {
 				//Tell Level to move on to next turn
