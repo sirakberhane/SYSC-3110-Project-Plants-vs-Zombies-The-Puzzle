@@ -220,3 +220,7 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
     - ZombieTypeTest CLASS:
   
 #### UML Diagrams - Karl Schnalzer
+
+### Optional
+* Real-Time Game Play -> [NOT IMPLEMENTED]
+* Android Version -> [NOT IMPLEMENTED]
