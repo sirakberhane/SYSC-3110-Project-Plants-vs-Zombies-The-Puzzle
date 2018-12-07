@@ -33,7 +33,7 @@ public class Zombie implements Cloneable, Serializable {
 	private boolean slowed;
 	
 	/** The different types of zombie */
-	public enum Type {BASIC,BUCKET, FOOTBALL, TANK};
+	public enum Type {BASIC, BUCKET, FOOTBALL, TANK, GARGANTUAR, NEWSPAPER};
 	
 	/** The current type of zombie */
 	private Type type;
