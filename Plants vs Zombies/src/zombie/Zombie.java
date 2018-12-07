@@ -26,6 +26,10 @@ public class Zombie implements Cloneable {
 	private int yPos;
 	/** Indicates whether the zombie is moving */
 	private boolean moving;
+	/** Indicates whether the zombie is hypnotized */
+	private boolean hypnotized;
+	/** Indicates whether the zombie is slowed */
+	private boolean slowed;
 	
 	/** The different types of zombie */
 	public enum Type {BASIC,BUCKET, FOOTBALL, TANK};
@@ -47,6 +51,8 @@ public class Zombie implements Cloneable {
 		this.name = name;
 		currentX = ENDOFBOARD;
 		moving = true;
+		hypnotized = false;
+		slowed = false;
 	}
 
 	/**
@@ -54,6 +60,9 @@ public class Zombie implements Cloneable {
 	 * @return movementSpeed the speed of the zombie.
 	 */
 	public double getMovementSpeed() {
+		//If slowed, moves half as fast
+		if (isSlowed())
+			return 0.5 * movementSpeed;
 		return movementSpeed;
 	}
 
@@ -189,6 +198,42 @@ public class Zombie implements Cloneable {
 		yPos = y;
 	}
 	
+	/**
+	 * Returns true if the zombie is hypnotized, false otherwise
+	 * @return true if zombie is hypnotized, false otherwise
+	 */
+	public boolean isHypnotized() {
+		return hypnotized;
+	}
+	
+	/**
+	 * Sets whether the zombie is hypnotized or not
+	 * @param hypnotized indicates whether the zombie is hypnotized or not
+	 */
+	public void setHypnotized(boolean hypnotized) {
+		this.hypnotized = hypnotized;
+	}
+	
+	/**
+	 * Returns true if the zombie is slowed, false otherwise
+	 * @return true if the zombie is slowed, false otherwise
+	 */
+	public boolean isSlowed() {
+		return slowed;
+	}
+	
+	/**
+	 * Sets whether the zombie is slowed or not
+	 * @param slowed indicates whether the zombie is slowed or not
+	 */
+	public void setSlowed(boolean slowed) {
+		this.slowed = slowed;
+	}
+	
+	/**
+	 * Returns a copy of the zombie (for undo/redo purposes)
+	 * @return a copy of the zombie
+	 */
 	public Zombie clone() throws CloneNotSupportedException {
 		return (Zombie) super.clone();
 	}

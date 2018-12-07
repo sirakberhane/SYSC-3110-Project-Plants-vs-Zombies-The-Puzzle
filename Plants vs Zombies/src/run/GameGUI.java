@@ -494,18 +494,21 @@ public class GameGUI {
 	 * @param level
 	 */
 	public void addLevelState() {
+		//If back to the start of the level
 		if (levelIndex == 0) {
-			System.out.println("Test 1");
+			//Clear the history and add a new empty level state
 			levelHistory.clear();
 			levelHistory.add(new Level(waveSizes, this));
+			//Then add the current state
 			levelHistory.add(level.copyLevel());
 		}
+		//Otherwise add the current state of level
 		else {
-			System.out.println("Test 2");
 			levelHistory.add(level.copyLevel());
 		}
-		System.out.println("" + levelHistory.size());
+		//Update levelIndex to the most current move
 		levelIndex = levelHistory.size() - 1;
+		//Remove all moves past this point
 		removeHistory();
 	}
 	

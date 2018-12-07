@@ -255,7 +255,7 @@ public class Level implements Serializable {
 	 *            the plant of reference
 	 * @return the closest zombie
 	 */
-	public Zombie closestZombie(int yPos, Plant plant) {
+	public Zombie closestZombie(Object entity, int yPos, int xPos) {
 		Zombie closest = null;
 
 		if (!lawns[yPos].getZombies().isEmpty()) {
@@ -263,8 +263,8 @@ public class Level implements Serializable {
 			// Find a potential closest zombie
 			int i = 0;
 			closest = lawns[yPos].getZombies().get(i);
-			while (closest.getCurrentX() < plant.getxPos() && lawns[yPos].getZombies().size() > 1
-					&& i < lawns[yPos].getZombies().size()) {
+			while (lawns[yPos].getZombies().size() > 1
+					&& i < lawns[yPos].getZombies().size() && closest == entity) {
 				closest = lawns[yPos].getZombies().get(i);
 				i++;
 			}
@@ -272,8 +272,33 @@ public class Level implements Serializable {
 			// For each loop to visit all zombies
 			for (Zombie zombie : lawns[yPos].getZombies()) {
 				// If current zombie is closer than our current closest, update closest
-				if (zombie.getCurrentX() < closest.getCurrentX() && zombie.getCurrentX() >= plant.getxPos())
-					closest = zombie;
+				
+				//If reference entity is a plant
+				if (entity instanceof Plant) {
+					if (zombie.getCurrentX() < closest.getCurrentX() && zombie.getCurrentX() >= xPos)
+						closest = zombie;
+				}
+				
+				//If reference entity is a zombie
+				else if (entity instanceof Zombie) {
+					Zombie reference = (Zombie) entity;
+					//If zombie is hypnotized
+					if (reference.isHypnotized()) {
+						if (zombie.getCurrentX() < closest.getCurrentX() && zombie.getCurrentX() >= xPos) {
+							//Doesn't count if it's the zombie of reference
+							if (reference != zombie)
+								closest = zombie;
+						}
+					}
+					
+					//If zombie is not hypnotized
+					else {
+						if (zombie.getCurrentX() > closest.getCurrentX() && zombie.getCurrentX() <= xPos)
+							closest = zombie;
+					}
+							
+				}
+			
 
 			}
 		}
@@ -282,7 +307,10 @@ public class Level implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Determines the closest plant in the lawn of the zombie
+	 * @param yPos the lawn of reference
+	 * @param zombie the zombie of reference
+	 * @return
 	 */
 	public Plant closestPlant(int yPos, Zombie zombie) {
 		Plant closest = null;
@@ -300,7 +328,8 @@ public class Level implements Serializable {
 			// For each loop to visit all plants in the row
 			for (Plant plant : lawns[yPos].getPlants()) {
 				// If current plant is closer than our current closest, update closest
-				if (plant.getxPos() > closest.getxPos() && plant.getxPos() <= closestZombie(yPos, plant).getCurrentX())
+				if (plant.getxPos() > closest.getxPos()
+						&& plant.getxPos() <= closestZombie(plant, yPos, plant.getxPos()).getCurrentX())
 					closest = plant;
 			}
 
@@ -331,7 +360,7 @@ public class Level implements Serializable {
 					Peashooter peashooter = (Peashooter) plant;
 
 					// Find closest zombie in the row of the peashooter
-					Zombie targetZombie = closestZombie(peashooter.getyPos(), peashooter);
+					Zombie targetZombie = closestZombie(peashooter, peashooter.getyPos(), peashooter.getxPos());
 					if (targetZombie != null) {
 						// Deal damage to zombie
 						targetZombie.hit(peashooter.getHitValue());
@@ -347,8 +376,9 @@ public class Level implements Serializable {
 					SnowPeashooter snowpeashooter = (SnowPeashooter) plant;
 
 					// Find closest zombie in the row of the peashooter
-					Zombie targetZombie = closestZombie(snowpeashooter.getyPos(), snowpeashooter);
+					Zombie targetZombie = closestZombie(snowpeashooter, snowpeashooter.getyPos(), snowpeashooter.getxPos());
 					if (targetZombie != null) {
+						targetZombie.setSlowed(true);
 						// Deal damage to zombie
 						targetZombie.hit(snowpeashooter.getHitValue());
 						// If zombie is dead, remove it
@@ -392,16 +422,6 @@ public class Level implements Serializable {
 				}
 
 				else if (plant instanceof HypnoShroom) {
-					// Cast plant as HypnoShroom
-					HypnoShroom hypnoshroom = (HypnoShroom) plant;
-
-					// Find closest zombie in the row of the hypnoshroom
-					Zombie targetZombie = closestZombie(hypnoshroom.getyPos(), hypnoshroom);
-
-					// If zombie is on the same tile
-					if (targetZombie.getCurrentX() == hypnoshroom.getxPos()) {
-
-					}
 
 				}
 
@@ -420,16 +440,24 @@ public class Level implements Serializable {
 			// Flag if this lawn's lawn mower gets activated
 			boolean lawnMowerActivate = false;
 
+			ArrayList<Zombie> removedZombies = new ArrayList<Zombie>();
+			
 			for (Zombie zombie : lawns[i].getZombies()) {
 
 				zombie.setMoving(true);
-
-				// Determine whether zombie needs to stop due to plant collision
+				
+				int xPos = (int) (Math.round(zombie.getCurrentX()));
+				// Determine whether zombie needs to stop due to plant/zombie collision
 				if (!lawns[i].getPlants().isEmpty()) {
-					if (Math.round(zombie.getCurrentX()) == closestPlant(i, zombie).getxPos())
+					if (xPos == closestPlant(i, zombie).getxPos())
 						zombie.setMoving(false);
-					else
-						zombie.setMoving(true);
+				}
+				
+				if (lawns[i].getZombies().size() > 1) {
+					if (xPos == (int) Math.round(closestZombie(zombie, i, xPos).getCurrentX())) {
+						if (closestZombie(zombie, i, xPos).isHypnotized() || zombie.isHypnotized())
+							zombie.setMoving(false);
+					}
 				}
 
 				if (zombie.isMoving()) {
@@ -444,20 +472,44 @@ public class Level implements Serializable {
 						lawnMowerActivate = true;
 					}
 
-					//
-					if (zombie.isMoving()) {
+					//If zombie is hypnotized, move opposite direction
+					if (zombie.isHypnotized()) {
+						zombie.setCurrentX(zombie.getCurrentX() + zombie.getMovementSpeed());
+						//If it reaches the end of the board, remove it
+						if (zombie.getCurrentX() > Level.X_MAX) {
+							removedZombies.add(zombie);
+						}
+					}
+
+					else {
 						zombie.setCurrentX(zombie.getCurrentX() - zombie.getMovementSpeed());
 					}
-				} else {
-					// Attack until plant is dead
-					Plant targetPlant = closestPlant(i, zombie);
-					if (targetPlant != null) {
-						targetPlant.setHitThreshold(targetPlant.getHitThreshold() - zombie.attack());
-						if (targetPlant.isPlantDead()) {
-							lawns[i].getPlants().remove(targetPlant);
-							zombie.setMoving(true);
-						}
 
+				} else {
+					//If zombie is hypnotized, will attack other zombies
+					if (zombie.isHypnotized() && lawns[i].getZombies().size() > 1) {
+						Zombie targetZombie = closestZombie(zombie, i, (int) zombie.getCurrentX());
+						if (targetZombie != null) {
+							targetZombie.setHitThreshold(targetZombie.getHitThreshold() - zombie.attack());
+							if (targetZombie.isDead()) {
+								removedZombies.add(targetZombie);
+							}
+						}
+					} else {
+						// Attack until plant is dead
+						Plant targetPlant = closestPlant(i, zombie);
+						if (targetPlant != null) {
+							targetPlant.setHitThreshold(targetPlant.getHitThreshold() - zombie.attack());
+							if (targetPlant.isPlantDead()) {
+								// If plant was a hypnoshroom, hypnotize the zombie
+								if (targetPlant instanceof HypnoShroom) {
+									zombie.setHypnotized(true);
+								}
+								lawns[i].getPlants().remove(targetPlant);
+								zombie.setMoving(true);
+							}
+
+						}
 					}
 
 				}
@@ -466,6 +518,11 @@ public class Level implements Serializable {
 			// Activate the lawnmower once all the zombies have done their actions
 			if (lawnMowerActivate) {
 				activateLawnMower(i);
+			}
+			
+			//Remove all hypnotized zombies that have left
+			for (Zombie zombie: removedZombies) {
+				removeZombie(zombie);
 			}
 		}
 	}
@@ -489,10 +546,6 @@ public class Level implements Serializable {
 	 * Gets the next move from the player and continues the level simulation.
 	 */
 	public void NextTurn() {
-		/*
-		 * try { turnHistory.add((Level) clone()); } catch (CloneNotSupportedException
-		 * e) { // TODO Auto-generated catch block e.printStackTrace(); }
-		 */
 		// Generate sun for the player
 		gameGenerateSun();
 
@@ -528,13 +581,6 @@ public class Level implements Serializable {
 		}
 
 		checkWinCondition();
-	}
-
-	public void undoTurn() {
-	}
-
-	public void redoTurn() {
-
 	}
 
 	/**
