@@ -216,8 +216,8 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
 
 #### JUnit Test Cases - Sirak Berhane
 * New Plant and Zombie Test Cases
-    - PlantTypeTest CLASS: 
-    - ZombieTypeTest CLASS:
+    - PlantTypeTest CLASS: testHypnoShroom(), testPotatoMine(), testSnowPeashooter(), testWallnut()
+    - ZombieTypeTest CLASS: testBucketZombie(), testFootballZombie(), testGargantuarZombie(), testNewspaperZombie()
   
 #### UML Diagrams - Karl Schnalzer
 
