@@ -220,13 +220,15 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
     - PlantTypeTest CLASS: testHypnoShroom(), testPotatoMine(), testSnowPeashooter(), testWallnut()
     - ZombieTypeTest CLASS: testBucketZombie(), testFootballZombie(), testGargantuarZombie(), testNewspaperZombie()
   
-#### UML Diagrams - Karl Schnalzer
+#### UML/Sequence Diagrams - Karl Schnalzer
 ##### UML Diagram - Plants and Zombies
 ![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/Milestone4_UML_Class_1.png) 
 
 ##### UML Diagram - GUI
 ![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/Milestone4_UML_Class_2.png) 
 
-### Optional Features
-* Real-Time Game Play -> [NOT IMPLEMENTED]
-* Android Version -> [NOT IMPLEMENTED]
+##### Sequence Diagram - Load Game
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/Load%20Sequence%20diagram.png)
+
+##### Sequence Diagram - Save Game
+![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/Save%20Sequence%20diagram.png)
