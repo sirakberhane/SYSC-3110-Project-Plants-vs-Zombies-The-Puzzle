@@ -7,7 +7,6 @@ package plant;
  * @author Sirak Berhane (101030433)
  */
 public class Peashooter extends ShooterPlant{
-	private static final long serialVersionUID = -3033744389149599340L;
 	public static final int PEASHOOTER_HIT_THRESHOLD = 10;
 	public static final int PEASHOOTER_BUY_THRESHOLD = 100;
 	public static final int PEASHOOTER_HIT_VALUE = 2;

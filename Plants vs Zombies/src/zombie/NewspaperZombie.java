@@ -6,7 +6,7 @@ package zombie;
  *
  */
 public class NewspaperZombie extends Zombie{
-	private static final long serialVersionUID = 1852841735862189615L;
+
 	/** The speed of the zombie */
 	private static double newspaperSpeed = 0.5;
 	/** The name of the zombie */

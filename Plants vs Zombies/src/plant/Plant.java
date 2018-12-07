@@ -9,7 +9,6 @@ import java.io.Serializable;
  * @author Sirak Berhane (101030433)
  */
 public class Plant implements Cloneable, Serializable{
-	private static final long serialVersionUID = 7850060996841932686L;
 	private final int buyThreshold; // Constant cost value for different plants 
 	private int hitThreshold; // Maximum hits a plant can take before it is dead
 	private int xPos; // Grid position x

@@ -4,7 +4,6 @@ package plant;
  * @author Sirak Berhane (101030433)
  */
 public class ShooterPlant extends Plant{
-	private static final long serialVersionUID = -6739029100935880921L;
 	private final int hitValue; // Hit value of the Attack type plant
 	/**
 	 * Creates a new attack type plant.

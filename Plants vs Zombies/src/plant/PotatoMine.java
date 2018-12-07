@@ -1,7 +1,6 @@
 package plant;
 
 public class PotatoMine extends ExplosivePlant{
-	private static final long serialVersionUID = 2491322654304561245L;
 	public static final int POTATOMINE_HIT_THRESHOLD = 15;
 	public static final int POTATOMINE_BUY_THRESHOLD = 75;
 	public static final int TURNS_UNTIL_EXPLOSION = 3;

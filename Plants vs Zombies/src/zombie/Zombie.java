@@ -2,14 +2,15 @@ package zombie;
 
 import java.io.Serializable;
 
+import plant.Plant;
+
 /**
  * This class will create zombies that will be used in the main class.
  * @author Ryan Tordesillas(101041626)
  *
  */
 public class Zombie implements Cloneable, Serializable {
-	private static final long serialVersionUID = 8446245487659181855L;
-
+	
 	/** The left most point of the board*/
 	private final int ENDOFBOARD = 8;
 	
@@ -33,7 +34,7 @@ public class Zombie implements Cloneable, Serializable {
 	private boolean slowed;
 	
 	/** The different types of zombie */
-	public enum Type {BASIC, BUCKET, FOOTBALL, TANK, GARGANTUAR, NEWSPAPER};
+	public enum Type {BASIC,BUCKET, FOOTBALL, TANK};
 	
 	/** The current type of zombie */
 	private Type type;
@@ -237,5 +238,6 @@ public class Zombie implements Cloneable, Serializable {
 	 */
 	public Zombie clone() throws CloneNotSupportedException {
 		return (Zombie) super.clone();
-	}	
+	}
+	
 }
