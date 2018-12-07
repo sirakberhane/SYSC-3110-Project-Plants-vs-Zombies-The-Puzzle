@@ -6,6 +6,7 @@ package zombie;
  *
  */
 public class BasicZombie extends Zombie {
+	private static final long serialVersionUID = -8389811298274126989L;
 	/** The basic speed of the zombie */
 	private final static double BASIC_SPEED = 0.5;
 	/** The basic name of the zombie */

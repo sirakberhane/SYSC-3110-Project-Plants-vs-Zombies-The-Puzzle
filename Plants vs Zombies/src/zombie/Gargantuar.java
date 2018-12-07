@@ -6,6 +6,7 @@ package zombie;
  *
  */
 public class Gargantuar extends Zombie{
+	private static final long serialVersionUID = 808391049069997874L;
 	/** The speed of the zombie */
 	private final static double TANK_SPEED = 0.2;
 	/** The name of the zombie */

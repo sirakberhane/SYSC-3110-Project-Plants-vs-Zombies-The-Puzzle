@@ -6,8 +6,7 @@ package zombie;
  *
  */
 public class FootballZombie extends Zombie{
-	
-
+	private static final long serialVersionUID = 2370471796922506566L;
 	/** The speed of the zombie */
 	private final static double FOOTBALL_SPEED = 0.8;
 	/** The name of the zombie */

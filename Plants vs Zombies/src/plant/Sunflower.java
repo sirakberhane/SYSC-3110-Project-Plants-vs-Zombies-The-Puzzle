@@ -4,6 +4,7 @@ package plant;
  * @author Sirak Berhane (101030433)
  */
 public class Sunflower extends PassivePlant{
+	private static final long serialVersionUID = -6978965903264093607L;
 	public static final int SUNFLOWER_HIT_THRESHOLD = 5;
 	public static final int SUNFLOWER_BUY_THRESHOLD = 50;
 	public static final int SUN = 50;
