@@ -1,7 +1,7 @@
 package plant;
 
 public class ExplosivePlant extends Plant {
-
+	private static final long serialVersionUID = -8861911867458144726L;
 	private int explosionDamage;
 	private boolean hasExploded;
 	
