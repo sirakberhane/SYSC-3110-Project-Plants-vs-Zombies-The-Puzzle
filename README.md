@@ -232,3 +232,8 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
 
 ##### Sequence Diagram - Save Game
 ![alt text](https://raw.githubusercontent.com/sirakberhane/SYSC-3110-Project-Plants-vs-Zombies-The-Puzzle/master/Diagrams/Save%20Sequence%20diagram.png)
+
+#### Project Reflection
+* Overall, our code is very organized with clear class names followed by a clear and understandable code. Although our code design makes sense, the GUI Class has a few lines of code that can be refactored and made shorter but due to the time constraint we weren't able to make that part of code more clean and efficient.
+
+* The way that each milestone was structred made us more orgainized in our code design but the one thing we didn't like was that at some point of the project the amount of code that we implemented was too much compared to the time we had.
