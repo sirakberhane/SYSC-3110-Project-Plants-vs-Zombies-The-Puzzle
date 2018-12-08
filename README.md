@@ -209,7 +209,7 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
 * Undo and Redo Features (Bug fixes and Improvements made)
 * Level Builder -> Player is able to create their own level
     - User is given a text box and they can enter the file name followed by the number of waves and number of zombies that can apear in     the selected number of waves. 
-* All levels are imported as .XML format for simplicity with each 
+* All levels are imported as .XML format for simplicity with each new game run
     - Default level.xml exists and the player can create any number of levels and diffuculty by inputting number of waves and zombies.
      
 #### Save/Load State - Ryan Tordesillas
