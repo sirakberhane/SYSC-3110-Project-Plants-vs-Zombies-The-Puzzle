@@ -3,6 +3,13 @@ package run;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * 
+ * @author Jolar Tabungar
+ * 
+ * Listener to load a save when load option is clicked
+ *
+ */
 public class LoadController implements MouseListener {
 	//References to the GameGUI
 	private GameGUI game;

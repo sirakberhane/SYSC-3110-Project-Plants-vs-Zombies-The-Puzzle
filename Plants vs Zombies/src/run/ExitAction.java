@@ -4,12 +4,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Jolar Tabungar
+ * 
+ * Listener to exit the game when exit is clicked
+ *
+ */
 public class ExitAction implements MouseListener {
 	//Reference to the GameGUI
 	private GameGUI game;
-	private ArrayList<Integer> waveSizes;
 
-	//Create a new PeashooterSelectController with the reference to the GameGUI
+	//Create a new Exit Action with the reference to the GameGUI
 	public ExitAction(GameGUI game) {
 		this.game = game;
 	}

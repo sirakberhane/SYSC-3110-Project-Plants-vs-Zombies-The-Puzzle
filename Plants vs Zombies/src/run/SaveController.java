@@ -3,6 +3,13 @@ package run;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * 
+ * @author Jolar Tabungar
+ * 
+ * Listener to Save When It is Clicked
+ *
+ */
 public class SaveController implements MouseListener {
 	//References to the GameGUI and level;
 	private GameGUI game;

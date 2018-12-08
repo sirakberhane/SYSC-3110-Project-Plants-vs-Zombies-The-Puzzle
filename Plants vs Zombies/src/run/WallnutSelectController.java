@@ -3,11 +3,18 @@ package run;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * 
+ * @author Jolar Tabungar
+ * 
+ * Listener to Select the Wallnut Option When It is Clicked
+ *
+ */
 public class WallnutSelectController implements MouseListener {
 	//Reference to the GameGUI
 		private GameGUI game;
 
-		//Create a new PeashooterSelectController with the reference to the GameGUI
+		//Create a new WallnutSelectController with the reference to the GameGUI
 		public WallnutSelectController(GameGUI game) {
 			this.game = game;
 		}

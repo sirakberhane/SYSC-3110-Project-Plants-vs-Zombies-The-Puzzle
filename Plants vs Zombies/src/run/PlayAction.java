@@ -1,6 +1,7 @@
 package run;
 
 import java.awt.event.MouseEvent;
+
 import java.awt.event.MouseListener;
 import java.io.File;
 
@@ -26,41 +27,53 @@ import org.xml.sax.SAXException;
 
 import org.w3c.dom.NodeList;
 
+/**
+ * 
+ * @author Jolar Tabungar
+ * 
+ * Implements the play feature on the menu screen
+ * Loads a level template from levels and creates a new game using that level template
+ *
+ */
 public class PlayAction implements MouseListener {
 	// Reference to the GameGUI
 	private GameGUI game;
 
-	// Create a new PeashooterSelectController with the reference to the GameGUI
+	// Create a new PlayAction with the reference to the GameGUI
 	public PlayAction(GameGUI game) {
 		this.game = game;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		//Open a JFilechooser Dialog in the levels directory
 		JFileChooser levelChooser = new JFileChooser();
 		levelChooser.setCurrentDirectory(new File(".\\levels"));
 		int result = levelChooser.showOpenDialog(game.getFrame());
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    File selectedLevel = levelChooser.getSelectedFile();
-		    System.out.println("Selected file: " + selectedLevel.getAbsolutePath());
 		    
+		    //Read File as XML
 		    File xmlFile = new File(selectedLevel.getAbsolutePath());
 	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	        DocumentBuilder dBuilder;
+	        //Create an empty waveSizes array to be filled after reading the file
 	        ArrayList<Integer> waveSizes = new ArrayList<Integer>();
 	        try {
+	        	//Build a new document from the parsed xmlFile and normalize it
 	            dBuilder = dbFactory.newDocumentBuilder();
 	            org.w3c.dom.Document doc = dBuilder.parse(xmlFile);
 	            doc.getDocumentElement().normalize();
-	            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+	      
+	            //Retrieve a list of all the waveSize elements
 	            Node waveInfo = doc.getElementsByTagName("WaveInfo").item(0);
 	            NodeList numZombiesList = ((Element) waveInfo).getElementsByTagName("NumZombies");
-	            //now XML is loaded as Document in memory, lets convert it to Object List
 	 
+	            //Convert Nodes retrieved from XML into their values and add them to the waveSizes array
 	            for (int i = 0; i < numZombiesList.getLength(); i++) {
 	            	
+	            	//Convert Node Values into waveSize elements
 	            	Node node = numZombiesList.item(i).getChildNodes().item(0);
-	            	System.out.println(node.getNodeValue());
 	                waveSizes.add(Integer.parseInt(node.getNodeValue()));
 	                
 	            }
@@ -68,6 +81,7 @@ public class PlayAction implements MouseListener {
 	            e1.printStackTrace();
 	        }
 	        
+	        //Create the game from the waveSizes array
 	        game.createGameScreen(waveSizes);
 		}
 		

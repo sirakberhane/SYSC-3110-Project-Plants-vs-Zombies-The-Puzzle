@@ -323,6 +323,10 @@ public class GameGUI {
 		frame.setContentPane(menuScreen);
 	}
 
+	/**
+	 * Create a new game using the given waveSizes array
+	 * @param waveSizes the template used to generate zombies
+	 */
 	public void createGameScreen(ArrayList<Integer> waveSizes) {
 
 		this.waveSizes = waveSizes;

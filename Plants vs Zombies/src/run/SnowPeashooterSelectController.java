@@ -3,11 +3,18 @@ package run;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * 
+ * @author Jolar Tabungar
+ * 
+ * Listener to Select the SnowPeaShooter Option When It is Clicked
+ *
+ */
 public class SnowPeashooterSelectController implements MouseListener {
 	//Reference to the GameGUI
 	private GameGUI game;
 
-	//Create a new PeashooterSelectController with the reference to the GameGUI
+	//Create a new SnowPeashooterSelectController with the reference to the GameGUI
 	public SnowPeashooterSelectController(GameGUI game) {
 		this.game = game;
 	}
