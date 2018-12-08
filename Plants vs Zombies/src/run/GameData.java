@@ -2,6 +2,11 @@ package run;
 
 import java.io.Serializable;
 
+/**
+ * This is the data the Level class uses to make changes within GameGUI.
+ * @author Ryan Tordesillas 101041626
+ *
+ */
 public class GameData implements Serializable{
 
 	//Flags to determine which select option is set
@@ -23,7 +28,16 @@ public class GameData implements Serializable{
 		wallnutSelected = wall;
 	}
 
-
+	/**
+	 * This method will update the data as the GUI updates.
+	 * @param sun the sunflower boolean
+	 * @param pea the peashooter boolean
+	 * @param shovel the shovel boolean
+	 * @param snow the snowpeashooter boolean
+	 * @param potato the potatomine boolean
+	 * @param hypno the hypnoshroom boolean
+	 * @param wall the wallnut boolean
+	 */
 	public void update(boolean sun, boolean pea, boolean shovel, boolean snow, boolean potato, boolean hypno, boolean wall) {
 		sunflowerSelected = sun;
 		peashooterSelected = pea;
@@ -103,27 +117,54 @@ public class GameData implements Serializable{
 		shovelSelected = false;
 	}
 
+	/**
+	 * Sets the sunflower
+	 * @param true if set false if not set
+	 */
 	public void setSunflower(boolean b) {
 		sunflowerSelected = b;
 	}
 
+	/**
+	 * Sets the peashooter
+	 * @param true if set false if not set
+	 */
 	public void setPeashooter(boolean b) {
 		peashooterSelected = b;
 	}
 
+	/**
+	 * Sets the snowpeashooter
+	 * @param true if set false if not set
+	 */
 	public void setSnowpeashooter(boolean b) {
 		snowpeashooterSelected = b;
 	}
-
+	/**
+	 * Sets the Potatomine
+	 * @param true if set false if not set
+	 */
 	public void setPotatoMine(boolean b) {
 		potatomineSelected = b;
 	}
+	/**
+	 * Sets the hypnoshroom
+	 * @param true if set false if not set
+	 */
 	public void setHypnoshroom(boolean b) {
 		hypnoshroomSelected = b;
 	}
+	/**
+	 * Sets the wallnut
+	 * @param true if set false if not set
+	 */
 	public void setWallnut(boolean b) {
 		wallnutSelected = b;
 	}
+	/**
+	 * Sets the shovel
+	 * @param true if set false if not set
+	 */
 	public void setShovel(boolean b) {
 		shovelSelected = b;
 	}

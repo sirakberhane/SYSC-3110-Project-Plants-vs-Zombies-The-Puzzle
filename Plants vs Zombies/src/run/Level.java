@@ -677,10 +677,17 @@ public class Level implements Serializable {
 		return lawns[y];
 	}
 	
+	/**
+	 * Returns true when the game is won.
+	 * @return true when the game is won.
+	 */
 	public boolean gameWin() {
 		return gameWin;
 	}
-	
+	/**
+	 * Returns true when the game is lost.
+	 * @return true whe the game is lost.
+	 */
 	public boolean gameLose() {
 		return gameLose;
 	}

@@ -266,10 +266,16 @@ public class GameGUI {
 
 	}
 
+	/**
+	 * Gets the frame of the GUI
+	 * @return the frame of the GUI
+	 */
 	public Frame getFrame() {
 		return frame;
 	}
-
+	/**
+	 * This method will create the menu screen
+	 */
 	public void createMenuScreen() {
 		menuScreen = new Container();
 		menuScreen.setLayout(new FlowLayout());
@@ -1028,6 +1034,9 @@ public class GameGUI {
 		}
 	}
 
+	/**
+	 * This method will update the GUI.
+	 */
 	public void updateGUI() {
 		addLevelState();
 		clearBoard();
@@ -1062,7 +1071,9 @@ public class GameGUI {
 		JOptionPane.showMessageDialog(frame, "GAME OVER!\nZOMBIES ATE YOUR BRAINS!");
 		System.exit(0);
 	}
-	
+	/**
+	 * This method will import a save from the save folder.
+	 */
 	public void importSave() {
 		try {
 			JFileChooser levelChooser = new JFileChooser();
@@ -1085,7 +1096,9 @@ public class GameGUI {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * This will export a save file into the save folder.
+	 */
 	public void exportSave() {
 		String saveName = JOptionPane.showInputDialog("Enter the name of the save: ");
 		try{
@@ -1100,6 +1113,10 @@ public class GameGUI {
 		}
 	}
 	
+	/**
+	 * This method will get the game data of the GUI.
+	 * @return the gamedata of the GUI.
+	 */
 	public GameData getGameData() {
 		return gameData;
 	}
