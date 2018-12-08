@@ -106,7 +106,7 @@
 
 ##### Zombies - Sirak Berhane
 * Test Classes Include: 
-  - BasicZombieTest CLASS -> testZombieSpeed(), testZombieAttack(), testZombieType(), testZombieMovement(), testZombieIsNotDead(), testZombieIsDead(0
+  - BasicZombieTest CLASS -> testZombieSpeed(), testZombieAttack(), testZombieType(), testZombieMovement(), testZombieIsNotDead(), testZombieIsDead()
 
 #### Road Map - Ryan Tordesillas 
 * Completed and future implemtations of Milestones 1 to 4: 
@@ -208,12 +208,19 @@ Added 4 new Zombies to the Plants vs. Zombies GUI:
 #### GUI - Jolar Tabungar
 * Undo and Redo Features (Bug fixes and Improvements made)
 * Level Builder -> Player is able to create their own level
+    - User is given a text box and they can enter the file name followed by the number of waves and number of zombies that can apear in     the selected number of waves. 
 * All levels are imported as .XML format for simplicity with each 
+    - Default level.xml exists and the player can create any number of levels and diffuculty by inputting number of waves and zombies.
      
 #### Save/Load State - Ryan Tordesillas
-* Implentation of Serialization Libraries 
-* Save current game status to a file
+* Implentated Serialization Libraries to GUI Class Object
+* Save current game status to a file -> Serialized file (.ser) is saved to saves file.
+    - Level-History Array holds the current plant and zombie objects when the user saves the array data is saved into the .ser file. 
+    - GUI selected status is also saved by keeping track of which icon was selected in a GameData Class.
+    - The same array is used for undo and redo feature.
 * Load previous game status if the player wants to continue playing from last save
+    - When the user wants to load prevoiusly saved game, they load the .ser from the saves folder and the GUI object is able to
+    automatically populate all of the plant and zombie objects that previously existed when the user played the game.
 
 #### JUnit Test Cases - Sirak Berhane
 * New Plant and Zombie Test Cases
