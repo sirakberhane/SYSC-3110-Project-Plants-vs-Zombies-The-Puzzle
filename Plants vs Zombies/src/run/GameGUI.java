@@ -63,10 +63,12 @@ public class GameGUI {
 	private JPanel lawnMowers[];
 	private ImagePanel lawnTiles[][];
 
-	// Skip Turn button
+	// Action Buttons
 	private JPanel skipTurn;
 	private JPanel undoTurn;
 	private JPanel redoTurn;
+	private JPanel saveGame;
+	private JPanel loadGame;
 
 	// Select Options for Plant Placement
 	private JPanel sunflowerSelect;
@@ -128,6 +130,10 @@ public class GameGUI {
 	private BufferedImage undo;
 	private BufferedImage redo;
 
+	// Save/load buttons
+	private BufferedImage save;
+	private BufferedImage load;
+
 	// Menu Images
 	private BufferedImage titleScreen;
 	private BufferedImage play;
@@ -151,20 +157,14 @@ public class GameGUI {
 	private boolean wallnutSelected;
 
 	private GameData gameData;
-	
+
 	// Construct a new GameGUI
 	public GameGUI() {
 		/*
-		// Initialize the wave sizes for the level
-		waveSizes = new ArrayList<Integer>();
-		waveSizes.add(5);
-		waveSizes.add(15);
-		waveSizes.add(20);
-		waveSizes.add(30);
-		waveSizes.add(40);
-		waveSizes.add(60);
-		waveSizes.add(80);
-		*/
+		 * // Initialize the wave sizes for the level waveSizes = new
+		 * ArrayList<Integer>(); waveSizes.add(5); waveSizes.add(15); waveSizes.add(20);
+		 * waveSizes.add(30); waveSizes.add(40); waveSizes.add(60); waveSizes.add(80);
+		 */
 
 		// Initialize JComponenets
 		lawnMowers = new JPanel[5];
@@ -212,6 +212,9 @@ public class GameGUI {
 			undo = ImageIO.read(new File("images/undo.png"));
 			redo = ImageIO.read(new File("images/redo.png"));
 
+			save = ImageIO.read(new File("images/save.png"));
+			load = ImageIO.read(new File("images/load.png"));
+
 			titleScreen = ImageIO.read(new File("images/titleScreen.png"));
 			play = ImageIO.read(new File("images/menuPlay.png"));
 			create = ImageIO.read(new File("images/menuCreate.png"));
@@ -239,7 +242,8 @@ public class GameGUI {
 
 		// Create the GUI, populate the board and update the labels with the initial
 		// stats
-		gameData = new GameData(sunflowerSelected, peashooterSelected, shovelSelected, snowpeashooterSelected, potatomineSelected, hypnoshroomSelected, wallnutSelected);
+		gameData = new GameData(sunflowerSelected, peashooterSelected, shovelSelected, snowpeashooterSelected,
+				potatomineSelected, hypnoshroomSelected, wallnutSelected);
 		createGUI();
 
 		/*
@@ -566,6 +570,22 @@ public class GameGUI {
 		redoTurn.add(new JLabel(new ImageIcon(redo)));
 		redoTurn.setPreferredSize(new Dimension(110, 110));
 
+		// Initialize the save JPanel
+		saveGame = new JPanel();
+		// Add the actionlistener
+		saveGame.addMouseListener(new SaveController(this));
+		// Add the save Image and set the size
+		saveGame.add(new JLabel(new ImageIcon(save)));
+		saveGame.setPreferredSize(new Dimension(110, 110));
+
+		// Initialize the save JPanel
+		loadGame = new JPanel();
+		// Add the actionlistener
+		loadGame.addMouseListener(new LoadController(this));
+		// Add the save Image and set the size
+		loadGame.add(new JLabel(new ImageIcon(load)));
+		loadGame.setPreferredSize(new Dimension(110, 110));
+
 		JPanel lowerHUD = new JPanel();
 		lowerHUD.setLayout(new GridBagLayout());
 
@@ -585,6 +605,12 @@ public class GameGUI {
 
 		d.gridx = 2;
 		lowerHUD.add(redoTurn, d);
+		
+		d.gridx = 3;
+		lowerHUD.add(saveGame, d);
+		
+		d.gridx = 4;
+		lowerHUD.add(loadGame, d);
 
 		// Add all the components to the contentPane
 		gameScreen.add(boardAndStats, BorderLayout.EAST);
@@ -982,7 +1008,6 @@ public class GameGUI {
 		gameData.setShovel(true);
 	}
 
-
 	/**
 	 * Lower the Bevels of all the placement options
 	 */
@@ -1007,23 +1032,17 @@ public class GameGUI {
 
 		if (gameData.sunflowerSelected()) {
 			sunflowerSelect.setBorder(loweredbevel);
-		}
-		else if (gameData.peashooterSelected()) {
+		} else if (gameData.peashooterSelected()) {
 			peashooterSelect.setBorder(loweredbevel);
-		}
-		else if (gameData.snowpeashooterSelected()) {
+		} else if (gameData.snowpeashooterSelected()) {
 			snowpeashooterSelect.setBorder(loweredbevel);
-		}
-		else if (gameData.potatomineSelected()) {
+		} else if (gameData.potatomineSelected()) {
 			potatomineSelect.setBorder(loweredbevel);
-		}
-		else if (gameData.hypnoshroomSelected()) {
+		} else if (gameData.hypnoshroomSelected()) {
 			hypnoshroomSelect.setBorder(loweredbevel);
-		}
-		else if (gameData.wallnutSelected()) {
+		} else if (gameData.wallnutSelected()) {
 			wallnutSelect.setBorder(loweredbevel);
-		}
-		else if (gameData.shovelSelected()) {
+		} else if (gameData.shovelSelected()) {
 			shovelSelect.setBorder(loweredbevel);
 		}
 	}
@@ -1062,16 +1081,16 @@ public class GameGUI {
 		JOptionPane.showMessageDialog(frame, "GAME OVER!\nZOMBIES ATE YOUR BRAINS!");
 		System.exit(0);
 	}
-	
+
 	public void importSave() {
 		try {
 			JFileChooser levelChooser = new JFileChooser();
 			levelChooser.setCurrentDirectory(new File(".\\saves"));
 			int result = levelChooser.showOpenDialog(this.getFrame());
 			if (result == JFileChooser.APPROVE_OPTION) {
-			    File selectedLevel = levelChooser.getSelectedFile();
-			    FileInputStream fis=new FileInputStream(selectedLevel.getAbsolutePath());
-				ObjectInputStream ois=new ObjectInputStream(fis);
+				File selectedLevel = levelChooser.getSelectedFile();
+				FileInputStream fis = new FileInputStream(selectedLevel.getAbsolutePath());
+				ObjectInputStream ois = new ObjectInputStream(fis);
 				levelIndex = ois.readInt();
 				levelHistory = (ArrayList<Level>) ois.readObject();
 				level = levelHistory.get(levelIndex);
@@ -1085,23 +1104,23 @@ public class GameGUI {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void exportSave() {
 		String saveName = JOptionPane.showInputDialog("Enter the name of the save: ");
-		try{
-			FileOutputStream fos= new FileOutputStream(".//save//" + saveName + ".ser");
-			ObjectOutputStream oos= new ObjectOutputStream(fos);
+		try {
+			FileOutputStream fos = new FileOutputStream(".//saves//" + saveName + ".ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeInt(levelIndex);
 			oos.writeObject(levelHistory);
 			oos.close();
 			fos.close();
-		}catch(IOException ioe){
+		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
-	
+
 	public GameData getGameData() {
 		return gameData;
 	}
-	
+
 }
