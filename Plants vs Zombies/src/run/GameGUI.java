@@ -160,12 +160,6 @@ public class GameGUI {
 
 	// Construct a new GameGUI
 	public GameGUI() {
-		/*
-		 * // Initialize the wave sizes for the level waveSizes = new
-		 * ArrayList<Integer>(); waveSizes.add(5); waveSizes.add(15); waveSizes.add(20);
-		 * waveSizes.add(30); waveSizes.add(40); waveSizes.add(60); waveSizes.add(80);
-		 */
-
 		// Initialize JComponenets
 		lawnMowers = new JPanel[5];
 		lawnTiles = new ImagePanel[9][5];
@@ -238,17 +232,12 @@ public class GameGUI {
 		waveNumber = new JLabel("Wave Number: ");
 		zombiesRemaining = new JLabel("Zombies Remaining: ");
 		availableSun = new JLabel("Available Sun: ");
-		state = new JLabel("State Num: ");
+		state = new JLabel("Turn Number: ");
 
-		// Create the GUI, populate the board and update the labels with the initial
-		// stats
+		// Create the GUI
 		gameData = new GameData(sunflowerSelected, peashooterSelected, shovelSelected, snowpeashooterSelected,
 				potatomineSelected, hypnoshroomSelected, wallnutSelected);
 		createGUI();
-
-		/*
-		 * populateBoard(); updateStats();
-		 */
 	}
 
 	/**
@@ -286,11 +275,13 @@ public class GameGUI {
 
 		JLayeredPane layeredPane = new JLayeredPane();
 
+		//Set the Background Image of the MenuScreen
 		JLabel background = new JLabel();
 		Icon titleIcon = new ImageIcon(titleScreen);
 		background.setIcon(titleIcon);
 		background.setBounds(0, 0, titleIcon.getIconWidth(), titleIcon.getIconHeight());
 
+		//Initialize the menu buttons
 		JPanel playButton = new JPanel();
 		Icon playIcon = new ImageIcon(play);
 		playButton.add(new JLabel(playIcon));
@@ -312,14 +303,17 @@ public class GameGUI {
 		exitButton.setOpaque(false);
 		exitButton.addMouseListener(new ExitAction(this));
 
+		//Add all the menu componenents
 		layeredPane.add(background, new Integer(0));
 		layeredPane.setPreferredSize(background.getSize());
 		layeredPane.add(playButton, new Integer(1));
 		layeredPane.add(createButton, new Integer(1));
 		layeredPane.add(exitButton, new Integer(1));
 
+		//Add the contents to the menu screen
 		menuScreen.add(layeredPane);
 
+		//Set the contentPane of the frame to the menu screen
 		frame.setContentPane(menuScreen);
 	}
 
@@ -608,6 +602,7 @@ public class GameGUI {
 		d.gridx = 0;
 		d.gridy = 0;
 
+		//Add the action buttons the the lowerHUD
 		lowerHUD.add(undoTurn, d);
 
 		d.gridx = 1;
@@ -776,7 +771,7 @@ public class GameGUI {
 		waveNumber.setText("Wave Number: " + level.currentWave());
 		zombiesRemaining.setText("Zombies Remaining: " + level.zombieCount());
 		availableSun.setText("Available Sun: " + level.getSunTotal());
-		state.setText("State Num: " + levelIndex);
+		state.setText("Turn Number: " + levelIndex);
 	}
 
 	/**

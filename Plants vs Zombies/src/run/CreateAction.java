@@ -69,8 +69,6 @@ public class CreateAction implements MouseListener {
 				//Value was not a number, so continue prompting
 				isNum = false;
 			}
-
-			System.out.println(result);
 		}
 
 		//Convert result into Integer
