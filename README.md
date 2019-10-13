@@ -10,12 +10,12 @@
 
 * Sunflower; subclass of PassivePlant
   - Generates 50 sun every four turns
-  - Cost = 50 sun
+  - Cost = 50 sun token
   - Hit Threshold = 5 damage.
 
 * Peashooter; subclass of ShooterPlant
   - Shoots peas at incoming Zombies
-  - Cost = 100 sun
+  - Cost = 100 sun token
   - Pea Damage = 2 damage per turn
   - Hit Threshold = 10.
 
